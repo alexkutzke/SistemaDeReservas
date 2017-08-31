@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170831003904) do
+ActiveRecord::Schema.define(version: 20170831124913) do
 
   create_table "departments", force: :cascade do |t|
     t.string   "name"
@@ -28,6 +28,16 @@ ActiveRecord::Schema.define(version: 20170831003904) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.index ["department_id"], name: "index_disciplines_on_department_id"
+  end
+
+  create_table "periods", force: :cascade do |t|
+    t.integer  "year"
+    t.integer  "semester"
+    t.boolean  "state"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

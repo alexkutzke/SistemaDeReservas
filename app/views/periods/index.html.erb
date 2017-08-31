@@ -1,0 +1,23 @@
+<h1>List Periods</h1>
+
+<%= link_to 'New', new_period_path %>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Semestre</th>
+        <th>Ano</th>
+        <th>Data de Inicio</th>
+        <th>Data fim</th>
+        <th></th>
+    </tr>
+    <% @periods.each do |p| %>
+        <tr>
+            <td><%= p.id %></td>
+            <td><%= p.semester %></td>
+            <td><%= p.year %></td>
+            <td><%= p.start_date %></td>
+            <td><%= p.end_date %></td>
+        </tr>
+    <% end %>
+</table>
