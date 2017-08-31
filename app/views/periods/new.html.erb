@@ -6,8 +6,8 @@
         <%= f.select(:semester, options_for_select(['1', '2'], '1'), {}) %>
     </p>
     <p>
-        <%= f.label :year %><br>
-        <%= f.text_field :year %>
+        <%= f.label :p_year, 'Year' %><br>
+        <%= f.text_field :p_year %>
     </p>
     <p>
         <%= f.label :state %><br>
@@ -25,3 +25,5 @@
         <%= f.submit %>
     </p>
 <% end %>
+
+<%= link_to 'Back', periods_path %>
