@@ -1,0 +1,16 @@
+<h1>Show discipline</h1>
+
+<p>
+    <strong>Name:</strong>
+    <%= @discipline.name %>
+</p>
+<p>
+    <strong>Código disciplina:</strong>
+    <%= @discipline.discipline_code %>
+</p>
+<p>
+    <strong>Department</strong>
+    <%= @discipline.department.name %>
+</p>
+
+<%= link_to 'Back', disciplines_path %>

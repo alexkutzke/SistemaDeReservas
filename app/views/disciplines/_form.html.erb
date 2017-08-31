@@ -1,0 +1,29 @@
+<%= form_for @discipline do |f| %>
+    <% if @discipline.errors.any? %>
+        <div id="error">
+            <h2>
+                <%= pluralize(@discipline.errors.count, "error") %> Prohibited this discipline from being saved:            
+            </h2>
+            <ul>
+                <% @discipline.errors.full_messages.each do | msg | %>
+                    <li><%= msg %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+    <p>
+        <%= f.label :name %><br>
+        <%= f.text_field :name %>
+    </p>
+    <p>
+        <%= f.label :discipline_code %><br>
+        <%= f.text_field :discipline_code %>
+    </p>
+    <p>
+        <%= f.label :department_id, "Department" %><br>
+        <%= f.collection_select(:department_id, Department.all, :id, :name) %>
+    </p>
+    <p>
+        <%= f.submit 'Save' %>
+    </p>
+<% end %>

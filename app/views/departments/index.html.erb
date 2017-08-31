@@ -1,0 +1,29 @@
+<h1>Lista de departamentos</h1>
+
+<%= link_to 'New', new_department_path %>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Abbreviation</th>
+        <th>Code</th>
+        <th>Place</th>
+        <th colspan="3"></th>
+    </tr>
+    <% @departments.each do |d| %>
+        <tr>
+            <td><%= d.id %></td>
+            <td><%= d.name %></td>
+            <td><%= d.abbreviation %></td>
+            <td><%= d.code %></td>
+            <td><%= d.place %></td>
+            <td><%= link_to 'Show', department_path(d) %></td>
+            <td><%= link_to 'Edit', edit_department_path(d) %></td>
+            <td><%= link_to 'Delete', department_path(d),
+                                    method: :delete,
+                                    data: {confirm: 'Are you sure?'} %></td>
+        </tr>
+    <% end %>
+</table>
+
+
