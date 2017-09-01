@@ -1,0 +1,27 @@
+<h1>List Rooms</h1>
+
+<%= link_to 'New', new_room_path %>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Local</th>
+        <th>Bloco</th>
+        <th>Capacidade</th>
+        <th>Tipo</th>
+        <th>Status</th>
+        <th colspan="2"></th>
+    </tr>
+    <% @rooms.each do |r| %>
+        <tr>
+            <td><%= r.id %></td>
+            <td><%= r.place %></td>
+            <td><%= r.block %></td>
+            <td><%= r.capacity %></td>
+            <td><%= r.type %></td>
+            <td><%= r.state %></td>
+            <td><%= link_to 'Show', room_path(r) %></td>
+            <td><%= link_to 'Edit', edit_room_path %></td>
+        </tr>
+    <% end %>
+</table>

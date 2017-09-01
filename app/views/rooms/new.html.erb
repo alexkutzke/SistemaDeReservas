@@ -1,13 +1,13 @@
-<h1>New period</h1>
+<h1>New Room</h1>
 
-<%= form_for :period, url: periods_path do |f| %>
+<%= form_for :room, url: rooms_path do |f| %>
     <p>
-        <%= f.label :semester %><br>
-        <%= f.select(:semester, options_for_select(['1', '2'], '1'), {}) %>
+        <%= f.label :place, 'Local' %><br>
+        <%= f.text_field :place %>
     </p>
     <p>
-        <%= f.label :year, 'Year' %><br>
-        <%= f.number_field :year %>
+        <%= f.label :block, 'Bloco' %><br>
+        <%= f.text_field :block %>
     </p>
     <p>
         <%= f.label :state %><br>

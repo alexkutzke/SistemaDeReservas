@@ -5,7 +5,7 @@ class CreatePeriods < ActiveRecord::Migration[5.0]
       t.boolean :state
       t.date :start_date
       t.date :end_date
-      t.integer :course
+      t.integer :year
 
       t.timestamps
     end
