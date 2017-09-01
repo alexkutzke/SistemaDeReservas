@@ -4,8 +4,8 @@ class CreateRooms < ActiveRecord::Migration[5.0]
       t.integer :capacity
       t.string :place
       t.string :block
-      t.string :category
       t.boolean :state
+      t.references :category, foreign_key: true
 
       t.timestamps
     end

@@ -4,12 +4,12 @@ one:
   capacity: 1
   place: MyString
   block: MyString
-  tipo: 1
   state: false
+  category: one
 
 two:
   capacity: 1
   place: MyString
   block: MyString
-  tipo: 1
   state: false
+  category: two

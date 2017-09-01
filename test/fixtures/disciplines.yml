@@ -2,10 +2,10 @@
 
 one:
   name: MyString
-  disciplineCode: MyString
+  discipline_code: MyString
   department: one
 
 two:
   name: MyString
-  disciplineCode: MyString
+  discipline_code: MyString
   department: two

@@ -17,7 +17,7 @@
     </p>
     <p>
         <%= f.label :category %><br>
-        <%= f.select(:category, options_for_select(['Auditório','Laboratório', 'Sala']), {}) %>
+        <%= f.collection_select(:category_id, Category.all, :id, :name) %>
     </p>
     <p>
         <%= f.submit %>
