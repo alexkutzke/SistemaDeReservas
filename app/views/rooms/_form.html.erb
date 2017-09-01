@@ -1,0 +1,25 @@
+<%= form_for @room do |f| %>
+    <p>
+        <%= f.label :place, 'Local' %><br>
+        <%= f.text_field :place %>
+    </p>
+    <p>
+        <%= f.label :block, 'Bloco' %><br>
+        <%= f.text_field :block %>
+    </p>
+     <p>
+        <%= f.label :capacity %><br>
+        <%= f.number_field :capacity %>
+    </p>
+    <p>
+        <%= f.label :state %><br>
+        <%= f.check_box :state, {}, true, false %>
+    </p>
+    <p>
+        <%= f.label :category %><br>
+        <%= f.select(:category, options_for_select(['Auditório','Laboratório', 'Sala']), {}) %>
+    </p>
+    <p>
+        <%= f.submit %>
+    </p>
+<% end %>

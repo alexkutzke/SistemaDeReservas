@@ -4,7 +4,7 @@ class CreateRooms < ActiveRecord::Migration[5.0]
       t.integer :capacity
       t.string :place
       t.string :block
-      t.integer :type
+      t.string :category
       t.boolean :state
 
       t.timestamps

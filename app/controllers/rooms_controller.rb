@@ -1,7 +1,7 @@
 class RoomsController < ApplicationController
     before_action :set_room, only: [:show, :edit, :update, :destroy]
     def index
-        @roomns = Room.all
+        @rooms = Room.all
     end
 
     def show
@@ -42,6 +42,6 @@ class RoomsController < ApplicationController
     end
 
     def room_params
-        params.require(:room).permit(:capacity, :place, :block, :type, :state)
+        params.require(:room).permit(:capacity, :place, :block, :category, :state)
     end
 end
