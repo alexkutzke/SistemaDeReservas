@@ -9,7 +9,7 @@
         <th>Ano</th>
         <th>Data de Inicio</th>
         <th>Data fim</th>
-        <th></th>
+        <th colspan="3"></th>
     </tr>
     <% @periods.each do |p| %>
         <tr>
@@ -19,6 +19,10 @@
             <td><%= p.start_date %></td>
             <td><%= p.end_date %></td>
             <td><%= link_to 'Show', period_path(p) %></td>
+            <td><%= link_to 'Edit', edit_period_path(p) %></td>
+            <td><%= link_to 'Destroy', period_path(p),
+                                        method: :delete,
+                                        data: { confirm: 'Are you sure?' }  %></td>
         </tr>
     <% end %>
 </table>
