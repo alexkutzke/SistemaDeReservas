@@ -1,0 +1,28 @@
+<%= form_for @studentClass do |f| %>
+    
+    <% if @studentClass.errors.any? %>
+        <div id="error">
+            <h2>
+                <%= pluralize(@studentClass.errors.count, "error") %> Prohibited this class from being saved:            
+            </h2>
+            <ul>
+                <% @studentClass.errors.full_messages.each do | msg | %>
+                    <li><%= msg %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <p>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+    </p>
+    <p>
+        <%= f.label :Period %>
+        <!-- The :id and :name parameters have been replaced with first and last signifying the value_method to be first and text_method to be last elements of each array. -->
+        <%= f.collection_select(:period_id, Period.all.collect {|p| [p.id, "#{p.semester}° #{p.year}"]}, :first, :last) %>
+    </p>
+    <p>
+        <%= f.submit %>
+    </p>
+<% end %>

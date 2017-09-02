@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  capacity: 1
+  place: MyString
+  block: MyString
+  state: false
+  category: one
+
+two:
+  capacity: 1
+  place: MyString
+  block: MyString
+  state: false
+  category: two

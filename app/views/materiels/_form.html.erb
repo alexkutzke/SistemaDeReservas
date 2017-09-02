@@ -1,0 +1,34 @@
+<%= form_for @materiel do |f| %>
+    
+    <% if @materiel.errors.any? %>
+        <div id="error">
+            <h2>
+                <%= pluralize(@materiel.errors.count, "error") %> Prohibited this materiel from being saved:            
+            </h2>
+            <ul>
+                <% @materiel.errors.full_messages.each do | msg | %>
+                    <li><%= msg %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+    
+    <p>
+        <%= f.label :name %><br>
+         <%= f.text_field :name %>
+    </p>
+
+    <p>
+        <%= f.label :patrimony %><br>
+        <%= f.text_field :patrimony %>
+    </p>
+
+    <p>
+         <%= f.label :room_id, 'Room' %><br>
+         <%= f.collection_select(:room_id, Room.all, :id, :place, :include_blank => true) %>
+    </p>
+
+    <p>
+         <%= f.submit %>
+    </p>
+<% end %>
