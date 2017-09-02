@@ -1,0 +1,14 @@
+<%= form_for @studentClass do |f| %>
+    <p>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+    </p>
+    <p>
+        <%= f.label :Period %>
+        <!-- The :id and :name parameters have been replaced with first and last signifying the value_method to be first and text_method to be last elements of each array. -->
+        <%= f.collection_select(:period_id, Period.all.collect {|p| [p.id, "#{p.semester}° #{p.year}"]}, :first, :last) %>
+    </p>
+    <p>
+        <%= f.submit %>
+    </p>
+<% end %>
