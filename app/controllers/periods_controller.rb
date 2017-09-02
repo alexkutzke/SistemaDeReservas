@@ -21,7 +21,7 @@ class PeriodsController < ApplicationController
     end
 
     def update
-        if @perdio.update(period_params)
+        if @period.update(period_params)
             redirect_to @period
         else
             render 'edit'

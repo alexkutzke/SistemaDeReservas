@@ -1,4 +1,18 @@
 <%= form_for @period do |f| %>
+
+    <% if @period.errors.any? %>
+        <div id="error">
+            <h2>
+                <%= pluralize(@period.errors.count, "error") %> Prohibited this period from being saved:            
+            </h2>
+            <ul>
+                <% @period.errors.full_messages.each do | msg | %>
+                    <li><%= msg %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+    
     <p>
         <%= f.label :semester %><br>
         <%= f.select(:semester, options_for_select(['1', '2'], '1'),  {}) %>

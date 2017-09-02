@@ -1,4 +1,18 @@
 <%= form_for @studentClass do |f| %>
+    
+    <% if @studentClass.errors.any? %>
+        <div id="error">
+            <h2>
+                <%= pluralize(@studentClass.errors.count, "error") %> Prohibited this class from being saved:            
+            </h2>
+            <ul>
+                <% @studentClass.errors.full_messages.each do | msg | %>
+                    <li><%= msg %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
     <p>
         <%= f.label :name %>
         <%= f.text_field :name %>

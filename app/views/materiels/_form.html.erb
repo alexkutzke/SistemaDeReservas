@@ -1,4 +1,18 @@
 <%= form_for @materiel do |f| %>
+    
+    <% if @materiel.errors.any? %>
+        <div id="error">
+            <h2>
+                <%= pluralize(@materiel.errors.count, "error") %> Prohibited this materiel from being saved:            
+            </h2>
+            <ul>
+                <% @materiel.errors.full_messages.each do | msg | %>
+                    <li><%= msg %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+    
     <p>
         <%= f.label :name %><br>
          <%= f.text_field :name %>
