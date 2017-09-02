@@ -1,0 +1,19 @@
+<h1>Show Materiel</h1>
+
+<p>
+    <strong>Equipment:</strong>
+    <%= @materiel.name %>
+</p>
+
+<p>
+    <strong>Patrimony:</strong>
+    <%= @materiel.patrimony %>
+</p>
+
+<p>
+    <strong>Room:</strong>
+    <%= @materiel.room.place %>
+</p>
+
+<%= link_to 'Back', materiels_path %>
+<%= link_to 'Edit', edit_materiel_path(@materiel) %>

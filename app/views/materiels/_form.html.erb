@@ -1,0 +1,20 @@
+<%= form_for @materiel do |f| %>
+    <p>
+        <%= f.label :name %><br>
+         <%= f.text_field :name %>
+    </p>
+
+    <p>
+        <%= f.label :patrimony %><br>
+        <%= f.text_field :patrimony %>
+    </p>
+
+    <p>
+         <%= f.label :room_id, 'Room' %><br>
+         <%= f.collection_select(:room_id, Room.all, :id, :place) %>
+    </p>
+
+    <p>
+         <%= f.submit %>
+    </p>
+<% end %>
