@@ -13,6 +13,7 @@ class PeriodsController < ApplicationController
     end
     def create
         @period = Period.new(period_params)
+        @period.state = @period.state ? true : false
         if @period.save
             redirect_to @period
         else
@@ -21,6 +22,7 @@ class PeriodsController < ApplicationController
     end
 
     def update
+        @period.state = @period.state ? false : true
         if @period.update(period_params)
             redirect_to @period
         else
@@ -39,6 +41,6 @@ class PeriodsController < ApplicationController
     end
 
     def period_params
-        params.require(:period).permit(:year, :semester, :start_date, :end_date, :state)
+        params.require(:period).permit(:state, :year, :semester, :start_date, :end_date)
     end
 end

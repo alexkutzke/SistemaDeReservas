@@ -15,7 +15,7 @@
     
     <p>
         <%= f.label :semester %><br>
-        <%= f.select(:semester, options_for_select(['1', '2'], '1'),  {}) %>
+        <%= f.select(:semester, options_for_select(['1', '2'], @period.semester),  {}) %>
     </p>
     <p>
         <%= f.label :year %><br>

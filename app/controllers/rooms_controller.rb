@@ -13,6 +13,7 @@ class RoomsController < ApplicationController
 
     def create
         @room = Room.new(room_params)
+        @room.state = @room.state ? true : false
         if @room.save
             redirect_to @room
         else
@@ -24,6 +25,7 @@ class RoomsController < ApplicationController
     end
 
     def update
+        @room.state = @room.state ? false : true
         if @room.update(room_params)
             redirect_to @room
         else
