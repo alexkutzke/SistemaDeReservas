@@ -11,7 +11,7 @@
 
     <p>
          <%= f.label :room_id, 'Room' %><br>
-         <%= f.collection_select(:room_id, Room.all, :id, :place) %>
+         <%= f.collection_select(:room_id, Room.all, :id, :place, :include_blank => true) %>
     </p>
 
     <p>

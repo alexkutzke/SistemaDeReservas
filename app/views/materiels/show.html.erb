@@ -12,7 +12,9 @@
 
 <p>
     <strong>Room:</strong>
-    <%= @materiel.room.place %>
+    <% if @materiel.room_id?  %>
+        <%= @materiel.room.place %>
+    <% end %>
 </p>
 
 <%= link_to 'Back', materiels_path %>

@@ -17,7 +17,11 @@
             <td><%= m.id %></td>
             <td><%= m.name %></td>
             <td><%= m.patrimony %></td>
-            <td><%= m.room.place %></td>
+            <td>
+                <% if m.room_id?  %>
+                    <%= m.room.place %>
+                <% end %>
+            </td>
             <td><%= link_to 'Show', materiel_path(m) %></td>
             <td><%= link_to 'Edit', edit_materiel_path(m) %></td>
             <td><%= link_to 'Destroy', materiel_path(m),
