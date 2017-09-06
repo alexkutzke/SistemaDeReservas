@@ -1,0 +1,46 @@
+
+
+.navbar, .navbar-nav{
+    background-color: #2d3e50;
+    color: #fff;
+    border-style: none;
+}
+
+.navbar-nav>li>a{
+    color: #f7f7f7 !important;
+    letter-spacing: 2px;
+    font-family: Arial,sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.navbar-nav>li:hover{
+    background-color: #223242;
+}
+
+.navbar-nav>.active>a{
+    background-color: #223242 !important;
+}
+
+@media (min-width: 768px) {
+    .navbar {
+        border-radius: 0px;
+    }
+}
+
+.navbar-toggle{
+    background-color: #16a086;
+    border-color: transparent !important;
+}
+
+.navbar-default .navbar-toggle .icon-bar{
+    background-color: #fff;
+}
+
+.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover{
+     background-color: #138670;
+}
+
+
+
+
