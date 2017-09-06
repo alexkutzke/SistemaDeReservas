@@ -1,0 +1,42 @@
+/* 
+    Created on : 24/08/2017, 22:24:04
+    Author     : Lais Frigério
+*/
+
+#search-margin{
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+#search {
+
+    background-image: url('../images/search_icon.png');
+    background-position: 10px 9px; /* Position the search icon */
+    background-repeat: no-repeat; /* Do not repeat the icon image */
+    width: 100%; /* Full-width */
+    font-size: 16px; /* Increase font-size */
+    padding: 12px 20px 12px 40px; /* Add some padding */
+    border: 1px solid #ddd; /* Add a grey border */
+    margin-bottom: 12px; /* Add some space below the input */
+    height: 40px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ddd;
+    box-shadow: none;
+}
+
+#search:focus{
+    outline:1px solid #8ba6bd;
+
+}
+
+/*  set placeholder color at chrome, edge, */
+::-webkit-input-placeholder{
+    color: #a19e9e;
+}
+
+/* Mozilla Firefox 4 to 18 */
+::-moz-placeholder {
+    color:    #a19e9e;
+    opacity:  1;
+}
+

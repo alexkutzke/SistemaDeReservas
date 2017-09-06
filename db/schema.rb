@@ -36,15 +36,6 @@ ActiveRecord::Schema.define(version: 20170902011736) do
     t.index ["department_id"], name: "index_disciplines_on_department_id"
   end
 
-  create_table "equipment", force: :cascade do |t|
-    t.string   "name"
-    t.string   "patrimony"
-    t.integer  "room_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["room_id"], name: "index_equipment_on_room_id"
-  end
-
   create_table "materiels", force: :cascade do |t|
     t.string   "name"
     t.string   "patrimony"

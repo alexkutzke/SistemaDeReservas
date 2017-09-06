@@ -12,7 +12,8 @@
   </head>
 
   <body>
-    <%= render 'layouts/header' %>
+    <%= render :partial => 'layouts/header', :locals => {:name => "João"} %>
+    <%= render :partial => 'layouts/sidenav', :locals => {:active => 1} %>
     <%= yield %>
   </body>
 </html>

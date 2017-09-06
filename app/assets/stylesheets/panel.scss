@@ -1,0 +1,54 @@
+/* 
+    Created on : 24/08/2017, 22:16:56
+    Author     : Lais Frigério
+*/
+
+
+/*.panel-heading.skin-blue, .panel-footer.skin-blue{
+    background-color: #3c8dbc !important;
+    color:#fff !important;
+}*/
+
+.panel-heading.skin-blue, .panel-footer.skin-blue{
+    background-color: #475d6f !important;
+    color:#fff !important;
+}
+
+.panel-footer.panel-margin{
+    padding: 0px;
+    padding-left: 10px;
+}
+
+.panel-footer{
+    padding: 0px;
+}
+
+.table tr, .table td{
+    font-size: 12px;
+}
+
+.pagination{
+    margin: 10px 0px;
+}
+
+.pagination li a{
+    color: #2d3e50;
+}
+
+.pagination>.active>a{
+    background-color: #eee;
+    border-color: #ddd;
+    color: #509e81;
+}
+
+.pagination>.active>a:hover{
+    background-color: #223242;
+    border-color: #263442;
+}
+
+.panel-border{
+    border-top: 3px solid #509e81;
+}
+
+
+
