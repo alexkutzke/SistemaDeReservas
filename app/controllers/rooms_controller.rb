@@ -1,7 +1,8 @@
 class RoomsController < ApplicationController
     before_action :set_room, only: [:show, :edit, :update, :destroy]
     def index
-        @rooms = Room.all
+        @rooms = Room.paginate(:page => params[:page], per_page: 5)
+        @number = Room.number_of_records
     end
 
     def show

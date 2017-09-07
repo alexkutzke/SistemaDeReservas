@@ -1,11 +1,8 @@
 class DepartmentsController < ApplicationController
+    before_action :set_department, only: [:update, :destroy, :edit]
     def index
         @departments = Department.paginate(:page => params[:page], per_page:5)
         @number = Department.number_of_records
-    end
-
-    def show
-        @department = Department.find(params[:id])
     end
 
     def new
@@ -13,7 +10,6 @@ class DepartmentsController < ApplicationController
     end
 
     def edit
-        @department = Department.find(params[:id])
     end
 
     def create
@@ -26,7 +22,6 @@ class DepartmentsController < ApplicationController
     end
 
     def update
-        @department = Department.find(params[:id])
         if @department.update(department_params)
             redirect_to @department
         else
@@ -35,12 +30,15 @@ class DepartmentsController < ApplicationController
     end
 
     def destroy
-        @department = Department.find(params[:id])
         @department.destroy
         redirect_to departments_path
     end
 
     private
+    def set_department
+        @department = Department.find(params[:id])
+    end
+
     def department_params
         params.require(:department).permit(:name, :abbreviation, :code, :place)
     end

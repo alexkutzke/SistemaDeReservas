@@ -1,5 +1,13 @@
-<h1>Edit Room</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', rooms_path %>
+<%= render :partial => 'layouts/sidenav', :locals => {:active => 5} %>
+<div class="main-content">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="dashboard"><i class="fa fa-calendar"></i> Reservas</a></li>
+            <li><%= link_to '<i class="fa fa-map-marker"></i> Salas'.html_safe, rooms_path %></li>
+            <li><i class="fa fa-edit"></i> Editar Sala</li>
+        </ol>
+    </div>
+    <div class="form">
+        <%= render 'form' %>
+    </div>
+</div>
