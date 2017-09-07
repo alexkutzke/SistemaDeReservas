@@ -4,4 +4,8 @@ class Department < ApplicationRecord
                      
     validates :place, presence: true,
                       length: { minimum: 3}
+
+    def self.number_of_records
+        @departments = Department.count
+    end
 end
