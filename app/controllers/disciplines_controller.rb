@@ -1,6 +1,7 @@
 class DisciplinesController < ApplicationController
     def index
-        @disciplines = Discipline.all
+        @disciplines = Discipline.paginate(:page => params[:page], per_page:5)
+        @number = Discipline.number_of_records
     end
 
     def show
@@ -18,7 +19,7 @@ class DisciplinesController < ApplicationController
     def create
         @discipline = Discipline.new(discipline_params)
         if @discipline.save
-            redirect_to @discipline
+            redirect_to disciplines_path
         else
             render 'new'
         end
@@ -27,7 +28,7 @@ class DisciplinesController < ApplicationController
     def update
         @discipline = Discipline.find(params[:id])
         if @discipline.update(discipline_params)
-            redirect_to @discipline
+            redirect_to disciplines_path
         else
             render 'edit'
         end
