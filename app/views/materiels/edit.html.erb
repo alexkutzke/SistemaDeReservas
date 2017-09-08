@@ -1,6 +1,13 @@
-<h1>Edit Materiel</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', materiels_path %>
-<%= link_to 'Show', materiel_path(@materiel) %>
+<%= render :partial => 'layouts/sidenav', :locals => {:active => 9} %>
+<div class="main-content">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="dashboard"><i class="fa fa-calendar"></i> Reservas</a></li>
+            <li><%= link_to '<i class="fa fa-gavel"></i> Equipamentos'.html_safe, materiels_path %></li>
+            <li><i class="fa fa-edit"></i> Editar Equipamento</li>
+        </ol>
+    </div>
+    <div class="form">
+        <%= render 'form' %>
+    </div>
+</div>

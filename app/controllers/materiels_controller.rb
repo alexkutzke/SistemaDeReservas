@@ -1,8 +1,9 @@
 class MaterielsController < ApplicationController
-  before_action :set_materiel, only: [:edit, :show, :update, :destroy]
+  before_action :set_materiel, only: [:edit, :update, :destroy]
 
     def index
-        @materiels = Materiel.all
+        @materiels = Materiel.paginate(:page => params[:page], per_page:5)
+        @number = Materiel.count
     end
 
     def new
@@ -12,13 +13,10 @@ class MaterielsController < ApplicationController
     def edit
     end
 
-    def show
-    end
-
     def create
         @materiel = Materiel.new(materiel_params)
         if @materiel.save
-            redirect_to @materiel
+            redirect_to materiels_path
         else
             render 'new'
         end
@@ -26,7 +24,7 @@ class MaterielsController < ApplicationController
 
     def update
         if @materiel.update(materiel_params)
-            redirect_to @materiel
+            redirect_to materiels_path
         else
             render 'edit'
         end

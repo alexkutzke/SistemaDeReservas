@@ -40,7 +40,11 @@
                         <div class="col-sm-offset-3 col-sm-7">
                             <div class="pull-right">
                                 <%= link_to 'Voltar', categories_path, class: 'btn btn-danger' %>
-                                <%= f.submit 'Cadastrar', class: 'btn btn-green' %>
+                                <% if @category.new_record? %>
+                                    <%= f.submit 'Cadastrar', class: 'btn btn-green' %>
+                                <% else %>
+                                    <%= f.submit 'Editar', class: 'btn btn-green' %>
+                                <% end %>
                             </div>
                         </div>
                     </div>
