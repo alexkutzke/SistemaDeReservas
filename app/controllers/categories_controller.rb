@@ -1,10 +1,8 @@
 class CategoriesController < ApplicationController
-    before_action :set_category, only: [:show, :update, :destroy, :edit]
+    before_action :set_category, only: [:update, :destroy, :edit]
     def index
-        @categories = Category.all
-    end
-
-    def show
+        @categories = Category.paginate(:page => params[:page], per_page:5)
+        @number = Category.number_of_records
     end
 
     def new
@@ -17,7 +15,7 @@ class CategoriesController < ApplicationController
     def create
         @category = Category.new(category_params)
         if @category.save
-            redirect_to @category
+            redirect_to categories_path
         else
             render 'new'
         end
@@ -25,7 +23,7 @@ class CategoriesController < ApplicationController
 
     def update
         if @category.update(category_params)
-            redirect_to @category
+            redirect_to categories_path
         else
             render 'edit'
         end

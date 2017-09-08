@@ -22,7 +22,11 @@
                     <div class="form-group">
                         <div class="col-md-12">
                             <div style="border-bottom: 2px solid #ddd;">
-                                <h3><i class="fa fa-plus"></i> Novo Departamento</h3>                      
+                                <% if @department.new_record? %>
+                                    <h3><i class="fa fa-plus"></i> Novo Departamento</h3>
+                                <% else %>
+                                    <h3><i class="fa fa-edit"></i> Editar Departamento</h3>
+                                <% end %>  
                             </div>
                         </div>
                     </div>
