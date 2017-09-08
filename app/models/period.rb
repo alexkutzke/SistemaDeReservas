@@ -8,5 +8,5 @@ class Period < ApplicationRecord
                         length: {minimum:4, maximum:4},
                         numericality: { only_integer: true }
 
-    # validate dates (start and end)              
+    # validate dates (start and end)          
 end

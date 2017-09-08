@@ -1,5 +1,13 @@
-<h1>New period</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', periods_path %>
+<%= render :partial => 'layouts/sidenav', :locals => {:active => 10} %>
+<div class="main-content">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="dashboard"><i class="fa fa-calendar"></i> Reservas</a></li>
+            <li><%= link_to '<i class="fa fa-clock-o"></i> Salas'.html_safe, periods_path %></li>
+            <li><i class="fa fa-plus"></i> Novo Período</li>
+        </ol>
+    </div>
+    <div class="form">
+        <%= render 'form' %>
+    </div>
+</div>
