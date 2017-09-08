@@ -1,28 +1,62 @@
-<%= form_for @studentClass do |f| %>
-    
-    <% if @studentClass.errors.any? %>
-        <div id="error">
-            <h2>
-                <%= pluralize(@studentClass.errors.count, "error") %> Prohibited this class from being saved:            
-            </h2>
-            <ul>
-                <% @studentClass.errors.full_messages.each do | msg | %>
-                    <li><%= msg %></li>
-                <% end %>
-            </ul>
+<% if @studentClass.errors.any? %>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="alert alert-danger">
+                <h2>
+                    Atenção:
+                </h2>
+                <ul>
+                    <% @studentClass.errors.full_messages.each do | msg | %>
+                        <li><%= msg %></li>
+                    <% end %>
+                </ul>
+            </div>
         </div>
-    <% end %>
-
-    <p>
-        <%= f.label :name %>
-        <%= f.text_field :name %>
-    </p>
-    <p>
-        <%= f.label :Period %>
-        <!-- The :id and :name parameters have been replaced with first and last signifying the value_method to be first and text_method to be last elements of each array. -->
-        <%= f.collection_select(:period_id, Period.all.collect {|p| [p.id, "#{p.semester}° #{p.year}"]}, :first, :last) %>
-    </p>
-    <p>
-        <%= f.submit %>
-    </p>
+    </div>
 <% end %>
+
+<div class="row">
+    <div class="col-md-10">
+        <div class="panel panel-default">    
+            <div class="panel-body"> 
+                <%= form_for(@studentClass, :html => {class: 'form-horizontal'}) do |f| %>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <div style="border-bottom: 2px solid #ddd;">
+                                <% if @studentClass.new_record? %>
+                                    <h3><i class="fa fa-plus"></i> Nova Turma</h3>
+                                <% else %>
+                                    <h3><i class="fa fa-edit"></i> Editar Turma</h3>
+                                <% end %>                                                     
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="padding-top: 10px">
+                        <%= f.label :name, 'Nome', class: 'control-label col-sm-3' %>
+                        <div class="col-sm-7">
+                            <%= f.text_field :name, class: 'form-control', placeholder: 'TADS N1', autofocus: true %>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <%= f.label :period, 'Perído', class: 'control-label col-sm-3' %>
+                        <div class="col-sm-7">
+                             <%= f.collection_select(:period_id, Period.all.collect {|p| [p.id, "#{p.semester}° #{p.year}"]}, :first, :last, {}, {class: "form-control"}) %>
+                        </div>
+                    </div>
+                    <div class="form-group pull"> 
+                        <div class="col-sm-offset-3 col-sm-7">
+                            <div class="pull-right">
+                                <%= link_to 'Voltar', student_classes_path, class: 'btn btn-danger' %>
+                                <% if @studentClass.new_record? %>
+                                    <%= f.submit 'Cadastrar', class: 'btn btn-green' %>
+                                <% else %>
+                                    <%= f.submit 'Editar', class: 'btn btn-green' %>
+                                <% end %>
+                            </div>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
