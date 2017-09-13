@@ -32,13 +32,13 @@
                         </div>
                     </div>
                     <div class="form-group" style="padding-top: 10px">
-                        <%= f.label :name, 'Nome', class: 'control-label col-sm-3' %>
+                        <%= f.label :name, '<span style="color:red">*</span> Nome'.html_safe, class: 'control-label col-sm-3' %>
                         <div class="col-sm-7">
                             <%= f.text_field :name, class: 'form-control', placeholder: 'TADS N1', autofocus: true %>
                         </div>
                     </div>
                     <div class="form-group">
-                        <%= f.label :period, 'Perído', class: 'control-label col-sm-3' %>
+                        <%= f.label :period, 'Período', class: 'control-label col-sm-3' %>
                         <div class="col-sm-7">
                              <%= f.collection_select(:period_id, Period.all.collect {|p| [p.id, "#{p.semester}° #{p.year}"]}, :first, :last, {}, {class: "form-control"}) %>
                         </div>

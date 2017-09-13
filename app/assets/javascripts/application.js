@@ -15,3 +15,19 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+//= require moment 
+//= require fullcalendar
+//= require fullcalendar/gcal
+
+$(document).ready(function() {
+    $('#fullcalendar').fullCalendar({
+        header: {
+        center: 'title',
+        left: 'prev,next',
+        right: 'agendaDay,agendaWeek'
+    },
+    locale : 'pt-br',
+    defaultView: "agendaWeek"
+    })
+});
+

@@ -32,13 +32,13 @@
                         </div>
                     </div>
                     <div class="form-group" style="padding-top: 10px">
-                        <%= f.label :name, 'Nome', class: 'control-label col-sm-3' %>
+                        <%= f.label :name, '<span style="color:red">*</span> Nome'.html_safe, class: 'control-label col-sm-3' %>
                         <div class="col-sm-7">
                             <%= f.text_field :name, class: 'form-control', placeholder: 'Banco de Dados I', autofocus: true %>
                         </div>
                     </div>  
                     <div class="form-group">
-                        <%= f.label :discipline_code, 'Código da Disciplina', class: 'control-label col-sm-3' %>
+                        <%= f.label :discipline_code, '<span style="color:red">*</span> Código da Disciplina'.html_safe, class: 'control-label col-sm-3' %>
                         <div class="col-sm-7">
                             <%= f.text_field :discipline_code, class: 'form-control', placeholder: 'TI123' %>
                         </div>

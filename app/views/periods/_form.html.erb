@@ -32,13 +32,13 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <%= f.label :semester, 'Semestre', class: 'control-label col-sm-3' %>
+                        <%= f.label :semester, '<span style="color:red">*</span> Semestre'.html_safe, class: 'control-label col-sm-3' %>
                         <div class="col-sm-7">
                             <%= f.select(:semester, options_for_select(['1', '2'], @period.semester), {},  {class: "form-control"}) %>
                         </div>
                     </div>
                     <div class="form-group" style="padding-top: 10px">
-                        <%= f.label :year, 'Ano', class: 'control-label col-sm-3' %>
+                        <%= f.label :year, '<span style="color:red">*</span> Ano'.html_safe, class: 'control-label col-sm-3' %>
                         <div class="col-sm-7">
                             <%= f.number_field :year, class: 'form-control', placeholder: '2017' %>
                         </div>
@@ -50,13 +50,13 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <%= f.label :start_date, 'Data de início', class: 'control-label col-sm-3' %>
+                        <%= f.label :start_date, '<span style="color:red">*</span> Data de início'.html_safe, class: 'control-label col-sm-3' %>
                         <div class="col-sm-7">
                             <%= f.date_field :start_date, class: 'form-control', placeholder: '31/07/2012' %>
                         </div>
                     </div>
                     <div class="form-group">
-                        <%= f.label :end_date, 'Data de fim', class: 'control-label col-sm-3' %>
+                        <%= f.label :end_date, '<span style="color:red">*</span> Data de fim'.html_safe, class: 'control-label col-sm-3' %>
                         <div class="col-sm-7">
                             <%= f.date_field :end_date, class: 'form-control', placeholder: '21/12/2012' %>
                         </div>
