@@ -57,12 +57,33 @@
                     <div class="form-group pull"> 
                         <div class="col-sm-offset-3 col-sm-7">
                             <div class="pull-right">
-                                <%= link_to 'Voltar', departments_path, class: 'btn btn-danger' %>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#voltar">Voltar</button>
                                 <% if @department.new_record? %>
                                     <%= f.submit 'Cadastrar', class: 'btn btn-green' %>
                                 <% else %>
                                     <%= f.submit 'Editar', class: 'btn btn-green' %>
                                 <% end %>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="voltar" class="modal fade" data-backdrop="static" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Atenção</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <% if @department.new_record? %>
+                                        <p>Todos os novos dados serão perdidos. Deseja realmente cancelar esta ação?</p>
+                                    <% else %>
+                                        <p>Todos os dados modificados serão perdidos. Deseja realmente cancelar esta ação?</p>
+                                    <% end %>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>
+                                    <%= link_to 'Sim', departments_path, class: 'btn btn-green' %>
+                                </div>
                             </div>
                         </div>
                     </div>
