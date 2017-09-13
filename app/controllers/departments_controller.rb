@@ -1,8 +1,14 @@
 class DepartmentsController < ApplicationController
     before_action :set_department, only: [:update, :destroy, :edit]
+
     def index
         @departments = Department.paginate(:page => params[:page], per_page:5)
         @number = Department.number_of_records
+
+        respond_to do |format|
+            format.html
+            format.json { render json: @departments }
+        end
     end
 
     def new

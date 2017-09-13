@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
     before_action :set_category, only: [:update, :destroy, :edit]
+
     def index
         @categories = Category.paginate(:page => params[:page], per_page:5)
         @number = Category.number_of_records

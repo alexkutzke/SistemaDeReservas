@@ -20,7 +20,7 @@
 //= require fullcalendar
 //= require fullcalendar/gcal
 
-$(document).ready(function() {
+$(document).on('turbolinks:load', function() {
     $('#fullcalendar').fullCalendar({
         header: {
         center: 'title',
