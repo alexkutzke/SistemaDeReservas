@@ -36,7 +36,7 @@ class DepartmentsController < ApplicationController
         @department = Department.new(department_params)
         respond_to do |format|
             if @department.save
-                format.html { render :index }
+                format.html { redirect_to departments_path }
                 format.json { render json:  @department, status: :created}
             else
                 format.html { render :new }
