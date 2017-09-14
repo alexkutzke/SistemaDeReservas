@@ -28,8 +28,6 @@ class PeriodsController < ApplicationController
     # GET /periods/edit/1
     def edit
     end
-        
-    end
 
     # POST /periods
     # POST /periods.json
