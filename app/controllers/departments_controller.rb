@@ -7,7 +7,7 @@ class DepartmentsController < ApplicationController
 
         respond_to do |format|
             format.html
-            format.json { render json: @departments }
+            format.json { render json: Department.all }
         end
     end
 

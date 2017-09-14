@@ -1,11 +1,20 @@
 class DisciplinesController < ApplicationController
+    before_action :set_discipline, only: [:update, :destroy, :edit, :show]
     def index
         @disciplines = Discipline.paginate(:page => params[:page], per_page:5)
         @number = Discipline.number_of_records
+
+        respond_to do |format|
+            format.html
+            format.json {render json: Discipline.all}
+        end
     end
 
     def show
-        @discipline = Discipline.find(params[:id])
+        respond_to do |format|
+            format.html
+            format.json {render json: @discipline}
+        end
     end
 
     def new
@@ -13,7 +22,6 @@ class DisciplinesController < ApplicationController
     end
 
     def edit
-        @discipline = Discipline.find(params[:id])
     end
 
     def create
@@ -26,7 +34,6 @@ class DisciplinesController < ApplicationController
     end
 
     def update
-        @discipline = Discipline.find(params[:id])
         if @discipline.update(discipline_params)
             redirect_to disciplines_path
         else
@@ -35,12 +42,14 @@ class DisciplinesController < ApplicationController
     end
 
     def destroy
-        @discipline = Discipline.find(params[:id])
         @discipline.destroy
         redirect_to disciplines_path
     end
 
     private
+    def set_discipline
+        @discipline = Discipline.find(params[:id])
+    end
     def discipline_params
         params.require(:discipline).permit(:name, :discipline_code, :department_id)
     end
