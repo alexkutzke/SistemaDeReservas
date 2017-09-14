@@ -9,14 +9,14 @@ class DisciplinesController < ApplicationController
 
         respond_to do |format|
             format.html
-            format.json { render :json => {:discipline => Discipline.all, :department => Department.all} }
+            format.json { render :json => Discipline.all.to_json(include: :department) }
         end
     end
 
     # GET /disciplines/1.json
     def show
         respond_to do |format|
-            format.json { render json: @discipline }
+            format.json { render :json => @discipline.to_json(include: :department) }
         end
     end
 
@@ -37,7 +37,7 @@ class DisciplinesController < ApplicationController
             if @discipline.save
                 @department = @discipline.department
                 format.html { redirect_to disciplines_path }
-                format.json { render :json => { :discipline => @discipline, :department => @department }, status: :created }
+                format.json { render :json => @discipline.to_json(include: :department), status: :created }
             else
                 format.html { render :new }
                 format.json { render json: @discipline.errors, status: :unprocessable_entity }
@@ -51,7 +51,7 @@ class DisciplinesController < ApplicationController
         respond_to do |format|
             if @discipline.update(discipline_params)
                 format.html { redirect_to disciplines_path }
-                format.json { render :json => { :discipline => @discipline, :department => @department }, status: :created }             
+                format.json { render :json => @discipline.to_json(include: :department), status: :created }             
             else
                 format.html { render :edit }
                 format.json { render json: @discipline.errors, status: :unprocessable_entity }

@@ -9,7 +9,7 @@ class RoomsController < ApplicationController
 
         respond_to do |format|
             format.html
-            format.json { render json: Room.all }
+            format.json { render :json => Room.all.to_json(include: :category) }
         end
     end
 
@@ -21,7 +21,7 @@ class RoomsController < ApplicationController
     # GET /rooms/1.json
     def show
         respond_to do |format|
-            format.json { render json: @room }
+            format.json { render :json =>  @room.to_json(include: :category) }
         end
     end
 
@@ -34,25 +34,40 @@ class RoomsController < ApplicationController
     def create
         @room = Room.new(room_params)
         @room.state = @room.state ? true : false
-        if @room.save
-            redirect_to rooms_path
-        else
-            render 'new'
+        respond_to do |format|
+            if @room.save
+                format.html { redirect_to rooms_path }
+                format.json { render :json =>  @room.to_json(include: :category), status: :created }
+            else
+                format.html { render :new }
+                format.json { render json: @room.errors, status: :unprocessable_entity }
+            end
         end
     end
 
+    # PATCH/PUT /rooms/1
+    # PATCH/PUT /rooms/1.json
     def update
         @room.state = @room.state ? false : true
-        if @room.update(room_params)
-            redirect_to rooms_path
-        else
-            render 'edit'
+        respond_to do |format|
+            if @room.update(room_params)
+                format.html { redirect_to rooms_path }
+                format.json { render :json => @room.to_json(include: :category), status: :created }             
+            else
+                format.html { render :edit }
+                format.json { render json: @room.errors, status: :unprocessable_entity }
+            end
         end
     end
 
+    # DELETE /rooms/1
+    # DELETE /rooms/1.json
     def destroy
         @room.destroy
-        redirect_to rooms_path
+        respond_to do |format|
+            format.html { redirect_to rooms_url, notice: 'Room was successfully removed.' }
+            format.json { head :no_content }
+        end
     end
 
     private
