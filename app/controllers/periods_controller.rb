@@ -51,7 +51,7 @@ class PeriodsController < ApplicationController
         @period.state = @period.state ? false : true
         respond_to do |format|
             if @period.update(period_params)
-                format.html { render :index }
+                format.html { redirect_to edit_period_path }
                 format.json { render json: @period, status: :ok }
             else
                 format.html { render :edit }
@@ -76,6 +76,6 @@ class PeriodsController < ApplicationController
     end
 
     def period_params
-        params.require(:period).permit(:state, :year, :semester, :start_date, :end_date)
+        params.require(:period).permit(:state, :name, :start_date, :end_date)
     end
 end

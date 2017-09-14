@@ -31,16 +31,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <%= f.label :semester, '<span style="color:red">*</span> Semestre'.html_safe, class: 'control-label col-sm-3' %>
-                        <div class="col-sm-7">
-                            <%= f.select(:semester, options_for_select(['1', '2'], @period.semester), {},  {class: "form-control"}) %>
-                        </div>
-                    </div>
                     <div class="form-group" style="padding-top: 10px">
-                        <%= f.label :year, '<span style="color:red">*</span> Ano'.html_safe, class: 'control-label col-sm-3' %>
+                        <%= f.label :name, '<span style="color:red">*</span> Período'.html_safe, class: 'control-label col-sm-3' %>
                         <div class="col-sm-7">
-                            <%= f.number_field :year, class: 'form-control', placeholder: '2017' %>
+                            <%= f.text_field :name, class: 'form-control', placeholder: '1° Semestre de 2017' %>
                         </div>
                     </div>
                     <div class="form-group">

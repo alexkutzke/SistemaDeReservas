@@ -4,13 +4,10 @@ class Room < ApplicationRecord
   validates :capacity, presence: true,
                         length: { minimum: 1}
 
-  validates :block, presence: true,
+  validates :building, presence: true,
                         length: { minimum: 1}
 
-  validates :place, presence: true,
+  validates :room, presence: true,
                         length: { minimum: 1}
 
-  def self.number_of_records
-    @rooms = Room.count
-  end
 end
