@@ -1,0 +1,114 @@
+/* 
+    Created on : 24/08/2017, 19:00:17
+    Author     : laisf
+*/
+
+.panel-default>.panel-heading {
+    background-color: #475d6f  !important;
+    color: #f7f7f7;
+    height: 40px;
+}
+
+.form-outside{
+    color: #3c8dbc !important;
+}
+
+btn-red{
+    background-color: #d9534f;
+    border-color: #d43f3a;
+    color: #fff;
+    border-radius: 0px;
+}
+
+.btn-red:hover, .btn-red:focus, .btn-red:active, .btn-red:target{
+    background-color: #c9302c;
+    color: #fff;
+    border-radius: 0px;
+}
+
+
+.btn-green{
+    background-color: #509e81 !important;
+    color: #fff;
+    border-radius: 4px !important;
+}
+
+.btn-green:hover, .btn-green:focus, .btn-green:active, .btn-green:target{
+    background-color: #458a70 !important;
+    color: #fff !important;
+    border-radius: 4px !important;
+}
+
+/*.btn-green{
+    background-color: #16a086 !important;
+    color: #fff;
+    border-radius: 0px !important;
+}
+
+.btn-green:hover, .btn-green:focus, .btn-green:active, .btn-green:target{
+    background-color: #138670 !important;
+    color: #fff !important;
+    border-radius: 0px !important;
+}*/
+
+.btn-blue{
+    border: 1px solid #0b71a1;
+    background-color: #3c8dbc  !important;
+    color: #fff;
+}
+
+.btn-blue:hover, .btn-blue:focus, .btn-blue:active, .btn-blue:target{
+    background-color: #0b71a1 !important;
+    border: 1px solid #086996;
+    color: #fff !important;
+}
+
+/* Remove default blue outline */
+.form-control{
+    outline: none;
+    border-radius: 0px;
+    box-shadow: none;
+}
+
+/* Remove default blue focus on input field  */
+.form-control:focus{
+    
+    outline: 1px solid #8ba6bd;
+    /*border: 1px solid #16a086 !important;
+    border-right: none !important;*/
+    box-shadow: none;
+
+    /* box-shadow: inset 0 0px 0px rgba(0,0,0,.075), 0 0 2px rgb(22, 160, 134); */
+}
+
+.input-group-addon{
+    background-color: #fff;
+    border-radius: 0px;
+}
+
+.border-focus{
+    border: 1px solid #16a086 !important;
+    outline: none;
+}
+
+/* Table style */
+
+.table td, table th {
+    border: 1px solid #ddd;
+}
+
+.table tr td:first-child,
+.table tr th:first-child {
+    border-left: 0;
+}
+.table tr td:last-child,
+.table tr th:last-child {
+    border-right: 0;
+}
+
+.table tr{
+    height: 34px;
+}
+.table-bordered>thead>tr>th{
+    border-bottom-width: 3px;
+}

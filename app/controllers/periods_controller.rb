@@ -1,11 +1,9 @@
 class PeriodsController < ApplicationController
-    before_action :set_period, only: [:show, :edit, :update, :destroy]
+    before_action :set_period, only: [:edit, :update, :destroy]
 
     def index
-        @periods = Period.all
-    end
-
-    def show
+        @periods = Period.paginate(:page => params[:page], per_page:5)
+        @number = Period.count
     end
 
     def new
@@ -15,7 +13,7 @@ class PeriodsController < ApplicationController
         @period = Period.new(period_params)
         @period.state = @period.state ? true : false
         if @period.save
-            redirect_to @period
+            redirect_to periods_path
         else
             render 'new'
         end
@@ -24,7 +22,7 @@ class PeriodsController < ApplicationController
     def update
         @period.state = @period.state ? false : true
         if @period.update(period_params)
-            redirect_to @period
+            redirect_to periods_path
         else
             render 'edit'
         end

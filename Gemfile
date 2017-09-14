@@ -48,4 +48,15 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+# Bootstrap gem
+gem 'bootstrap-sass', '~> 3.3.6'
+
+# Windows dependencie to run javaScript
 gem 'coffee-script-source', '1.8.0'
+
+# Paginate gem
+gem 'will_paginate-bootstrap'
+
+# FullCalendar gem
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'

@@ -1,0 +1,226 @@
+
+.sidenav{
+    position: fixed;
+    width: 170px;
+    background-color: #2d3e50;
+    z-index: 3;
+    padding-top: 10px;
+    bottom: 0px;
+    min-height: 100%;
+    left:0px;
+    top:0px;
+    font-family: "Segoe UI";
+    
+}
+
+.sidenav ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidenav ul li{
+    border-top: 1px solid rgba(69, 74, 84, 0.7);
+}
+
+.sidenav li:hover{
+    background-color: #223242;
+    /*border-left: 4px solid #3c8dbc;*/
+    border-right: none;
+}
+
+.sidenav ul li a{
+    padding: 10px 5px;
+    display: block;
+    color:#b8c7ce;
+    text-decoration: none;
+    outline: none;
+}
+
+.sidenav a:hover{
+    color: white;
+}
+
+.sidenav i{
+    text-align: center;
+    color: #c3c3c3;
+    font-size: 14px;
+    width: 30px;
+}
+
+
+.sidenav-active{
+    background-color:  #223242;   
+}
+
+li.menu-navigation, li.avatar{
+    padding: 10px 10px;
+    /*font-family: "Source Sans Pro";*/
+    font-size: 12px;
+    color: #9d9d9d;
+    background-color: #2d3e50;
+}
+
+li.menu-navigation:hover, li.avatar:hover{
+    border-left: none;
+    background-color: #223242;
+}
+
+.sidenav .menu-navigation a:hover{
+    color: #b8c7ce;
+}
+
+.main-content{
+    margin-top: 50px;
+    margin-left: 170px;
+    margin-right: 0px;
+}
+
+@media screen and (max-height:550px){
+    .sidenav {
+        overflow-y: auto;
+    }
+    ::-webkit-scrollbar {
+      width: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background-color: #243344;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: #16a086; 
+    }
+}
+
+@media screen and (max-width:767px){
+    .main-content{
+        margin-top: 50px;
+        margin-left: 70px;
+        margin-right: 0px;
+    }
+    .sidenav {
+        width: 70px;
+        overflow-y: auto;
+    }
+    ::-webkit-scrollbar {
+      width: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background-color: #243344;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: #16a086; 
+    }
+    .sidenav li{
+        text-align: center;
+    }
+    .sidenav i{
+        font-size: 20px;
+    }
+    .sidenav ul li span:nth-child(2){
+        display: none;
+    }
+    .main-content{
+        margin-left: 70px;
+        min-height: 100%;
+        
+       
+    }
+}
+
+/* 
+    CSS transition effect when reduce sidenav, navbar e main content
+*/
+
+.hide-sidenav{
+    width: 0px !important;
+    transition: 1s !important;
+    -webkit-transition: 1s !important;
+}
+
+.full-navbar{
+    margin-left: 0px !important;
+    transition: 1s;
+    -webkit-transition: 1s;
+}
+
+.main-content{
+   
+}
+.full-main-content{
+    margin-left: 0px !important;
+    transition: 1s;
+    -webkit-transition: 1s;
+    
+}
+
+/*
+    Add a button on navbar to trigger an event to reduce sidenav bar width
+*/
+
+#button-reduce{
+    background-color: #2d3e50;
+    border: none;
+    color: #fff;
+    outline: none;
+    width: 44px;
+    padding: 7px 7px;
+    border-radius: 4px;
+    height: 50px;
+}
+
+#button-reduce:hover{
+    background-color: #223242;
+}
+
+#button-reduce>.icon-bar{
+    display: block;
+    width: 22px;
+    height: 2px;
+    border-radius: 1px;
+    background-color: #fff !important;
+    margin: 4px;
+}
+
+.reduce-sidenav{
+    width: 70px !important;
+    transition: 1s !important;
+    -webkit-transition: 1s !important;
+}
+
+.reduce-sidenav ul li{
+    text-align: center;
+}
+
+.reduce-sidenav ul li span i{
+    font-size: 20px;
+}
+
+.reduce-sidenav ul li span:nth-child(2){
+    display: none;
+}
+
+.reduce-navbar{
+    margin-left: 70px !important;
+    transition: 1s !important;
+    -webkit-transition: 1s !important;
+}
+
+.reduce-main-content{
+    margin-left: 70px;
+    transition: 1s !important;
+    -webkit-transition: 1s !important;
+}
+
+
+.badge{
+    background-color: red;
+}
+
+
+
+
+
+
+
+
+

@@ -9,4 +9,7 @@ class Discipline < ApplicationRecord
 
   validates :department_id, presence: true,
                             length: {minimum: 1}
+  def self.number_of_records
+    @number = Discipline.count
+  end
 end

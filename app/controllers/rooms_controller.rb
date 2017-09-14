@@ -1,10 +1,8 @@
 class RoomsController < ApplicationController
-    before_action :set_room, only: [:show, :edit, :update, :destroy]
+    before_action :set_room, only: [:edit, :update, :destroy]
     def index
-        @rooms = Room.all
-    end
-
-    def show
+        @rooms = Room.paginate(:page => params[:page], per_page: 5)
+        @number = Room.number_of_records
     end
 
     def new
@@ -15,7 +13,7 @@ class RoomsController < ApplicationController
         @room = Room.new(room_params)
         @room.state = @room.state ? true : false
         if @room.save
-            redirect_to @room
+            redirect_to rooms_path
         else
             render 'new'
         end
@@ -27,7 +25,7 @@ class RoomsController < ApplicationController
     def update
         @room.state = @room.state ? false : true
         if @room.update(room_params)
-            redirect_to @room
+            redirect_to rooms_path
         else
             render 'edit'
         end

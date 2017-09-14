@@ -1,39 +1,80 @@
-<%= form_for @room do |f| %>
-
-    <% if @room.errors.any? %>
-        <div id="error">
-            <h2>
-                <%= pluralize(@room.errors.count, "error") %> Prohibited this room from being saved:            
-            </h2>
-            <ul>
-                <% @room.errors.full_messages.each do | msg | %>
-                    <li><%= msg %></li>
-                <% end %>
-            </ul>
+<% if @room.errors.any? %>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="alert alert-danger">
+                <h2>
+                    Atenção:
+                </h2>
+                <ul>
+                    <% @room.errors.full_messages.each do | msg | %>
+                        <li><%= msg %></li>
+                    <% end %>
+                </ul>
+            </div>
         </div>
-    <% end %>
-    
-    <p>
-        <%= f.label :place, 'Local' %><br>
-        <%= f.text_field :place %>
-    </p>
-    <p>
-        <%= f.label :block, 'Bloco' %><br>
-        <%= f.text_field :block %>
-    </p>
-     <p>
-        <%= f.label :capacity %><br>
-        <%= f.number_field :capacity %>
-    </p>
-    <p>
-        <%= f.label :state %><br>
-        <%= f.check_box :state, {}, true, false %>
-    </p>
-    <p>
-        <%= f.label :category %><br>
-        <%= f.collection_select(:category_id, Category.all, :id, :name) %>
-    </p>
-    <p>
-        <%= f.submit %>
-    </p>
+    </div>
 <% end %>
+
+<div class="row">
+    <div class="col-md-10">
+        <div class="panel panel-default">    
+            <div class="panel-body"> 
+                <%= form_for(@room, :html => {class: 'form-horizontal'}) do |f| %>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <div style="border-bottom: 2px solid #ddd;">
+                                <% if @room.new_record? %>
+                                    <h3><i class="fa fa-plus"></i> Nova Sala</h3>
+                                <% else %>
+                                    <h3><i class="fa fa-edit"></i> Editar Sala</h3>
+                                <% end %>                                                     
+                            </div>
+                        </div>
+                    </div>   
+                    <div class="form-group" style="padding-top: 10px">
+                        <%= f.label :place, '<span style="color:red">*</span> Local'.html_safe, class: 'control-label col-sm-3' %>
+                        <div class="col-sm-7">
+                            <%= f.text_field :place, class: 'form-control', placeholder: 'A01', autofocus: true %>
+                        </div>
+                    </div>               
+                    <div class="form-group">
+                        <%= f.label :block, '<span style="color:red">*</span> Bloco'.html_safe, class: 'control-label col-sm-3' %>
+                        <div class="col-sm-7">
+                            <%= f.text_field :block, class: 'form-control', placeholder: 'A' %>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <%= f.label :capacity, '<span style="color:red">*</span> Capacidade'.html_safe, class: 'control-label col-sm-3' %>
+                        <div class="col-sm-7">
+                            <%= f.number_field :capacity, class: 'form-control', placeholder: '30' %>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <%= f.label :state, 'Status', class: 'control-label col-sm-3' %>
+                        <div class="col-sm-7">
+                                <%= f.check_box :state, {class: 'checkbox'}, true, false %>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <%= f.label :category, 'Categoria', class: 'control-label col-sm-3' %>
+                        <div class="col-sm-7">
+                             <%= f.collection_select :category_id, Category.all, :id, :name, {}, {class: "form-control"} %>
+                        </div>
+                    </div>
+                    <div class="form-group pull"> 
+                        <div class="col-sm-offset-3 col-sm-7">
+                            <div class="pull-right">
+                                <%= link_to 'Voltar', rooms_path, class: 'btn btn-danger' %>
+                                <% if @room.new_record? %>
+                                    <%= f.submit 'Cadastrar', class: 'btn btn-green' %>
+                                <% else %>
+                                    <%= f.submit 'Editar', class: 'btn btn-green' %>
+                                <% end %>
+                            </div>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,7 +1,8 @@
 class StudentClassesController < ApplicationController
-    before_action :set_student_class, only: [:edit, :update, :show, :destroy]
+    before_action :set_student_class, only: [:edit, :update, :destroy]
   def index
-    @studentClasses = StudentClass.all
+    @studentClasses = StudentClass.paginate(:page => params[:page], per_page:5)
+    @number = StudentClass.number_of_records
   end
 
   def new
@@ -11,13 +12,10 @@ class StudentClassesController < ApplicationController
   def edit
   end
 
-  def show
-  end
-
   def create
     @studentClass = StudentClass.new(student_class_params)
     if @studentClass.save
-        redirect_to @studentClass
+        redirect_to student_classes_path
     else
         render 'new'
     end
@@ -25,7 +23,7 @@ class StudentClassesController < ApplicationController
 
   def update
     if @studentClass.update(student_class_params)
-        redirect_to @studentClass
+        redirect_to student_classes_path
     else
         render 'edit'
     end
