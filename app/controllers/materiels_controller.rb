@@ -63,7 +63,7 @@ class MaterielsController < ApplicationController
     def destroy
         @materiel.destroy
         respond_to do |format|
-            format.html { redirect_to materiels_url, notice: 'Equi was successfully removed.' }
+            format.html { redirect_to materiels_url, notice: 'Equipment was successfully removed.' }
             format.json { head :no_content }
         end
     end
