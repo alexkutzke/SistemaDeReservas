@@ -36,7 +36,7 @@ class CategoriesController < ApplicationController
         respond_to do |format|
             if @category.save
                 format.html { redirect_to categories_path }
-                format.json { render json:  @category, status: :created}
+                format.json { render json:  @category, status: :created }
             else
                 format.html { render :new }
                 format.json { render json: @category.errors, status: :unprocessable_entity }

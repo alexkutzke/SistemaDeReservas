@@ -5,8 +5,8 @@ resources :disciplines
 resources :periods
 resources :rooms
 resources :categories
-resources :student_classes
-resources :materiels
+resources :student_classes, :path => 'classes'
+resources :materiels, :path => 'equipments'
 resources :dashboards
 resources :welcome
 root 'welcome#index'

@@ -1,38 +1,71 @@
 class MaterielsController < ApplicationController
-  before_action :set_materiel, only: [:edit, :update, :destroy]
+  before_action :set_materiel, only: [:show, :edit, :update, :destroy]
 
+    # GET /equipments
+    # GET /equipments.json
     def index
         @materiels = Materiel.paginate(:page => params[:page], per_page:5)
         @number = Materiel.count
+
+        respond_to do |format|
+            format.html
+            format.json { render json: Materiel.all }
+        end
     end
 
+    # GET /equipments/new
     def new
         @materiel = Materiel.new
     end
 
+    # GET /equipments/1.json
+    def show
+        respond_to do |format|
+            format.json { render json: @materiel }
+        end
+    end
+
+    # GET /equipments/edit/1
     def edit
     end
 
+    # POST /equipments
+    # POST /equipments.json
     def create
         @materiel = Materiel.new(materiel_params)
-        if @materiel.save
-            redirect_to materiels_path
-        else
-            render 'new'
+        respond_to do |format|
+            if @materiel.save
+                format.html { redirect_to materiels_path }
+                format.json { render json:  @materiel, status: :created }
+            else
+                format.html { render :new }
+                format.json { render json: @materiel.errors, status: :unprocessable_entity }
+            end
         end
     end
 
+    # PATCH/PUT /equipments/1
+    # PATCH/PUT /equipments/1.json
     def update
-        if @materiel.update(materiel_params)
-            redirect_to materiels_path
-        else
-            render 'edit'
+        respond_to do |format|
+            if @materiel.update(materiel_params)
+                format.html { render :index }
+                format.json { render json: @materiel, status: :ok }
+            else
+                format.html { render :edit }
+                format.json { render json:  @materiel.errors, status: :unprocessable_entity }
+            end
         end
     end
 
+    # DELETE /equipments/1
+    # DELETE /equipments/1.json
     def destroy
         @materiel.destroy
-        redirect_to materiels_path
+        respond_to do |format|
+            format.html { redirect_to materiels_url, notice: 'Equi was successfully removed.' }
+            format.json { head :no_content }
+        end
     end
 
     private
