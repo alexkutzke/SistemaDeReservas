@@ -2,7 +2,7 @@ class StudentClassesController < ApplicationController
     before_action :set_student_class, only: [:edit, :update, :destroy]
   def index
     @studentClasses = StudentClass.paginate(:page => params[:page], per_page:5)
-    @number = StudentClass.number_of_records
+    @number = StudentClass.count
   end
 
   def new

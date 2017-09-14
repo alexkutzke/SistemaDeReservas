@@ -1,38 +1,71 @@
 class CategoriesController < ApplicationController
-    before_action :set_category, only: [:update, :destroy, :edit]
+    before_action :set_category, only: [:show, :update, :destroy, :edit]
 
+    # GET /categories
+    # GET /categories.json
     def index
         @categories = Category.paginate(:page => params[:page], per_page:5)
-        @number = Category.number_of_records
+        @number = Category.count
+
+        respond_to do |format|
+            format.html
+            format.json { render json: Category.all }
+        end
     end
 
+    # POST /categories/new
     def new
         @category = Category.new
     end
 
+    # GET /categories/1.json
+    def show
+        respond_to do |format|
+            format.json { render json: @category }
+        end
+    end
+
+    # GET /categories/edit/1
     def edit
     end
 
+    # POST /categories
+    # PODT /categories.json
     def create
         @category = Category.new(category_params)
-        if @category.save
-            redirect_to categories_path
-        else
-            render 'new'
+        respond_to do |format|
+            if @category.save
+                format.html { redirect_to categories_path }
+                format.json { render json:  @category, status: :created}
+            else
+                format.html { render :new }
+                format.json { render json: @category.errors, status: :unprocessable_entity }
+            end
         end
     end
 
+    # PATCH/PUT /categories/1
+    # PATCH/PUT /categories/1.json
     def update
-        if @category.update(category_params)
-            redirect_to categories_path
-        else
-            render 'edit'
+        respond_to do |format|
+            if @category.update(category_params)
+                format.html { render :index }
+                format.json { render json: @category, status: :ok }
+            else
+                format.html { render :edit }
+                format.json { render json:  @category.errors, status: :unprocessable_entity }
+            end
         end
     end
 
+    # DELETE /categories/1
+    # DELETE /categories/1.json
     def destroy
         @category.destroy
-        redirect_to categories_path
+        respond_to do |format|
+            format.html { redirect_to categorys_url, notice: 'Category was successfully removed.' }
+            format.json { head :no_content }
+        end
     end
 
     private

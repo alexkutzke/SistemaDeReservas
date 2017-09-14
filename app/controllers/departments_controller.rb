@@ -5,7 +5,7 @@ class DepartmentsController < ApplicationController
     # GET /departments.json
     def index
         @departments = Department.paginate(:page => params[:page], per_page:5)
-        @number = Department.number_of_records
+        @number = Department.count
 
         respond_to do |format|
             format.html
@@ -26,7 +26,6 @@ class DepartmentsController < ApplicationController
     end
 
     # GET /departments/edit/1
-    # GET /departments/edit/1.json
     def edit
     end
 
@@ -64,7 +63,7 @@ class DepartmentsController < ApplicationController
     def destroy
         @department.destroy
         respond_to do |format|
-            format.html { redirect_to departments_url, notice: 'Task was successfully destroyed.' }
+            format.html { redirect_to departments_url, notice: 'Department was successfully removed.' }
             format.json { head :no_content }
         end
     end

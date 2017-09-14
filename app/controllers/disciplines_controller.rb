@@ -5,7 +5,7 @@ class DisciplinesController < ApplicationController
     # GET /disciplines.json
     def index
         @disciplines = Discipline.paginate(:page => params[:page], per_page:5)
-        @number = Discipline.number_of_records
+        @number = Discipline.count
 
         respond_to do |format|
             format.html
@@ -59,10 +59,12 @@ class DisciplinesController < ApplicationController
         end
     end
 
+    # DELETE /disciplines/1
+    # DELETE /disciplines/1.json
     def destroy
         @discipline.destroy
         respond_to do |format|
-            format.html { redirect_to disciplines_path, notice: 'Task was successfully destroyed.' }
+            format.html { redirect_to disciplines_path, notice: 'Discipline was successfully removed.' }
             format.json { head :no_content }
         end
     end
