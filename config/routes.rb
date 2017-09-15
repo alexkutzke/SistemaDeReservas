@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :tasks
 resources :departments
 resources :disciplines
 resources :periods
