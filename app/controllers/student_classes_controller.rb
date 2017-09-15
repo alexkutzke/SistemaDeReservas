@@ -58,8 +58,8 @@ class StudentClassesController < ApplicationController
         end
     end
 
-    # DELETE /equipments/1
-    # DELETE /equipments/1.json
+    # DELETE /classes/1
+    # DELETE /classes/1.json
     def destroy
       @studentClass.destroy
       respond_to do |format|
