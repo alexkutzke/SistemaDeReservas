@@ -49,7 +49,7 @@ class DepartmentsController < ApplicationController
     def update
         respond_to do |format|
             if @department.update(department_params)
-                format.html { render :index}
+                format.html { redirect_to departments_path }
                 format.json { render json: @department, status: :ok }
             else
                 format.html { render :edit }

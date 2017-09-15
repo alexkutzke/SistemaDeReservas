@@ -51,7 +51,7 @@ class PeriodsController < ApplicationController
         @period.state = @period.state ? false : true
         respond_to do |format|
             if @period.update(period_params)
-                format.html { redirect_to edit_period_path }
+                format.html { redirect_to periods_path }
                 format.json { render json: @period, status: :ok }
             else
                 format.html { render :edit }

@@ -9,7 +9,7 @@ class MaterielsController < ApplicationController
 
         respond_to do |format|
             format.html
-            format.json { render json: Materiel.all }
+            format.json { render :json => Materiel.all.to_json(include: :room) }
         end
     end
 
@@ -36,7 +36,7 @@ class MaterielsController < ApplicationController
         respond_to do |format|
             if @materiel.save
                 format.html { redirect_to materiels_path }
-                format.json { render json:  @materiel, status: :created }
+                format.json { render :json => @materiel.to_json(include: :room), status: :created }
             else
                 format.html { render :new }
                 format.json { render json: @materiel.errors, status: :unprocessable_entity }
@@ -49,8 +49,8 @@ class MaterielsController < ApplicationController
     def update
         respond_to do |format|
             if @materiel.update(materiel_params)
-                format.html { render :index }
-                format.json { render json: @materiel, status: :ok }
+                format.html { redirect_to materiels_path }
+                format.json { render :json => @materiel.to_json(include: :room), status: :ok }
             else
                 format.html { render :edit }
                 format.json { render json:  @materiel.errors, status: :unprocessable_entity }

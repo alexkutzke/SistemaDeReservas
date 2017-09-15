@@ -49,7 +49,7 @@ class CategoriesController < ApplicationController
     def update
         respond_to do |format|
             if @category.update(category_params)
-                format.html { render :index }
+                format.html { redirect_to categories_path }
                 format.json { render json: @category, status: :ok }
             else
                 format.html { render :edit }

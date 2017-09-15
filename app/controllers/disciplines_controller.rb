@@ -35,7 +35,6 @@ class DisciplinesController < ApplicationController
         @discipline = Discipline.new(discipline_params)
         respond_to do |format|
             if @discipline.save
-                @department = @discipline.department
                 format.html { redirect_to disciplines_path }
                 format.json { render :json => @discipline.to_json(include: :department), status: :created }
             else
