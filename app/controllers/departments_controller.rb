@@ -68,6 +68,9 @@ class DepartmentsController < ApplicationController
         end
     end
 
+    def import
+    end
+
     private
     def set_department
         @department = Department.find(params[:id])

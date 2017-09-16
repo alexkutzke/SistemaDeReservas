@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-resources :departments
+resources :departments do
+    collection do
+        post 'import'
+    end
+end
 resources :disciplines
 resources :periods
 resources :rooms
