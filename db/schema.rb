@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170913175058) do
+ActiveRecord::Schema.define(version: 20170915001216) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -55,8 +55,7 @@ ActiveRecord::Schema.define(version: 20170913175058) do
   end
 
   create_table "periods", force: :cascade do |t|
-    t.integer  "year"
-    t.integer  "semester"
+    t.string   "name"
     t.boolean  "state"
     t.date     "start_date"
     t.date     "end_date"
@@ -66,12 +65,14 @@ ActiveRecord::Schema.define(version: 20170913175058) do
 
   create_table "rooms", force: :cascade do |t|
     t.integer  "capacity"
-    t.string   "place"
-    t.string   "block"
+    t.string   "room"
+    t.string   "building"
     t.boolean  "state"
+    t.string   "description"
+    t.string   "responsible_person"
     t.integer  "category_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.index ["category_id"], name: "index_rooms_on_category_id"
   end
 

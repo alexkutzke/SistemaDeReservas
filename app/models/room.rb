@@ -1,16 +1,16 @@
 class Room < ApplicationRecord
-  belongs_to :category
+    belongs_to :category
 
-  validates :capacity, presence: true,
+    validates :capacity, presence: true,
                         length: { minimum: 1}
 
-  validates :block, presence: true,
+    validates :building, presence: true,
                         length: { minimum: 1}
 
-  validates :place, presence: true,
+    validates :room, presence: true,
                         length: { minimum: 1}
 
-  def self.number_of_records
-    @rooms = Room.count
+    def as_json(options={})
+    super(include: :category)
   end
 end

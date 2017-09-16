@@ -8,7 +8,7 @@ class StudentClass < ApplicationRecord
                         length: { minimum: 1},
                         numericality: { only_integer: true }
 
-    def self.number_of_records
-        @number = StudentClass.count
+    def as_json(options={})
+        super(include: :period)
     end
 end

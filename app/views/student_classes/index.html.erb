@@ -34,7 +34,7 @@
                             <% @studentClasses.each do |s| %>
                                 <tr>
                                     <td><%= s.name %></td>
-                                    <td><%= "#{s.period.semester}° period of #{s.period.year}" %></td>
+                                    <td><%= s.period.name %></td>
                                     <td>
                                         <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_student_class_path(s),  :class => 'btn btn-info' %>
                                         <%= link_to '<i class="fa fa-trash"></i>'.html_safe,
