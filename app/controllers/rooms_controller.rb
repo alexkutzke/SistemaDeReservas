@@ -1,4 +1,5 @@
 class RoomsController < ApplicationController
+    require 'csv'
     before_action :set_room, only: [:show, :edit, :update, :destroy]
 
     # GET /rooms
@@ -67,6 +68,22 @@ class RoomsController < ApplicationController
         respond_to do |format|
             format.html { redirect_to rooms_url, notice: 'Room was successfully removed.' }
             format.json { head :no_content }
+        end
+    end
+
+    def import
+        csvFile = params[:file]
+        CSV.foreach(csvFile.path, headers: true) do |row|
+            @room.room = row[:place]
+            @room.building = row[:building]
+            @room.capacity = row[:capacity]
+            @room.state = true
+            @room.category_id = params[:room_category_id]
+            if @room.save
+                render 'index'
+            else
+                render 'new'
+            end
         end
     end
 

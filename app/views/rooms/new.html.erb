@@ -14,7 +14,7 @@
         <div class="col-md-10">
             <div class="panel panel-default">    
                 <div class="panel-body">
-                    <%= form_for(import_departments_url, :html => {class: 'form-horizontal', id: 'new-room-csv'} ) do |f| %>
+                    <%= form_for(Room.new, :url => {:action => 'import'}, multipart: true, :html => {class: 'form-horizontal', id: 'new-room-csv'} ) do |f| %>
                         <div class="form-group">
                             <div class="col-md-12">
                                 <h3 style="border-bottom: 2px solid #ddd; padding-bottom: 5px"><i class="fa fa-plus"></i> Nova Sala <i style="color: #adadad; font-size: 16px">Arquivo CSV</i></h3>
@@ -26,15 +26,17 @@
                                 <%= f.file_field 'Arquivo', class: 'form-control' %>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <%= f.label :category, 'Categoria', class: 'control-label col-sm-3' %>
+                            <div class="col-sm-7">
+                                 <%= f.collection_select :category_id, Category.all, :id, :name, {}, {class: "form-control"} %>
+                            </div>
+                        </div>
                         <div class="form-group pull"> 
                             <div class="col-sm-offset-3 col-sm-7">
                                 <div class="pull-right">
                                     <%= link_to 'Voltar', rooms_path, class: 'btn btn-danger' %>
-                                    <% if @room.new_record? %>
-                                        <%= f.submit 'Cadastrar', class: 'btn btn-green' %>
-                                    <% else %>
-                                        <%= f.submit 'Editar', class: 'btn btn-green' %>
-                                    <% end %>
+                                    <%= f.submit 'Cadastrar', class: 'btn btn-green' %>
                                 </div>
                             </div>
                         </div>

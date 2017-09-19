@@ -5,8 +5,15 @@ resources :departments do
     end
 end
 resources :disciplines
+
 resources :periods
-resources :rooms
+
+resources :rooms  do
+    collection do
+        post 'import'
+    end
+end
+
 resources :categories
 resources :student_classes, :path => 'classes'
 resources :materiels, :path => 'equipments'
