@@ -1,10 +1,10 @@
-<%= render :partial => 'layouts/sidenav', :locals => {:active => 6} %>
+<%= render :partial => 'layouts/sidenav', :locals => {:active => 5} %>
 <div class="main-content">
     <div class="row">
         <ol class="breadcrumb">
             <li><a href="dashboard"><i class="fa fa-calendar"></i> Reservas</a></li>
-            <li><%= link_to '<i class="fa fa-university"></i> Departamentos'.html_safe, departments_path %></li>
-            <li><i class="fa fa-plus"></i> Novo Departamento</li>
+            <li><%= link_to '<i class="fa fa-th-list"></i> Setores'.html_safe, sectors_path %></li>
+            <li><i class="fa fa-pencil"></i> Editar Setor</li>
         </ol>
     </div>
     <div class="form">
