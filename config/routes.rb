@@ -19,6 +19,7 @@ resources :student_classes, :path => 'classes'
 resources :materiels, :path => 'equipments'
 resources :dashboards
 resources :welcome
+resources :perfils
 root 'welcome#index'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

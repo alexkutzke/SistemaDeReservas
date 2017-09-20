@@ -1,4 +1,4 @@
-<%= render :partial => 'layouts/sidenav', :locals => {:active => 6} %>
+<%= render :partial => 'layouts/sidenav', :locals => {:active => 7} %>
 <div class="main-content">
     <div class="row">
         <ol class="breadcrumb">
@@ -38,7 +38,11 @@
                                     <td><%= r.room %></td>
                                     <td><%= r.building %></td>
                                     <td><%= r.capacity %></td>
-                                    <td><%= r.category.name %></td>
+                                    <% if r.category.nil? %>
+                                        <td></td>
+                                    <% else %>
+                                        <td><%= r.category.name %></td>
+                                    <% end %>
                                     <td>
                                         <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_room_path(r),  :class => 'btn btn-info' %>
                                         <%= link_to '<i class="fa fa-trash"></i>'.html_safe,
