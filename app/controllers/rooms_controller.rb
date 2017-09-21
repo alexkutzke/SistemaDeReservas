@@ -8,6 +8,11 @@ class RoomsController < ApplicationController
         @rooms = Room.paginate(:page => params[:page], per_page: 5)
         @number = Room.count
 
+        @all = Room.all
+        @all.each do |s|
+            puts s.room
+        end
+
         respond_to do |format|
             format.html
             format.json { render :json => Room.all.to_json(include: :category) }
@@ -72,18 +77,33 @@ class RoomsController < ApplicationController
     end
 
     def import
-        csvFile = params[:file]
-        CSV.foreach(csvFile.path, headers: true) do |row|
-            @room.room = row[:place]
-            @room.building = row[:building]
-            @room.capacity = row[:capacity]
-            @room.state = true
-            @room.category_id = params[:room_category_id]
-            if @room.save
-                render 'index'
-            else
-                render 'new'
+        
+        csvFile = params[:room][:Arquivo]#[:file]
+        
+        deu_certo = true
+
+        begin
+            CSV.foreach(csvFile.path, headers: true) do |row|
+                @room = Room.new
+                @room.room = row['place']
+                @room.building = row['building']
+                @room.capacity = row['capacity']
+                @room.state = true
+                @room.category_id = params[:room][:category_id]
+                puts @room
+                puts @room.room
+                deu_certo = false unless @room.save
             end
+        rescue Exception
+            deu_certo = false
+            @room = Room.new
+            @room.errors[:file] << "- Error to open csv file"
+        end
+
+        if deu_certo
+            redirect_to rooms_path
+        else
+            render 'new'
         end
     end
 

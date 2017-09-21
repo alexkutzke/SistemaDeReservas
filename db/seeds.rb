@@ -5,3 +5,12 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+Session.create(name: "Categorias")
+Session.create(name: "Salas")
+Session.create(name: "Departamentos")
+
+Action.create(name: "Visualizar")
+Action.create(name: "Cadastrar")
+Action.create(name: "Editar")
+Action.create(name: "Excluir")

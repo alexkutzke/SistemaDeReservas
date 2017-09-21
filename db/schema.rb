@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170919141026) do
+ActiveRecord::Schema.define(version: 20170920225326) do
+
+  create_table "actions", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -69,6 +75,17 @@ ActiveRecord::Schema.define(version: 20170919141026) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "permissions", force: :cascade do |t|
+    t.integer  "perfil_id"
+    t.integer  "session_id"
+    t.integer  "action_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["action_id"], name: "index_permissions_on_action_id"
+    t.index ["perfil_id"], name: "index_permissions_on_perfil_id"
+    t.index ["session_id"], name: "index_permissions_on_session_id"
+  end
+
   create_table "rooms", force: :cascade do |t|
     t.integer  "capacity"
     t.string   "room"
@@ -80,6 +97,19 @@ ActiveRecord::Schema.define(version: 20170919141026) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.index ["category_id"], name: "index_rooms_on_category_id"
+    t.index ["room"], name: "index_rooms_on_room", unique: true
+  end
+
+  create_table "sectors", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sessions", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "student_classes", force: :cascade do |t|
