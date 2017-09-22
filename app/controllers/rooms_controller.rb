@@ -80,7 +80,8 @@ class RoomsController < ApplicationController
         
         csvFile = params[:file]
         
-        deu_certo = true
+        error = true
+        message = ""
 
         begin
             CSV.foreach(csvFile.path, headers: true) do |row|
@@ -93,23 +94,22 @@ class RoomsController < ApplicationController
                 @room.capacity = row['capacity']
                 @room.state = true
                 @room.category_id = params[:category_id]
-                deu_certo = false unless @room.save
+                error = false unless @room.save
             end
         rescue CustomError => e
-            deu_certo = false
-            @room = Room.new
-            @room.errors[:file] << e.message
+            error = false
+            message << e.message
         rescue CSV::MalformedCSVError
-            deu_certo = false
-            @room = Room.new
-            @room.errors[:file] << "- Encolding error (use UTF-8)"
+            error = false
+            message = "- Encolding error (use UTF-8)"
         rescue Exception
-            deu_certo = false
-            @room = Room.new
-            @room.errors[:file] << "- Error to read csv file"
+            error = false
+            message = "- Error to read csv file"
         end
 
-        if deu_certo
+        if error
+            @room = Room.new
+            @room.errors[:file] << message
             redirect_to rooms_path
         else
             render 'new'
