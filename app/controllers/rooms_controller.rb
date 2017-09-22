@@ -84,20 +84,29 @@ class RoomsController < ApplicationController
 
         begin
             CSV.foreach(csvFile.path, headers: true) do |row|
+                if row['place'].nil? || row['building'].nil? || row['capacity'].nil?
+                    raise CustomError, "- Incorrectly csv room file"
+                end
                 @room = Room.new
                 @room.room = row['place']
                 @room.building = row['building']
                 @room.capacity = row['capacity']
                 @room.state = true
                 @room.category_id = params[:category_id]
-                puts @room
-                puts @room.room
                 deu_certo = false unless @room.save
             end
+        rescue CustomError => e
+            deu_certo = false
+            @room = Room.new
+            @room.errors[:file] << e.message
+        rescue CSV::MalformedCSVError
+            deu_certo = false
+            @room = Room.new
+            @room.errors[:file] << "- Encolding error (use UTF-8)"
         rescue Exception
             deu_certo = false
             @room = Room.new
-            @room.errors[:file] << "- Error to open csv file"
+            @room.errors[:file] << "- Error to read csv file"
         end
 
         if deu_certo
