@@ -57,7 +57,12 @@
                             <% @sessions.each do |session| %>
                                 <tr>
                                     <td><%= session.name %></td>
-                                    <%= f.fields_for Action.new do |a| %>
+                                    <% 
+                                        @action = Action.new
+                                        @action.session = session
+                                        @permissions.push @action
+                                    %>
+                                    <%= f.fields_for @action do |a| %>
                                         <td>
                                             <%= a.check_box :view, {class: 'checkbox'}, true, false %> 
                                         </td>

@@ -78,7 +78,7 @@ class RoomsController < ApplicationController
 
     def import
         
-        csvFile = params[:room][:Arquivo]#[:file]
+        csvFile = params[:file]
         
         deu_certo = true
 
@@ -89,7 +89,7 @@ class RoomsController < ApplicationController
                 @room.building = row['building']
                 @room.capacity = row['capacity']
                 @room.state = true
-                @room.category_id = params[:room][:category_id]
+                @room.category_id = params[:category_id]
                 puts @room
                 puts @room.room
                 deu_certo = false unless @room.save

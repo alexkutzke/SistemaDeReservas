@@ -16,6 +16,7 @@ class PerfilsController < ApplicationController
     # POST /perfils/new
     def new
         @perfil = Perfil.new
+        @permissions = Array.new
         @sessions =  Session.all
     end
 
@@ -77,5 +78,13 @@ class PerfilsController < ApplicationController
 
     def perfil_params
         params.require(:perfil).permit(:name)
+    end
+
+    def session_params
+        params.require(:session).permit(:name)
+    end
+
+    def action_params
+        params.require(:action).permit(:view, :register, :edit, :remove)
     end
 end
