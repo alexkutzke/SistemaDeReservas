@@ -36,6 +36,11 @@ class PerfilsController < ApplicationController
     # PODT /perfils.json
     def create
         @perfil = Perfil.new(perfil_params)
+        @actions = Array.new
+        @actions << params[:perfil][:action]
+        @actions.each do |a|
+            puts a
+        end
         respond_to do |format|
             if @perfil.save
                 format.html { redirect_to perfils_path }
