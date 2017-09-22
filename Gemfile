@@ -62,4 +62,4 @@ gem 'fullcalendar-rails'
 gem 'momentjs-rails'
 
 # mysql
-gem 'mysql2'
+# gem 'mysql2'
