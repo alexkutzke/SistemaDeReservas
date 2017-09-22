@@ -15,7 +15,11 @@
 }
 
 .navbar-nav>li:hover{
-    background-color: #223242;
+    background-color: #223242 !important;
+}
+
+.navbar-nav>li>a:hover{
+    background-color: #223242 !important;
 }
 
 .navbar-nav>.active>a{
@@ -33,8 +37,8 @@
     border-color: transparent !important;
 }
 
-.navbar-default .navbar-toggle .icon-bar{
-    background-color: #fff;
+.navbar-toggle .icon-bar{
+    border: 1px solid #fff !important;
 }
 
 .navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover{

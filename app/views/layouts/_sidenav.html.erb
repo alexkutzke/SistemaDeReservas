@@ -1,9 +1,5 @@
 <div class='sidenav'>
     <ul>
-        <p style="text-align: center; padding: 10px" class="avatar">
-            
-            <span style="padding-top:25px;"> ${nome[0]} </span>					
-        </p>
         <li <% if active == 1 %> class='sidenav-active' <% end %> >
             <%= link_to '<span><i class="fa fa-calendar"></i></span><span>Reservas</span>'.html_safe, {:action=>"index", :controller=>"welcome"}  %>
         </li>
