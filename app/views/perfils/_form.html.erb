@@ -45,36 +45,36 @@
                             </div>
                         </div>
                     </div>
-                    <% @sessions.each do |session| %>
-                        <%= f.fields_for session do |session_form| %>
-                            <div class="form-group">
-                                <div class="col-md-offset-3 col-md-7">
-                                    <div style="border-bottom: 2px solid #ddd;">
-                                        <h5><i class="fa fa-cog"></i> <%= session.name %> </h5>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <label class="checkbox-inline col-md-offset-3">
-                                        <%= f.check_box :name, {class: 'checkbox'}, true, false %> Visualizar
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <%= f.check_box :name, {class: 'checkbox'}, true, false %> Cadastrar
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <%= f.check_box :name, {class: 'checkbox'}, true, false %> Editar
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <%= f.check_box :name, {class: 'checkbox'}, true, false %>Excluir
-                                    </label>
-                                </div>
-                            </div>
-                        <% end %>
-                    <% end %>
-
-                        
+                    <div class="table-responsive col-sm-10">
+                        <table class="table table-striped table-bordered table-list" id="table">
+                            <tr>
+                                <th></th>
+                                <th>Visualizar</th>
+                                <th>Cadastrar</th>
+                                <th>Editar</th>
+                                <th>Excluir</th>
+                            </tr>
+                            <% @sessions.each do |session| %>
+                                <tr>
+                                    <td><%= session.name %></td>
+                                    <%= f.fields_for Action.new do |a| %>
+                                        <td>
+                                            <%= a.check_box :view, {class: 'checkbox'}, true, false %> 
+                                        </td>
+                                        <td>
+                                            <%= a.check_box :register, {class: 'checkbox'}, true, false %> 
+                                        </td>
+                                        <td>
+                                            <%= a.check_box :edit, {class: 'checkbox'}, true, false %>
+                                        </td>
+                                        <td>
+                                            <%= a.check_box :remove, {class: 'checkbox'}, true, false %>
+                                        </td>
+                                    <% end %>
+                                </tr>
+                            <% end %>
+                        </table>
+                    </div>                       
 
                     <div class="form-group pull"> 
                         <div class="col-sm-offset-3 col-sm-7">

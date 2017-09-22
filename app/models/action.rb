@@ -1,3 +1,4 @@
 class Action < ApplicationRecord
-    has_many :permissions
+  belongs_to :perfil
+  belongs_to :session
 end

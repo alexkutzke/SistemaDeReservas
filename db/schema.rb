@@ -10,12 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170920225326) do
+ActiveRecord::Schema.define(version: 20170921165718) do
 
   create_table "actions", force: :cascade do |t|
-    t.string   "name"
+    t.boolean  "view"
+    t.boolean  "register"
+    t.boolean  "edit"
+    t.boolean  "remove"
+    t.integer  "perfil_id"
+    t.integer  "session_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["perfil_id"], name: "index_actions_on_perfil_id"
+    t.index ["session_id"], name: "index_actions_on_session_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -42,6 +49,15 @@ ActiveRecord::Schema.define(version: 20170920225326) do
     t.index ["department_id"], name: "index_disciplines_on_department_id"
   end
 
+  create_table "equipment", force: :cascade do |t|
+    t.string   "name"
+    t.string   "patrimony"
+    t.integer  "room_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_equipment_on_room_id"
+  end
+
   create_table "materiels", force: :cascade do |t|
     t.string   "name"
     t.string   "patrimony"
@@ -64,17 +80,6 @@ ActiveRecord::Schema.define(version: 20170920225326) do
     t.date     "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "permissions", force: :cascade do |t|
-    t.integer  "perfil_id"
-    t.integer  "session_id"
-    t.integer  "action_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["action_id"], name: "index_permissions_on_action_id"
-    t.index ["perfil_id"], name: "index_permissions_on_perfil_id"
-    t.index ["session_id"], name: "index_permissions_on_session_id"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -109,6 +114,12 @@ ActiveRecord::Schema.define(version: 20170920225326) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["period_id"], name: "index_student_classes_on_period_id"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

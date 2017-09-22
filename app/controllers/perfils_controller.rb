@@ -17,7 +17,6 @@ class PerfilsController < ApplicationController
     def new
         @perfil = Perfil.new
         @sessions =  Session.all
-        @actions = Action.all
     end
 
     # GET /perfils/1.json
@@ -29,6 +28,7 @@ class PerfilsController < ApplicationController
 
     # GET /perfils/edit/1
     def edit
+        @sessions =  Session.all
     end
 
     # POST /perfils

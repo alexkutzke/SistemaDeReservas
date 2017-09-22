@@ -1,3 +1,3 @@
 class Session < ApplicationRecord
-    has_many :permissions
+    has_many :actions
 end
