@@ -16,8 +16,8 @@ class PerfilsController < ApplicationController
     # POST /perfils/new
     def new
         @perfil = Perfil.new
-        @permissions = Array.new
-        @sessions =  Session.all
+        @actions = @perfil.actions.build
+        @session = @actions.build_session
     end
 
     # GET /perfils/1.json

@@ -54,15 +54,9 @@
                                 <th>Editar</th>
                                 <th>Excluir</th>
                             </tr>
-                            <% @sessions.each do |session| %>
-                                <tr>
-                                    <td><%= session.name %></td>
-                                    <% 
-                                        @action = Action.new
-                                        @action.session = session
-                                        @permissions.push @action
-                                    %>
-                                    <%= f.fields_for @action do |a| %>
+                            <%= f.fields_for @session do |s| %>
+                                <td><%= s.label :name %></td>
+                                <%= f.fields_for :actions do |a| %>
                                         <td>
                                             <%= a.check_box :view, {class: 'checkbox'}, true, false %> 
                                         </td>
@@ -76,7 +70,6 @@
                                             <%= a.check_box :remove, {class: 'checkbox'}, true, false %>
                                         </td>
                                     <% end %>
-                                </tr>
                             <% end %>
                         </table>
                     </div>                       
