@@ -15,7 +15,7 @@ resources :rooms  do
 end
 
 resources :categories
-resources :student_classes, :path => 'classes'
+resources :klasses, :path => 'classes'
 resources :materiels, :path => 'equipments'
 resources :dashboards
 resources :welcome

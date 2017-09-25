@@ -1,4 +1,4 @@
-class StudentClass < ApplicationRecord
+class Klass < ApplicationRecord
     belongs_to :period
 
     validates :name, presence: true,

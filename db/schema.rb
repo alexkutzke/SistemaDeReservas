@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170921165718) do
+ActiveRecord::Schema.define(version: 20170925144346) do
 
   create_table "actions", force: :cascade do |t|
     t.boolean  "view"
@@ -47,6 +47,14 @@ ActiveRecord::Schema.define(version: 20170921165718) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.index ["department_id"], name: "index_disciplines_on_department_id"
+  end
+
+  create_table "klasses", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "period_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["period_id"], name: "index_klasses_on_period_id"
   end
 
   create_table "materiels", force: :cascade do |t|
@@ -87,24 +95,10 @@ ActiveRecord::Schema.define(version: 20170921165718) do
     t.index ["room"], name: "index_rooms_on_room", unique: true
   end
 
-  create_table "sectors", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "sessions", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "student_classes", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "period_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["period_id"], name: "index_student_classes_on_period_id"
   end
 
 end

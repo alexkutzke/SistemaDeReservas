@@ -2,6 +2,8 @@
 
 one:
   name: MyString
+  period: one
 
 two:
   name: MyString
+  period: two
