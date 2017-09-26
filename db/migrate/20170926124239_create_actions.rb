@@ -5,9 +5,8 @@ class CreateActions < ActiveRecord::Migration[5.0]
       t.boolean :register
       t.boolean :edit
       t.boolean :remove
+      t.integer :session
       t.references :perfil, foreign_key: true
-      t.references :session, foreign_key: true
-
       t.timestamps
     end
   end

@@ -10,19 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170925144346) do
+ActiveRecord::Schema.define(version: 20170926133407) do
 
   create_table "actions", force: :cascade do |t|
     t.boolean  "view"
     t.boolean  "register"
     t.boolean  "edit"
     t.boolean  "remove"
+    t.integer  "session"
     t.integer  "perfil_id"
-    t.integer  "session_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["perfil_id"], name: "index_actions_on_perfil_id"
-    t.index ["session_id"], name: "index_actions_on_session_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -70,6 +69,7 @@ ActiveRecord::Schema.define(version: 20170925144346) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_perfils_on_name", unique: true
   end
 
   create_table "periods", force: :cascade do |t|
@@ -93,12 +93,6 @@ ActiveRecord::Schema.define(version: 20170925144346) do
     t.datetime "updated_at",         null: false
     t.index ["category_id"], name: "index_rooms_on_category_id"
     t.index ["room"], name: "index_rooms_on_room", unique: true
-  end
-
-  create_table "sessions", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
 end

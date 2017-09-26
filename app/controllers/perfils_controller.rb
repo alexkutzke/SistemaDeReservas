@@ -16,8 +16,6 @@ class PerfilsController < ApplicationController
     # POST /perfils/new
     def new
         @perfil = Perfil.new
-        @actions = @perfil.actions.build
-        @session = @actions.build_session
     end
 
     # GET /perfils/1.json
@@ -36,11 +34,9 @@ class PerfilsController < ApplicationController
     # PODT /perfils.json
     def create
         @perfil = Perfil.new(perfil_params)
-        @actions = Array.new
-        @actions << params[:perfil][:action]
-        @actions.each do |a|
-            puts a
-        end
+        # create a Array of action object from each line from table
+        @actions = Action.new(actions_params)
+        puts @actions.view
         respond_to do |format|
             if @perfil.save
                 format.html { redirect_to perfils_path }
@@ -82,14 +78,13 @@ class PerfilsController < ApplicationController
     end
 
     def perfil_params
-        params.require(:perfil).permit(:name)
+        # case actions_attributes: set on permit, has a error "Actions required"
+        # case actions parameter, then rails console show "Unpermitted parameter: actions_attributes"
+        # https://stackoverflow.com/questions/32529757/how-can-i-get-strong-parameters-to-permit-nested-fields-for-attributes
+        params.require(:perfil).permit(:name, action: [:view, :register, :edit, :remove])
     end
 
-    def session_params
-        params.require(:session).permit(:name)
-    end
-
-    def action_params
-        params.require(:action).permit(:view, :register, :edit, :remove)
+    def actions_params
+        params.permit(actions_attributes: [:view, :register, :edit, :remove])
     end
 end
