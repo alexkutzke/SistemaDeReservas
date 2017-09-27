@@ -8,6 +8,8 @@ TODO list
 
 # Quando eu crio Perfil.new and Array of session no controlador e uso o render 'new', eu perco a váriavel array. Logo precisei definir-os na view. Ao definir na view, eu perco as informações selecionadas anteriormente.
 
+# Como pegar os actions_attributes from form
+
 # Ao usar render 'new', as colunas da tabela são duplicadas.
 
 # Import CSV file: pegar total de registros e fazer um progress bar
