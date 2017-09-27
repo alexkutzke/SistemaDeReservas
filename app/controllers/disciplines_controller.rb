@@ -1,4 +1,5 @@
 class DisciplinesController < ApplicationController
+    require 'csv'
     before_action :set_discipline, only: [:update, :destroy, :edit, :show]
 
     # GET /disciplines
@@ -69,6 +70,7 @@ class DisciplinesController < ApplicationController
     end
 
     def import
+        # pegar total de registros e fazer um progress bar
         csvFile = params[:file]
         
         error = true
@@ -88,7 +90,12 @@ class DisciplinesController < ApplicationController
                 @discipline.name = @array[1]
                 puts 'jogoiu oje'
                 puts 'here'
-                @discipline.department_id = params[:department_id].blank? ? null : params[:department_id]
+                puts params[:department_id].blank?
+                if params[:department_id].blank?
+                    @discipline.department_id = nil
+                else
+                    @discipline.department_id = params[:department_id]
+                end
                 puts @discipline.department_id
                 puts 'after'
                 error = false unless @discipline.save!

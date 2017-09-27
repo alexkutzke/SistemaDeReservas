@@ -8,6 +8,8 @@
 
 Perfil.delete_all
 Action.delete_all
+Discipline.delete_all
+Room.delete_all
 
 p1 = Perfil.create(name: "admin")
 p2 = Perfil.create(name: "Admin Coordenação Acadêmica")
