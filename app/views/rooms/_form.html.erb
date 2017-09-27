@@ -1,3 +1,14 @@
+<p id="error">
+    <% flash.each do |name, msg| -%>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="alert alert-danger">
+                    <%= content_tag :div, msg, class: name %>
+                </div>
+            </div>
+        </div>
+    <% end -%>
+</p>
 <% if @room.errors.any? %>
     <div class="row">
         <div class="col-sm-12">
@@ -45,8 +56,12 @@
                     </div>
                     <div class="form-group">
                         <%= f.label :capacity, '<span style="color:red">*</span> Capacidade'.html_safe, class: 'control-label col-sm-3' %>
-                        <div class="col-sm-7">
+                        <div class="col-sm-2">
                             <%= f.number_field :capacity, class: 'form-control', placeholder: '30' %>
+                        </div>
+                        <%= f.label :category, 'Categoria', class: 'control-label col-sm-1' %>
+                        <div class="col-sm-4">
+                             <%= f.collection_select :category_id, Category.all, :id, :name, {}, {class: "form-control"} %>
                         </div>
                     </div>
                     <div class="form-group">
@@ -68,10 +83,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <%= f.label :category, 'Categoria', class: 'control-label col-sm-3' %>
-                        <div class="col-sm-7">
-                             <%= f.collection_select :category_id, Category.all, :id, :name, {}, {class: "form-control"} %>
-                        </div>
+                        
                     </div>
                     <div class="form-group pull"> 
                         <div class="col-sm-offset-3 col-sm-7">

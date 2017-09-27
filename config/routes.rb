@@ -4,7 +4,12 @@ resources :departments do
         post 'import'
     end
 end
-resources :disciplines
+
+resources :disciplines do
+    collection do
+        post 'import'
+    end
+end
 
 resources :periods
 

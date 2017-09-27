@@ -27,7 +27,6 @@ class PerfilsController < ApplicationController
 
     # GET /perfils/edit/1
     def edit
-        @sessions =  Session.all
     end
 
     # POST /perfils
@@ -35,8 +34,6 @@ class PerfilsController < ApplicationController
     def create
         @perfil = Perfil.new(perfil_params)
         # create a Array of action object from each line from table
-        @actions = Action.new(actions_params)
-        puts @actions.view
         respond_to do |format|
             if @perfil.save
                 format.html { redirect_to perfils_path }

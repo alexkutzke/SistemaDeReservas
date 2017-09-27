@@ -11,6 +11,6 @@ class Room < ApplicationRecord
                         length: { minimum: 1}
 
     def as_json(options={})
-    super(include: :category)
-  end
+        super(include: :category)
+    end
 end

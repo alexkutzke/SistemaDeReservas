@@ -8,11 +8,6 @@ class RoomsController < ApplicationController
         @rooms = Room.paginate(:page => params[:page], per_page: 5)
         @number = Room.count
 
-        @all = Room.all
-        @all.each do |s|
-            puts s.room
-        end
-
         respond_to do |format|
             format.html
             format.json { render :json => Room.all.to_json(include: :category) }
@@ -45,6 +40,7 @@ class RoomsController < ApplicationController
                 format.html { redirect_to rooms_path }
                 format.json { render :json =>  @room.to_json(include: :category), status: :created }
             else
+                # render new, buy change the url
                 format.html { render :new }
                 format.json { render json: @room.errors, status: :unprocessable_entity }
             end
@@ -86,33 +82,39 @@ class RoomsController < ApplicationController
         begin
             CSV.foreach(csvFile.path, headers: true) do |row|
                 if row['place'].nil? || row['building'].nil? || row['capacity'].nil?
-                    raise CustomError, "- Incorrectly csv room file"
+                    raise CustomError, "Incorrectly csv room file. Check the columns names"
                 end
                 @room = Room.new
                 @room.room = row['place']
                 @room.building = row['building']
+                if !(row['capacity'] !~ /\D/)
+                    raise CustomError, "Capacity column must have only numbers" 
+                end
                 @room.capacity = row['capacity']
                 @room.state = true
                 @room.category_id = params[:category_id]
-                error = false unless @room.save
+                error = false unless @room.save!
+
             end
         rescue CustomError => e
-            error = false
             message << e.message
         rescue CSV::MalformedCSVError
-            error = false
-            message = "- Encolding error (use UTF-8)"
+            message = "Encolding error (use UTF-8)"
+        rescue ActiveRecord::RecordInvalid => e
+            if e.message == 'Validation failed: Room has already been taken'
+                message = "Room has already been taken"
+            end
         rescue Exception
-            error = false
-            message = "- Error to read csv file"
+            message = "Error to read csv file"
         end
 
         if error
-            @room = Room.new
-            @room.errors[:file] << message
-            redirect_to rooms_path
+            # @room = Room.new
+            # @room.errors[:file] << message
+            # render 'new'
+            redirect_to new_room_path, :flash => { :error => message }
         else
-            render 'new'
+            redirect_to rooms_path
         end
     end
 
