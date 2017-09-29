@@ -18,6 +18,8 @@ TODO list
 
 # flash or @object.erros when use redirec_to
 
+# remove presence true to department_id field at discipline model
+
 DONE list
 
 # as informações do chechbox que não são selecionados, não estão sendo enviados. Como mandar sempre todos os checkbox, mesmo não sendo selecionados? (Feito)
