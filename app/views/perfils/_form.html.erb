@@ -34,9 +34,61 @@
                     <div class="form-group" style="padding-top: 10px">
                         <%= f.label :room, '<span style="color:red">*</span> Nome'.html_safe, class: 'control-label col-sm-3' %>
                         <div class="col-sm-7">
-                            <%= f.text_field :name, class: 'form-control', placeholder: 'A01', autofocus: true %>
+                            <%= f.text_field :name, class: 'form-control', placeholder: 'admin', autofocus: true %>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <div style="border-bottom: 2px solid #ddd;">
+                                <h3><i class="fa fa-key"></i> Permissões</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive col-sm-10">
+                        <table class="table table-striped table-bordered table-list" id="table">
+                            <tr>
+                                <th></th>
+                                <th>Visualizar</th>
+                                <th>Cadastrar</th>
+                                <th>Editar</th>
+                                <th>Excluir</th>
+                            </tr>
+                            <%  
+                                
+                                # cria um nobo array, uma nova variavel @actions. As informações colocadas vão ser perdidas nos checkbox. Se eu faz redirect_to a mesma coisa acontece. Como manter as informações?
+
+                                # as informações do chechbox que não são selecionados, não estão sendo enviados. Como mandar sempre todos os checkbox, mesmo não sendo selecionados? (Feito)
+
+                                # como fazer a validação desses checkbox?
+                            %>
+                            <% @sessions.each_with_index do |session,i| %>
+                                <tr>
+                                    <td><%=  session %></td>
+                                    <%= f.fields_for "action[#{i}]", @perfil.actions[i] do |a| %>
+                                        <td>
+                                            <%= a.hidden_field :id %>
+                                            <%= a.hidden_field :view, :value => ""  %>
+                                            <%= a.check_box :view, {class: 'checkbox'} %> 
+                                        </td>
+                                        <td>
+                                            <%= a.hidden_field :register, :value =>  "" %>
+                                            <%= a.check_box :register, {class: 'checkbox'} %> 
+                                        </td>
+                                        <td>
+                                            <%= a.hidden_field :edit, :value =>  "" %>
+                                            <%= a.check_box :edit, {class: 'checkbox'} %>
+                                        </td>
+                                        <td>
+                                            <%= a.hidden_field :remove, :value =>  "" %>
+                                            <%= a.check_box :remove, {class: 'checkbox'} %>
+                                        </td>
+                                    <% end %>
+                                </tr>
+                            <% end %>
+                        </table>
+                    </div>                       
+
                     <div class="form-group pull"> 
                         <div class="col-sm-offset-3 col-sm-7">
                             <div class="pull-right">

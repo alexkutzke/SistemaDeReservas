@@ -1,4 +1,5 @@
 class RoomsController < ApplicationController
+    require 'csv'
     before_action :set_room, only: [:show, :edit, :update, :destroy]
 
     # GET /rooms
@@ -39,6 +40,7 @@ class RoomsController < ApplicationController
                 format.html { redirect_to rooms_path }
                 format.json { render :json =>  @room.to_json(include: :category), status: :created }
             else
+                # render new, buy change the url
                 format.html { render :new }
                 format.json { render json: @room.errors, status: :unprocessable_entity }
             end
@@ -67,6 +69,52 @@ class RoomsController < ApplicationController
         respond_to do |format|
             format.html { redirect_to rooms_url, notice: 'Room was successfully removed.' }
             format.json { head :no_content }
+        end
+    end
+
+    def import
+        
+        csvFile = params[:file]
+        
+        error = true
+        message = ""
+
+        begin
+            CSV.foreach(csvFile.path, headers: true) do |row|
+                if row['place'].nil? || row['building'].nil? || row['capacity'].nil?
+                    raise CustomError, "Incorrectly csv room file. Check the columns names"
+                end
+                @room = Room.new
+                @room.room = row['place']
+                @room.building = row['building']
+                if !(row['capacity'] !~ /\D/)
+                    raise CustomError, "Capacity column must have only numbers" 
+                end
+                @room.capacity = row['capacity']
+                @room.state = true
+                @room.category_id = params[:category_id]
+                error = false unless @room.save!
+
+            end
+        rescue CustomError => e
+            message << e.message
+        rescue CSV::MalformedCSVError
+            message = "Encolding error (use UTF-8)"
+        rescue ActiveRecord::RecordInvalid => e
+            if e.message == 'Validation failed: Room has already been taken'
+                message = "Room has already been taken"
+            end
+        rescue Exception
+            message = "Error to read csv file"
+        end
+
+        if error
+            # @room = Room.new
+            # @room.errors[:file] << message
+            # render 'new'
+            redirect_to new_room_path, :flash => { :error => message }
+        else
+            redirect_to rooms_path
         end
     end
 

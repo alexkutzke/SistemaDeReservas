@@ -4,11 +4,23 @@ resources :departments do
         post 'import'
     end
 end
-resources :disciplines
+
+resources :disciplines do
+    collection do
+        post 'import'
+    end
+end
+
 resources :periods
-resources :rooms
+
+resources :rooms  do
+    collection do
+        post 'import'
+    end
+end
+
 resources :categories
-resources :student_classes, :path => 'classes'
+resources :klasses, :path => 'classes'
 resources :materiels, :path => 'equipments'
 resources :dashboards
 resources :welcome

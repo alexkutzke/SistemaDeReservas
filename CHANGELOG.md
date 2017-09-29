@@ -25,3 +25,9 @@ Changes by branch
 - Periods
 - Categories
 - Equipments
+
+## Issue/5
+- Parse room csv
+- Parse disciplines csv
+- Add new perfil and permissions
+- Add edit perfil and permissions (bug)

@@ -60,3 +60,6 @@ gem 'will_paginate-bootstrap'
 # FullCalendar gem
 gem 'fullcalendar-rails'
 gem 'momentjs-rails'
+
+# mysql
+# gem 'mysql2'

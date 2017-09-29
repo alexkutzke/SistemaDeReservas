@@ -1,5 +1,5 @@
 class Discipline < ApplicationRecord
-  belongs_to :department
+  belongs_to :department, optional: true
 
   validates :name, presence: true,
                      length: { minimum: 3}

@@ -69,6 +69,7 @@ class DepartmentsController < ApplicationController
     end
 
     def import
+        
     end
 
     private
