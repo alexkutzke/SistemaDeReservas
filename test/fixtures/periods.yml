@@ -1,15 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  year: 1
-  semester: 1
+  name: 2017 1
   state: false
   start_date: 2017-09-01
   end_date: 2017-09-01
 
 two:
-  year: 1
-  semester: 1
+  name: 2017 2
   state: false
   start_date: 2017-09-01
   end_date: 2017-09-01
