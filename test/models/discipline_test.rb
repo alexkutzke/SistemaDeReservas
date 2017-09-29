@@ -55,4 +55,12 @@ class DisciplineTest < ActiveSupport::TestCase
       discipline.department_id = 
       assert_not discipline.save
   end
+
+  # Should not save (department_id only number) 
+  test "should not save discipline  = department id with letter" do
+      discipline = Discipline.new
+      discipline.discipline_code = "TI123"
+      discipline.department_id = "1s3s4" 
+      assert_not discipline.save
+  end
 end
