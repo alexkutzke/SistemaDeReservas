@@ -6,7 +6,7 @@ class CategoryTest < ActiveSupport::TestCase
       assert_not category.save
   end
 
-  test "should not sabe category with a name lower than 3 characters" do
+  test "should not save category with a name lower than 3 characters" do
     category = Category.new
     category.name = "um"
     assert_not category.save

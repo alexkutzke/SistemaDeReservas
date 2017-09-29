@@ -1,15 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  capacity: 1
-  room: MyString
-  building: MyString
+  capacity: 30
+  room: A02
+  building: A
   state: false
   category: one
 
 two:
-  capacity: 1
-  room: MyString
-  building: MyString
+  capacity: 20
+  room: A01
+  building: A
   state: false
   category: two

@@ -4,14 +4,14 @@ one:
   view: false
   register: false
   edit: false
-  destroy: false
+  remove: false
   perfil: one
-  session: one
+  session: 0
 
 two:
   view: false
   register: false
   edit: false
-  destroy: false
+  remove: false
   perfil: two
-  session: two
+  session: 0
