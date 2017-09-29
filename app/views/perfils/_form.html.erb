@@ -55,33 +55,33 @@
                                 <th>Excluir</th>
                             </tr>
                             <%  
-                                @sessions = Array.new(["Reservas", "Solicitações",  "Perfis", "Usuários", "Departamentos", "Categorias", "Salas", "Disciplinas", "Turmas", "Equipamentos", "Períodos"])
-                                @actions = @perfil.actions.build
+                                
                                 # cria um nobo array, uma nova variavel @actions. As informações colocadas vão ser perdidas nos checkbox. Se eu faz redirect_to a mesma coisa acontece. Como manter as informações?
 
                                 # as informações do chechbox que não são selecionados, não estão sendo enviados. Como mandar sempre todos os checkbox, mesmo não sendo selecionados? (Feito)
 
                                 # como fazer a validação desses checkbox?
                             %>
-                            <% @sessions.each do |i| %>
+                            <% @sessions.each_with_index do |session,i| %>
                                 <tr>
-                                    <td><%=  i %></td>
-                                    <%= f.fields_for :actions do |a| %>
+                                    <td><%=  session %></td>
+                                    <%= f.fields_for "action[#{i}]", @perfil.actions[i] do |a| %>
                                         <td>
+                                            <%= a.hidden_field :id %>
                                             <%= a.hidden_field :view, :value => ""  %>
-                                            <%= a.check_box :view, {class: 'checkbox'}, true, false %> 
+                                            <%= a.check_box :view, {class: 'checkbox'} %> 
                                         </td>
                                         <td>
                                             <%= a.hidden_field :register, :value =>  "" %>
-                                            <%= a.check_box :register, {class: 'checkbox'}, true, false %> 
+                                            <%= a.check_box :register, {class: 'checkbox'} %> 
                                         </td>
                                         <td>
                                             <%= a.hidden_field :edit, :value =>  "" %>
-                                            <%= a.check_box :edit, {class: 'checkbox'}, true, false %>
+                                            <%= a.check_box :edit, {class: 'checkbox'} %>
                                         </td>
                                         <td>
                                             <%= a.hidden_field :remove, :value =>  "" %>
-                                            <%= a.check_box :remove, {class: 'checkbox'}, true, false %>
+                                            <%= a.check_box :remove, {class: 'checkbox'} %>
                                         </td>
                                     <% end %>
                                 </tr>
