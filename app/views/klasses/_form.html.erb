@@ -1,4 +1,4 @@
-<% if @studentClass.errors.any? %>
+<% if @klass.errors.any? %>
     <div class="row">
         <div class="col-sm-12">
             <div class="alert alert-danger">
@@ -6,7 +6,7 @@
                     Atenção:
                 </h2>
                 <ul>
-                    <% @studentClass.errors.full_messages.each do | msg | %>
+                    <% @klass.errors.full_messages.each do | msg | %>
                         <li><%= msg %></li>
                     <% end %>
                 </ul>
@@ -19,11 +19,11 @@
     <div class="col-md-10">
         <div class="panel panel-default">    
             <div class="panel-body"> 
-                <%= form_for(@studentClass, :html => {class: 'form-horizontal'}) do |f| %>
+                <%= form_for(@klass, :html => {class: 'form-horizontal'}) do |f| %>
                     <div class="form-group">
                         <div class="col-md-12">
                             <div style="border-bottom: 2px solid #ddd;">
-                                <% if @studentClass.new_record? %>
+                                <% if @klass.new_record? %>
                                     <h3><i class="fa fa-plus"></i> Nova Turma</h3>
                                 <% else %>
                                     <h3><i class="fa fa-edit"></i> Editar Turma</h3>
@@ -46,8 +46,8 @@
                     <div class="form-group pull"> 
                         <div class="col-sm-offset-3 col-sm-7">
                             <div class="pull-right">
-                                <%= link_to 'Voltar', student_classes_path, class: 'btn btn-danger' %>
-                                <% if @studentClass.new_record? %>
+                                <%= link_to 'Voltar', klasses_path, class: 'btn btn-danger' %>
+                                <% if @klass.new_record? %>
                                     <%= f.submit 'Cadastrar', class: 'btn btn-green' %>
                                 <% else %>
                                     <%= f.submit 'Editar', class: 'btn btn-green' %>

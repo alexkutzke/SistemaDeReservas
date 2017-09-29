@@ -1,3 +1,14 @@
+<p id="error">
+    <% flash.each do |name, msg| -%>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="alert alert-danger">
+                    <%= content_tag :div, msg, class: name %>
+                </div>
+            </div>
+        </div>
+    <% end -%>
+</p>
 <% if @discipline.errors.any? %>
     <div class="row">
         <div class="col-sm-12">

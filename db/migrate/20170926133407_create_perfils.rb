@@ -5,5 +5,6 @@ class CreatePerfils < ActiveRecord::Migration[5.0]
 
       t.timestamps
     end
+    add_index :perfils, :name, unique: true
   end
 end

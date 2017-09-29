@@ -7,10 +7,10 @@ class Room < ApplicationRecord
     validates :building, presence: true,
                         length: { minimum: 1}
 
-    validates :room, presence: true,
+    validates :room, presence: true, uniqueness: true,
                         length: { minimum: 1}
 
     def as_json(options={})
-    super(include: :category)
-  end
+        super(include: :category)
+    end
 end

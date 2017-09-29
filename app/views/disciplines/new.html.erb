@@ -1,4 +1,4 @@
-<%= render :partial => 'layouts/sidenav', :locals => {:active => 9} %>
+<%= render :partial => 'layouts/sidenav', :locals => {:active => 8} %>
 <div class="main-content">
     <div class="row">
         <ol class="breadcrumb">
@@ -9,5 +9,41 @@
     </div>
     <div class="form">
         <%= render 'form' %>
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+            <div class="panel panel-default">    
+                <div class="panel-body">
+                    <%= form_tag 'import', method: 'post',  multipart: true, class: 'form-horizontal', id: 'new-discipline-csv' do %>
+                        <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <h3 style="border-bottom: 2px solid #ddd; padding-bottom: 5px"><i class="fa fa-plus"></i> Nova Disciplina <i style="color: #adadad; font-size: 16px">Arquivo CSV</i></h3>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <%= label_tag 'Arquivo', nil, class: 'control-label col-sm-3' %>            
+                            <div class="col-sm-7">
+                                <%= file_field_tag :file, class: 'form-control' %>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <%= label_tag :department, 'Departamento', class: 'control-label col-sm-3' %>
+                            <div class="col-sm-7">
+                                 <%= select_tag(:department_id, options_from_collection_for_select(Department.all, :id, :name), {:class => "form-control", :include_blank => "Selecione"}) %>
+                            </div>
+                        </div>
+                        <div class="form-group pull"> 
+                            <div class="col-sm-offset-3 col-sm-7">
+                                <div class="pull-right">
+                                    <%= link_to 'Voltar', disciplines_path, class: 'btn btn-danger' %>
+                                    <%= submit_tag('Cadastrar', class: 'btn btn-green') %>
+                                </div>
+                            </div>
+                        </div>
+                    <% end %> 
+                </div>
+            </div>
+        </div>
     </div>
 </div>

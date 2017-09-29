@@ -3,7 +3,8 @@ class CreateDisciplines < ActiveRecord::Migration[5.0]
     create_table :disciplines do |t|
       t.string :name
       t.string :discipline_code
-      t.references :department, foreign_key: true
+      # set department_id to be null
+      t.references :department, foreign_key: true, null: true
 
       t.timestamps
     end

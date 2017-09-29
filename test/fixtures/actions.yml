@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  view: false
+  register: false
+  edit: false
+  destroy: false
+  perfil: one
+  session: one
+
+two:
+  view: false
+  register: false
+  edit: false
+  destroy: false
+  perfil: two
+  session: two
