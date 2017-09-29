@@ -2,14 +2,14 @@
 
 one:
   capacity: 1
-  place: MyString
-  block: MyString
+  room: MyString
+  building: MyString
   state: false
   category: one
 
 two:
   capacity: 1
-  place: MyString
-  block: MyString
+  room: MyString
+  building: MyString
   state: false
   category: two
