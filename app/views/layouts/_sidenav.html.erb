@@ -28,13 +28,13 @@
             <%= link_to '<span><i class="fa fa-th"></i></span><span>Categorias</span>'.html_safe, categories_path  %>  
         </li>
         <li <% if active == 7 %> class='sidenav-active' <% end %> >
-            <%= link_to '<span><i class="fa fa-map-marker"></i></span><span>Salas</span>'.html_safe, rooms_path  %>  
+            <%= link_to '<span><i class="fa fa-map-marker"></i></span><span>Salas</span>'.html_safe, classrooms_path  %>  
         </li>
         <li <% if active == 8 %> class='sidenav-active' <% end %> >        
             <%= link_to '<span><i class="fa fa-book"></i></span><span>Disciplinas</span>'.html_safe, disciplines_path  %>
         </li>
         <li <% if active == 9 %> class='sidenav-active' <% end %> >
-            <%= link_to '<span><i class="fa fa-graduation-cap"></i></span><span>Turmas</span>'.html_safe, student_classes_path  %>
+            <%= link_to '<span><i class="fa fa-graduation-cap"></i></span><span>Turmas</span>'.html_safe, klasses_path  %>
         </li>
         <li <% if active == 10 %> class='sidenav-active' <% end %> >
             <%= link_to '<span><i class="fa fa-gavel"></i></span><span>Equipamentos</span>'.html_safe, materiels_path  %>

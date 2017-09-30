@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170927184545) do
+ActiveRecord::Schema.define(version: 20170930135320) do
 
   create_table "actions", force: :cascade do |t|
     t.boolean  "view"
@@ -28,6 +28,20 @@ ActiveRecord::Schema.define(version: 20170927184545) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "classrooms", force: :cascade do |t|
+    t.integer  "capacity"
+    t.string   "room"
+    t.string   "building"
+    t.boolean  "state"
+    t.string   "description"
+    t.string   "responsible_person"
+    t.integer  "category_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["category_id"], name: "index_classrooms_on_category_id"
+    t.index ["room"], name: "index_classrooms_on_room", unique: true
   end
 
   create_table "departments", force: :cascade do |t|
@@ -81,24 +95,10 @@ ActiveRecord::Schema.define(version: 20170927184545) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "rooms", force: :cascade do |t|
-    t.integer  "capacity"
-    t.string   "room"
-    t.string   "building"
-    t.boolean  "state"
-    t.string   "description"
-    t.string   "responsible_person"
-    t.integer  "category_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.index ["category_id"], name: "index_rooms_on_category_id"
-  end
-
   create_table "sectors", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  t.index ["room"], name: "index_rooms_on_room", unique: true
 end

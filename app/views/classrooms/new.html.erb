@@ -3,7 +3,7 @@
     <div class="row">
         <ol class="breadcrumb">
             <li><a href="dashboard"><i class="fa fa-calendar"></i> Reservas</a></li>
-            <li><%= link_to '<i class="fa fa-map-marker"></i> Salas'.html_safe, rooms_path %></li>
+            <li><%= link_to '<i class="fa fa-map-marker"></i> Salas'.html_safe, classrooms_path %></li>
             <li><i class="fa fa-plus"></i> Nova Sala</li>
         </ol>
     </div>
@@ -36,7 +36,7 @@
                         <div class="form-group pull"> 
                             <div class="col-sm-offset-3 col-sm-7">
                                 <div class="pull-right">
-                                    <%= link_to 'Voltar', rooms_path, class: 'btn btn-danger' %>
+                                    <%= link_to 'Voltar', classroom s_path, class: 'btn btn-danger' %>
                                     <%= submit_tag('Cadastrar', class: 'btn btn-green') %>
                                 </div>
                             </div>
