@@ -60,10 +60,34 @@ class PerfilsController < ApplicationController
     def update
         respond_to do |format|
             if @perfil.update(perfil_params)
-                params[:perfil][:action].each_with_index do |a, i|
-                    @perfil.actions = a;
-                    @perfil.actions.update(actions_params(i))
+                # @perfil.actions = params[:perfil][:action].map {  |key, value| value.update(perfil_and_actions_params) }
+                # puts params[:perfil][:action]
+                # params[:perfil][:action].map do |key, value| 
+                #     id = value["id"]
+                #     puts id
+                # end
+                @perfil.actions = params[:perfil][:action].map do |key, value| 
+                    puts 
+                    @action = Action.find(value["id"])
+                    @action.view = value["view"]
+                    @action.register = value["register"]
+                    @action.edit = value["edit"]
+                    @action.remove = value["remove"]
+                    puts @action.id
+                    puts @action.view
+                    puts @action.register
+                    puts @action.edit
+                    puts @action.remove
+                    Action.update(value["id"],:view =>  value["view"], :register => value["register"], :edit => value["edit"], :remove => value["remove"]) 
                 end
+               #puts @perfil.actions
+                # @perfil.actions = params[:perfil][:action].each {  |key, value| Action.update(value) }
+                #     puts key
+                #     puts value
+                #     # @perfil.actions = value[key]
+                #     puts "aqui"
+                #     value.update(actions_params)
+                # end
                 # @perfil.actions.each do |action_p| 
                 #     Action.find(action_p["id"]).update(actions_params)
                 # end
@@ -108,7 +132,7 @@ class PerfilsController < ApplicationController
         params.require(:perfil).permit(:name)#, actions: [:view, :register, :edit, :remove])
     end
 
-    def actions_params (i)
-        params.require(:perfil).permit(:action[i][:view, :register, :edit, :remove])
+    def perfil_and_actions_params
+        params.require(:perfil).permit(:action_attributes => [:id, :view, :register, :edit, :remove])
     end
 end
