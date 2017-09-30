@@ -1,8 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  id: 1
   capacity: 1
-  room: MyString
+  room: MyString1
   building: MyString
   state: false
   description: MyString
@@ -10,8 +11,9 @@ one:
   category: one
 
 two:
+  id: 2
   capacity: 1
-  room: MyString
+  room: MyString2
   building: MyString
   state: false
   description: MyString
