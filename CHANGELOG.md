@@ -31,3 +31,6 @@ Changes by branch
 - Parse disciplines csv
 - Add new perfil and permissions
 - Add edit perfil and permissions (bug)
+
+## Issue/10
+- Add integration testing for categories, classrooms, departments, disciplines, klasses, equipments, periods, sectors models
