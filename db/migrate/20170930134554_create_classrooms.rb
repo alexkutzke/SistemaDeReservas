@@ -1,6 +1,6 @@
-class CreateRooms < ActiveRecord::Migration[5.0]
+class CreateClassrooms < ActiveRecord::Migration[5.0]
   def change
-    create_table :rooms do |t|
+    create_table :classrooms do |t|
       t.integer :capacity
       t.string :room
       t.string :building
@@ -11,6 +11,6 @@ class CreateRooms < ActiveRecord::Migration[5.0]
 
       t.timestamps
     end
-    add_index :rooms, :room, unique: true
+    add_index :classrooms, :room, unique: true
   end
 end

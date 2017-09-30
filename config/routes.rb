@@ -13,7 +13,7 @@ end
 
 resources :periods
 
-resources :rooms  do
+resources :classrooms do
     collection do
         post 'import'
     end

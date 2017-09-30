@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  capacity: 1
+  room: MyString
+  building: MyString
+  state: false
+  description: MyString
+  responsible_person: MyString
+  category: one
+
+two:
+  capacity: 1
+  room: MyString
+  building: MyString
+  state: false
+  description: MyString
+  responsible_person: MyString
+  category: two

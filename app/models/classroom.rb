@@ -1,4 +1,4 @@
-class Room < ApplicationRecord
+class Classroom < ApplicationRecord
     belongs_to :category
 
     validates :capacity, presence: true,
