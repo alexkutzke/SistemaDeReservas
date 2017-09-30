@@ -60,47 +60,9 @@ class PerfilsController < ApplicationController
     def update
         respond_to do |format|
             if @perfil.update(perfil_params)
-                # @perfil.actions = params[:perfil][:action].map {  |key, value| value.update(perfil_and_actions_params) }
-                # puts params[:perfil][:action]
-                # params[:perfil][:action].map do |key, value| 
-                #     id = value["id"]
-                #     puts id
-                # end
                 @perfil.actions = params[:perfil][:action].map do |key, value| 
-                    puts 
-                    @action = Action.find(value["id"])
-                    @action.view = value["view"]
-                    @action.register = value["register"]
-                    @action.edit = value["edit"]
-                    @action.remove = value["remove"]
-                    puts @action.id
-                    puts @action.view
-                    puts @action.register
-                    puts @action.edit
-                    puts @action.remove
-                    Action.update(value["id"],:view =>  value["view"], :register => value["register"], :edit => value["edit"], :remove => value["remove"]) 
+                    Action.update(value["id"], :view =>  value["view"], :register => value["register"], :edit => value["edit"], :remove => value["remove"]) 
                 end
-               #puts @perfil.actions
-                # @perfil.actions = params[:perfil][:action].each {  |key, value| Action.update(value) }
-                #     puts key
-                #     puts value
-                #     # @perfil.actions = value[key]
-                #     puts "aqui"
-                #     value.update(actions_params)
-                # end
-                # @perfil.actions.each do |action_p| 
-                #     Action.find(action_p["id"]).update(actions_params)
-                # end
-                # @perfil.actions = params[:perfil][:action].values.map { |action_p| Action.find(action_p["id"]).update(actions_params)}
-                #     @a = Action.find(action_p["id"])
-                #     puts @a.id
-                #     puts @a.view
-                #     # puts @perfil.actions.id
-                #     if !@a.nil?
-                #         @a.update()
-                #     end
-                #     # segundo o Action.find(action_p["id"]) ---- Action.find_or_create 
-                # end
                 format.html { redirect_to perfils_path }
                 format.json { render json: @perfil, status: :ok }
             else
