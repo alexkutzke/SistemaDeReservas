@@ -10,19 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170930135320) do
-
-  create_table "actions", force: :cascade do |t|
-    t.boolean  "view"
-    t.boolean  "register"
-    t.boolean  "edit"
-    t.boolean  "remove"
-    t.integer  "session"
-    t.integer  "perfil_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["perfil_id"], name: "index_actions_on_perfil_id"
-  end
+ActiveRecord::Schema.define(version: 20171001192531) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -79,13 +67,6 @@ ActiveRecord::Schema.define(version: 20170930135320) do
     t.index ["room_id"], name: "index_materiels_on_room_id"
   end
 
-  create_table "perfils", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_perfils_on_name", unique: true
-  end
-
   create_table "periods", force: :cascade do |t|
     t.string   "name"
     t.boolean  "state"
@@ -93,6 +74,25 @@ ActiveRecord::Schema.define(version: 20170930135320) do
     t.date     "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "permissions", force: :cascade do |t|
+    t.boolean  "view"
+    t.boolean  "register"
+    t.boolean  "edit"
+    t.boolean  "remove"
+    t.integer  "session"
+    t.integer  "role_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["role_id"], name: "index_permissions_on_role_id"
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_roles_on_name", unique: true
   end
 
   create_table "sectors", force: :cascade do |t|

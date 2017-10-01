@@ -1,24 +1,24 @@
-class PerfilsController < ApplicationController
-    before_action :set_perfil, only: [:show, :edit, :destroy, :update]
+class RolesController < ApplicationController
+    before_action :set_role, only: [:show, :edit, :destroy, :update]
 
     # GET /perfils
     # GET /perfils.json
     def index
-        @perfils = Perfil.paginate(:page => params[:page], per_page:5)
-        @number = Perfil.count
+        @roles = Role.paginate(:page => params[:page], per_page:5)
+        @number = Role.count
 
         respond_to do |format|
             format.html
-            format.json { render :json => Perfil.all }
+            format.json { render :json => Role.all }
         end
     end
 
     # POST /perfils/new
     def new
-        @perfil = Perfil.new
+        @role = Role.new
         @sessions = Array.new(["Reservas", "Solicitações",  "Perfis", "Usuários", "Departamentos", "Categorias", "Salas", "Disciplinas", "Turmas", "Equipamentos", "Períodos"])
         @sessions.each_with_index do |session,i|
-            a = @perfil.actions.build
+            a = @role.permissions.build
             a.session = i
         end
     end
@@ -26,7 +26,7 @@ class PerfilsController < ApplicationController
     # GET /perfils/1.json
     def show
         respond_to do |format|
-            format.json { render json: @perfil }
+            format.json { render json: @role }
         end
     end
 
@@ -38,19 +38,19 @@ class PerfilsController < ApplicationController
     # POST /perfils
     # PODT /perfils.json
     def create
-        @perfil = Perfil.new(perfil_params)
+        @role = Role.new(role_params)
 
         # create a Array of action object from each line from table
         respond_to do |format|
-            if @perfil.save
-                @perfil.actions = params[:perfil][:action].values.map {|action_p| Action.create(action_p)}
-                @perfil.save
-                format.html { redirect_to perfils_path }
-                format.json { render json:  @perfil, status: :created }
+            if @role.save
+                @role.permissions = params[:role][:permission].values.map {|action_p| Permission.create(action_p)}
+                @role.save
+                format.html { redirect_to roles_path }
+                format.json { render json:  @role, status: :created }
             else
                 @sessions = Array.new(["Reservas", "Solicitações",  "Perfis", "Usuários", "Departamentos", "Categorias", "Salas", "Disciplinas", "Turmas", "Equipamentos", "Períodos"])
                 format.html { render :new }
-                format.json { render json: @perfil.errors, status: :unprocessable_entity }
+                format.json { render json: @role.errors, status: :unprocessable_entity }
             end
         end
     end
@@ -59,15 +59,15 @@ class PerfilsController < ApplicationController
     # PATCH/PUT /perfils/1.json
     def update
         respond_to do |format|
-            if @perfil.update(perfil_params)
-                @perfil.actions = params[:perfil][:action].map do |key, value| 
-                    Action.update(value["id"], :view =>  value["view"], :register => value["register"], :edit => value["edit"], :remove => value["remove"]) 
+            if @role.update(role_params)
+                @role.permissions = params[:role][:permission].map do |key, value| 
+                    Permission.update(value["id"], :view =>  value["view"], :register => value["register"], :edit => value["edit"], :remove => value["remove"]) 
                 end
-                format.html { redirect_to perfils_path }
-                format.json { render json: @perfil, status: :ok }
+                format.html { redirect_to roles_path }
+                format.json { render json: @role, status: :ok }
             else
                 format.html { render :edit }
-                format.json { render json:  @perfil.errors, status: :unprocessable_entity }
+                format.json { render json:  @role.errors, status: :unprocessable_entity }
             end
         end
     end
@@ -75,26 +75,26 @@ class PerfilsController < ApplicationController
     # DELETE /perfils/1
     # DELETE /perfils/1.json
     def destroy
-        @perfil.destroy
+        @role.destroy
         respond_to do |format|
-            format.html { redirect_to perfils_url, notice: 'Perfil was successfully removed.' }
+            format.html { redirect_to roles_url, notice: 'Perfil was successfully removed.' }
             format.json { head :no_content }
         end
     end
 
     private
-    def set_perfil
-        @perfil = Perfil.find(params[:id])
+    def set_role
+        @role = Role.find(params[:id])
     end
 
-    def perfil_params
+    def role_params
         # case actions_attributes: set on permit, has a error "Actions required"
         # case actions parameter, then rails console show "Unpermitted parameter: actions_attributes"
         # https://stackoverflow.com/questions/32529757/how-can-i-get-strong-parameters-to-permit-nested-fields-for-attributes
-        params.require(:perfil).permit(:name)#, actions: [:view, :register, :edit, :remove])
+        params.require(:role).permit(:name)#, actions: [:view, :register, :edit, :remove])
     end
 
-    def perfil_and_actions_params
-        params.require(:perfil).permit(:action_attributes => [:id, :view, :register, :edit, :remove])
+    def role_and_actions_params
+        params.require(:role).permit(:permission_attributes => [:id, :view, :register, :edit, :remove])
     end
 end

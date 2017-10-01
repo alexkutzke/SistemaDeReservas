@@ -8,7 +8,7 @@
     </div>
     <div class="row">
         <div class="col-sm-2">
-            <%= link_to '<span><i class="fa fa-plus"></i></span><span> Novo Perfil</span>'.html_safe, new_perfil_path, :class => 'btn btn-green' %>
+            <%= link_to '<span><i class="fa fa-plus"></i></span><span> Novo Perfil</span>'.html_safe, new_role_path, :class => 'btn btn-green' %>
         </div>
     </div>
 
@@ -30,13 +30,13 @@
                                 <th>Nome</th>
                                 <th style="width: 100px"><i class="fa fa-cog"></i></th>
                             </tr>
-                            <% @perfils.each do |p| %>
+                            <% @roles.each do |role| %>
                                 <tr>
-                                    <td><%= p.name %></td>
+                                    <td><%= role.name %></td>
                                     <td>
-                                        <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_perfil_path(p),  :class => 'btn btn-info' %>
+                                        <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_role_path(role),  :class => 'btn btn-info' %>
                                         <%= link_to '<i class="fa fa-trash"></i>'.html_safe,
-                                             perfil_path(p),
+                                             role_path(role),
                                                             method: :delete,
                                                             data: {confirm: 'Are you sure?'},
                                             :class => 'btn btn-danger' %>,
@@ -57,7 +57,7 @@
                         </div>
                         <div class="col-sm-8">
                             <div class="pull-right">
-                                <%= will_paginate @perfils, renderer: BootstrapPagination::Rails, :previous_label => '<i class="fa fa-long-arrow-left"></i>', :next_label => '<i class="fa fa-long-arrow-right"></i>' %>
+                                <%= will_paginate @roles, renderer: BootstrapPagination::Rails, :previous_label => '<i class="fa fa-long-arrow-left"></i>', :next_label => '<i class="fa fa-long-arrow-right"></i>' %>
                             </div>
                         </div>
                     </div>

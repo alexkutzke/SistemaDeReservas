@@ -1,4 +1,4 @@
-<% if @perfil.errors.any? %>
+<% if @role.errors.any? %>
     <div class="row">
         <div class="col-sm-12">
             <div class="alert alert-danger">
@@ -6,7 +6,7 @@
                     Atenção:
                 </h2>
                 <ul>
-                    <% @perfil.errors.full_messages.each do | msg | %>
+                    <% @role.errors.full_messages.each do | msg | %>
                         <li><%= msg %></li>
                     <% end %>
                 </ul>
@@ -19,11 +19,11 @@
     <div class="col-md-10">
         <div class="panel panel-default">    
             <div class="panel-body"> 
-                <%= form_for(@perfil, :html => {class: 'form-horizontal'}) do |f| %>
+                <%= form_for(@role, :html => {class: 'form-horizontal'}) do |f| %>
                     <div class="form-group">
                         <div class="col-md-12">
                             <div style="border-bottom: 2px solid #ddd;">
-                                <% if @perfil.new_record? %>
+                                <% if @role.new_record? %>
                                     <h3><i class="fa fa-plus"></i> Novo Perfil</h3>
                                 <% else %>
                                     <h3><i class="fa fa-edit"></i> Editar Perfil</h3>
@@ -65,23 +65,23 @@
                             <% @sessions.each_with_index do |session,i| %>
                                 <tr>
                                     <td><%=  session %></td>
-                                    <%= f.fields_for "action[#{i}]", @perfil.actions[i] do |a| %>
+                                    <%= f.fields_for "permission[#{i}]", @role.permissions[i] do |permission_form| %>
                                         <td>
-                                            <%= a.hidden_field :id %>
-                                            <%= a.hidden_field :view, :value => ""  %>
-                                            <%= a.check_box :view, {class: 'checkbox'} %> 
+                                            <%= permission_form.hidden_field :id %>
+                                            <%= permission_form.hidden_field :view, :value => ""  %>
+                                            <%= permission_form.check_box :view, {class: 'checkbox'} %> 
                                         </td>
                                         <td>
-                                            <%= a.hidden_field :register, :value =>  "" %>
-                                            <%= a.check_box :register, {class: 'checkbox'} %> 
+                                            <%= permission_form.hidden_field :register, :value =>  "" %>
+                                            <%= permission_form.check_box :register, {class: 'checkbox'} %> 
                                         </td>
                                         <td>
-                                            <%= a.hidden_field :edit, :value =>  "" %>
-                                            <%= a.check_box :edit, {class: 'checkbox'} %>
+                                            <%= permission_form.hidden_field :edit, :value =>  "" %>
+                                            <%= permission_form.check_box :edit, {class: 'checkbox'} %>
                                         </td>
                                         <td>
-                                            <%= a.hidden_field :remove, :value =>  "" %>
-                                            <%= a.check_box :remove, {class: 'checkbox'} %>
+                                            <%= permission_form.hidden_field :remove, :value =>  "" %>
+                                            <%= permission_form.check_box :remove, {class: 'checkbox'} %>
                                         </td>
                                     <% end %>
                                 </tr>
@@ -92,8 +92,8 @@
                     <div class="form-group pull"> 
                         <div class="col-sm-offset-3 col-sm-7">
                             <div class="pull-right">
-                                <%= link_to 'Voltar', perfils_path, class: 'btn btn-danger' %>
-                                <% if @perfil.new_record? %>
+                                <%= link_to 'Voltar', roles_path, class: 'btn btn-danger' %>
+                                <% if @role.new_record? %>
                                     <%= f.submit 'Cadastrar', class: 'btn btn-green' %>
                                 <% else %>
                                     <%= f.submit 'Editar', class: 'btn btn-green' %>

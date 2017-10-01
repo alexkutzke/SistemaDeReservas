@@ -24,7 +24,7 @@ resources :klasses, :path => 'classes'
 resources :materiels, :path => 'equipments'
 resources :dashboards
 resources :welcome
-resources :perfils
+resources :roles, :path => 'perfils'
 resources :sectors
 root 'welcome#index'
 
