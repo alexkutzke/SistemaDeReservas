@@ -1,9 +1,9 @@
 class Discipline < ApplicationRecord
   belongs_to :department, optional: true
 
-  validates :name, presence: true, length: { minimum: 3}, uniqueness: true
+  validates :name, presence: true, length: { minimum: 3}
 
-  validates :discipline_code, presence: true, length: {minimum: 3}, uniqueness: true
+  validates :discipline_code, presence: true, length: {minimum: 3}
 
   # not required at SEPT
   # validates :department_id, presence: true,

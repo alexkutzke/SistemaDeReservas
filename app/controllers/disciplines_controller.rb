@@ -73,32 +73,26 @@ class DisciplinesController < ApplicationController
         # pegar total de registros e fazer um progress bar
         csvFile = params[:file]
         
-        error = false
+        error = true
         message = "Error to read csv file"
 
         begin
-            CSV.foreach(csvFile.path, headers: true) do |row|
-                if row['Subject'].nil?
-                    raise Exception, "Incorrectly csv room file. Check the columns names"
-                end
-                @discipline = Discipline.new
-                @array = row['Subject'].split(/-/)
-                @discipline.discipline_code = @array[0]
-                @discipline.name = @array[1]
-                if params[:department_id].blank?
-                    @discipline.department_id = nil
-                else
-                    @discipline.department_id = params[:department_id]
-                end
-                if !@array[0].nil? && !@array[1].nil?
-                    puts "antes do save"
-                    puts @discipline.save
-                    puts "depois do save"
-                    if !@discipline.save then 
-                        puts "estou aqui"
-                        error = true 
+            Discipline.transaction do
+                CSV.foreach(csvFile.path, headers: true) do |row|
+                    if row['Subject'].nil?
+                        raise Exception, "Incorrectly csv room file. Check the columns names"
                     end
-                    puts error
+                    @discipline = Discipline.new
+                    @discipline.discipline_code = @array[0]
+                    @discipline.name = @array[1]
+                    @discipline.department_id = params[:department_id].blank? ? nil : params[:department_id]
+                    if !@array[0].nil? && !@array[1].nil?
+                        if @discipline.save! then                          
+                            error = false 
+                        else   
+                            raise ActiveRecord::Rollback
+                        end
+                    end
                 end
             end
         rescue CSV::MalformedCSVError

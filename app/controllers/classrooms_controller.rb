@@ -92,6 +92,9 @@ class ClassroomsController < ApplicationController
                 end
                 @classroom.capacity = row['capacity']
                 @classroom.state = true
+                if params[:category_id].nil?
+                    raise CustomError, "Category is required" 
+                end
                 @classroom.category_id = params[:category_id]
                 error = false unless @classroom.save!
 
