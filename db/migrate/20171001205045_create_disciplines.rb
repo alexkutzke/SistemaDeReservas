@@ -8,5 +8,7 @@ class CreateDisciplines < ActiveRecord::Migration[5.0]
 
       t.timestamps
     end
+    add_index :disciplines, :name, unique: true
+    add_index :disciplines, :discipline_code, unique: true
   end
 end

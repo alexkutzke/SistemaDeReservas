@@ -6,6 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+Discipline.delete_all
+=begin
 Role.delete_all
 Permission.delete_all
 Discipline.delete_all
@@ -26,3 +28,4 @@ Permission.create(role_id: p1.id, session: 9, view: true, register: true, edit: 
 Permission.create(role_id: p1.id, session: 10, view: true, register: true, edit: true, remove: true)
 
 Permission.create(role_id: p2.id, session: 4, view: true, register: false, edit: false, remove: false)
+=end

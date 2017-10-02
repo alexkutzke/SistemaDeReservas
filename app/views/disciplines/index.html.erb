@@ -36,7 +36,11 @@
                                 <tr>
                                     <td><%= d.name %></td>
                                     <td><%= d.discipline_code %></td>
-                                    <td><%= d.department.name %></td>
+                                    <% if !d.department.nil? %>
+                                        <td><%= d.department.name %></td>
+                                    <% else %>
+                                        <td></td>
+                                    <% end %>
                                     <td>
                                         <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_discipline_path(d),  :class => 'btn btn-info' %>
                                         <%= link_to '<i class="fa fa-trash"></i>'.html_safe,

@@ -73,51 +73,44 @@ class DisciplinesController < ApplicationController
         # pegar total de registros e fazer um progress bar
         csvFile = params[:file]
         
-        error = true
-        message = ""
+        error = false
+        message = "Error to read csv file"
 
         begin
             CSV.foreach(csvFile.path, headers: true) do |row|
                 if row['Subject'].nil?
-                    raise CustomError, "Incorrectly csv room file. Check the columns names"
+                    raise Exception, "Incorrectly csv room file. Check the columns names"
                 end
                 @discipline = Discipline.new
                 @array = row['Subject'].split(/-/)
-                puts "split kk"
-                puts @array[0]
-                puts @array[1]
                 @discipline.discipline_code = @array[0]
                 @discipline.name = @array[1]
-                puts 'jogoiu oje'
-                puts 'here'
-                puts params[:department_id].blank?
                 if params[:department_id].blank?
                     @discipline.department_id = nil
                 else
                     @discipline.department_id = params[:department_id]
                 end
-                puts @discipline.department_id
-                puts 'after'
-                error = false unless @discipline.save!
-                puts error
-
+                if !@array[0].nil? && !@array[1].nil?
+                    puts "antes do save"
+                    puts @discipline.save
+                    puts "depois do save"
+                    if !@discipline.save then 
+                        puts "estou aqui"
+                        error = true 
+                    end
+                    puts error
+                end
             end
-        rescue CustomError => e
-            message << e.message
         rescue CSV::MalformedCSVError
             message = "Encolding error (use UTF-8)"
         rescue ActiveRecord::RecordInvalid => e
-            if e.message == 'Validation failed: Room has already been taken'
-                message = "Room has already been taken"
+            if e.message == 'Validation failed: Name has already been taken'
+                message = "Name has already been taken"
             end
-        rescue Exception
-            message = "Error to read csv file"
+        rescue Exception => e
+            message = e.message
         end
-
         if error
-            # @room = Room.new
-            # @room.errors[:file] << message
-            # render 'new'
             redirect_to new_discipline_path, :flash => { :error => message }
         else
             redirect_to disciplines_path

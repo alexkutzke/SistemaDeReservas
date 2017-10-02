@@ -101,6 +101,7 @@ class ClassroomsController < ApplicationController
         rescue CSV::MalformedCSVError
             message = "Encolding error (use UTF-8)"
         rescue ActiveRecord::RecordInvalid => e
+            error = true
             if e.message == 'Validation failed: Room has already been taken'
                 message = "Room has already been taken"
             end
