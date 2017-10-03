@@ -40,7 +40,6 @@ class Klass < ApplicationRecord
       @message = e.message 
     rescue Exception => e
       @error = true 
-      puts e.message
       @message = "Error to read csv file"
     end
 

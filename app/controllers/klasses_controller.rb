@@ -1,5 +1,6 @@
 class KlassesController < ApplicationController
     before_action :set_klass, only: [:show, :edit, :update, :destroy]
+    before_action :get_periods, only: [:new, :edit, :import]
 
     # GET /classes
     # GET /classes.json
@@ -79,10 +80,14 @@ class KlassesController < ApplicationController
 
     private
     def set_klass
-      @studentClass = Klass.find(params[:id])
+      @klass = Klass.find(params[:id])
     end
 
     def klass_params
       params.require(:student_class).permit(:name, :period_id)
+    end
+
+    def get_periods
+      @periods = Period.all
     end
 end

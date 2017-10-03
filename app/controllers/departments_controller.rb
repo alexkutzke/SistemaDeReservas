@@ -1,5 +1,6 @@
 class DepartmentsController < ApplicationController
   before_action :set_department, only: [:show, :update, :destroy, :edit]
+  before_action :get_departments, only: [:new, :edit]
 
   # GET /departments
   # GET /departments.json
@@ -74,5 +75,9 @@ class DepartmentsController < ApplicationController
 
   def department_params
     params.require(:department).permit(:name, :abbreviation, :code, :place)
+  end
+
+  def get_departments
+    @departments = Department.all
   end
 end

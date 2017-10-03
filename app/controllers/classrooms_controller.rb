@@ -1,6 +1,7 @@
 class ClassroomsController < ApplicationController
   require 'csv'
   before_action :set_room, only: [:show, :edit, :update, :destroy]
+  before_action :get_categories, only: [:new, :edit, :import]
 
   # GET /classrooms
   # GET /classrooms.json
@@ -89,5 +90,9 @@ class ClassroomsController < ApplicationController
 
   def classroom_params
     params.require(:room).permit(:capacity, :room, :building, :category_id, :state, :description, :responsible_person)
+  end
+
+  def get_categories
+    @categories = Category.all
   end
 end

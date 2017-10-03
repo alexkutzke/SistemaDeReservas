@@ -1,5 +1,6 @@
 class MaterielsController < ApplicationController
   before_action :set_materiel, only: [:show, :edit, :update, :destroy]
+  before_action :get_rooms, only: [:new, :edit]
 
     # GET /equipments
     # GET /equipments.json
@@ -75,5 +76,9 @@ class MaterielsController < ApplicationController
 
     def materiel_params
         params.require(:materiel).permit(:name, :patrimony, :room_id)
+    end
+
+    def get_rooms
+        @rooms = Classroom.all
     end
 end
