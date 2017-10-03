@@ -1,0 +1,9 @@
+<% if !flash[:notice].nil? %>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="alert alert-success">
+                <%= flash[:notice] %>
+            </div>
+        </div>
+    </div>
+<% end %>

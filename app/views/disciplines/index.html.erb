@@ -6,6 +6,9 @@
             <li><i class="fa fa-book"></i> Disciplinas</li>
         </ol>
     </div>
+
+    <%= render :partial => 'layouts/flash_notice' %>
+    
     <div class="row">
         <div class="col-sm-2">
             <%= link_to '<span><i class="fa fa-plus"></i></span><span> Nova Disciplina</span>'.html_safe, new_discipline_path, :class => 'btn btn-green' %>
