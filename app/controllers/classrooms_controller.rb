@@ -84,6 +84,7 @@ class ClassroomsController < ApplicationController
                 if row['place'].nil? || row['building'].nil? || row['capacity'].nil?
                     raise CustomError, "Incorrectly csv room file. Check the columns names"
                 end
+                @array = row['Subject'].split(/-/)
                 @classroom = Classroom.new
                 @classroom.room = row['place']
                 @classroom.building = row['building']

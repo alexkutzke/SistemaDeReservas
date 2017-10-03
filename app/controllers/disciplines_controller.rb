@@ -1,5 +1,4 @@
 class DisciplinesController < ApplicationController
-    require 'csv'
     before_action :set_discipline, only: [:update, :destroy, :edit, :show]
 
     # GET /disciplines
@@ -71,7 +70,12 @@ class DisciplinesController < ApplicationController
 
     def import
         # pegar total de registros e fazer um progress bar
-        Discipline.import(params[:file])
+        @array = Discipline.import(params[:file], params[:department_id])
+        if @array[0]
+          redirect_to new_discipline_path, :flash => { :error => @array[1] }
+        else
+          redirect_to disciplines_path
+        end
     end
 
     private

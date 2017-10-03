@@ -1,4 +1,6 @@
 class Discipline < ApplicationRecord
+  require 'csv'
+
   belongs_to :department, optional: true
 
   validates :name, presence: true, length: { minimum: 3}
@@ -14,22 +16,24 @@ class Discipline < ApplicationRecord
   end
 
   # import discipline csv file
-  def self.import(file)
-    error = true
-    message = "Error to read csv file"
+  def self.import(file, department)
+    @error = true
+    @message = "Error to read csv file"
     begin
       Discipline.transaction do
-        CSV.foreach(csvFile.path, headers: true) do |row|
+        CSV.foreach(file.path, headers: true) do |row|
           if row['Subject'].nil?
             raise Exception, "Incorrectly csv room file. Check the columns names"
           end
+          @array = row['Subject'].split(/-/)
+          puts @array
           @discipline = Discipline.new
           @discipline.discipline_code = @array[0]
           @discipline.name = @array[1]
-          @discipline.department_id = params[:department_id].blank? ? nil : params[:department_id]
+          @discipline.department_id = department.blank? ? nil : department
           if !@array[0].nil? && !@array[1].nil?
             if @discipline.save! then                          
-              error = false 
+              @error = false 
             else   
               raise ActiveRecord::Rollback
             end
@@ -37,17 +41,13 @@ class Discipline < ApplicationRecord
         end
       end
     rescue CSV::MalformedCSVError
-      message = "Encolding error (use UTF-8)"
+      @message = "Encolding error (use UTF-8)"
     rescue ActiveRecord::RecordInvalid => e
-      message = e.message
+      @message = e.message
     rescue Exception => e
-      message = e.message
+      @message = e.message
     end
-    
-    if error
-      redirect_to new_discipline_path, :flash => { :error => message }
-    else
-      redirect_to disciplines_path
-    end
+
+    return @error, @message
   end
 end
