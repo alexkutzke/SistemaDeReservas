@@ -14,8 +14,8 @@ class KlassesController < ApplicationController
     end
 
     # GET /classes/new
-    def Klass
-      @klass = StudentClass.new
+    def new
+      @klass = Klass.new
     end
 
     # GET /classes/1.json
@@ -32,7 +32,7 @@ class KlassesController < ApplicationController
     # POST /classes
     # POST /classes.json
     def create
-      @klass = StudentClass.new(klass_params)
+      @klass = Klass.new(klass_params)
       respond_to do |format|
             if @klass.save
                 format.html { redirect_to klasses_path }
@@ -66,6 +66,15 @@ class KlassesController < ApplicationController
             format.html { redirect_to klasses_url, notice: 'Class was successfully removed.' }
             format.json { head :no_content }
         end
+    end
+
+    def import
+      @array = Klass.import(params[:file], params[:period_id])
+      if @array[0]
+        redirect_to new_klass_path, :flash => { :error => @array[1] }
+      else
+        redirect_to klasses_path
+      end
     end
 
     private

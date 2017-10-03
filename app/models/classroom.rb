@@ -41,9 +41,7 @@ class Classroom < ApplicationRecord
       @message = "Encolding error (use UTF-8)"
     rescue ActiveRecord::RecordInvalid => e
       @error = true
-      if e.message == 'Validation failed: Room has already been taken'
-        @message = "Room has already been taken"
-      end
+      @message = e.message 
     rescue Exception
       @error = true 
       @message = "Error to read csv file"

@@ -36,7 +36,7 @@
                                     <td><%= k.name %></td>
                                     <td><%= k.period.name %></td>
                                     <td>
-                                        <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_klasses_path(k),  :class => 'btn btn-info' %>
+                                        <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_klass_path(k),  :class => 'btn btn-info' %>
                                         <%= link_to '<i class="fa fa-trash"></i>'.html_safe,
                                              klass_path(k),
                                                             method: :delete,

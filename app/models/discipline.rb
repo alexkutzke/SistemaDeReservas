@@ -1,8 +1,8 @@
 class Discipline < ApplicationRecord
   require 'csv'
   belongs_to :department, optional: true
-  validates :name, presence: true, length: { minimum: 3}
-  validates :discipline_code, presence: true, length: {minimum: 3}
+  validates :name, presence: true, length: { minimum: 3 }
+  validates :discipline_code, presence: true, length: {minimum: 3 }
 
   # not required at SEPT
   # validates :department_id, presence: true,
@@ -18,7 +18,7 @@ class Discipline < ApplicationRecord
       Discipline.transaction do
         CSV.foreach(file.path, headers: true) do |row|
           if row['Subject'].nil?
-            raise CustomError, "Incorrectly csv room file. Check the columns names"
+            raise CustomError, "Incorrectly csv discipline file. Check the columns names"
           end
           @array = row['Subject'].split(/-/)
           puts @array
