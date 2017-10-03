@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Discipline.delete_all
+Classroom.delete_all
 =begin
 Role.delete_all
 Permission.delete_all

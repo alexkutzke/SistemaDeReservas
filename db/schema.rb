@@ -58,24 +58,6 @@ ActiveRecord::Schema.define(version: 20171002231431) do
     t.index ["period_id"], name: "index_klasses_on_period_id"
   end
 
-  create_table "materiels", force: :cascade do |t|
-    t.string   "name"
-    t.string   "patrimony"
-    t.integer  "room_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["room_id"], name: "index_materiels_on_room_id"
-  end
-
-  create_table "periods", force: :cascade do |t|
-    t.string   "name"
-    t.boolean  "state"
-    t.date     "start_date"
-    t.date     "end_date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "permissions", force: :cascade do |t|
     t.boolean  "view"
     t.boolean  "register"
@@ -99,6 +81,14 @@ ActiveRecord::Schema.define(version: 20171002231431) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "student_classes", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "period_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["period_id"], name: "index_student_classes_on_period_id"
   end
 
 end

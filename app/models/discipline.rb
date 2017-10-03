@@ -1,10 +1,7 @@
 class Discipline < ApplicationRecord
   require 'csv'
-
   belongs_to :department, optional: true
-
   validates :name, presence: true, length: { minimum: 3}
-
   validates :discipline_code, presence: true, length: {minimum: 3}
 
   # not required at SEPT
@@ -17,13 +14,11 @@ class Discipline < ApplicationRecord
 
   # import discipline csv file
   def self.import(file, department)
-    @error = true
-    @message = "Error to read csv file"
     begin
       Discipline.transaction do
         CSV.foreach(file.path, headers: true) do |row|
           if row['Subject'].nil?
-            raise Exception, "Incorrectly csv room file. Check the columns names"
+            raise CustomError, "Incorrectly csv room file. Check the columns names"
           end
           @array = row['Subject'].split(/-/)
           puts @array
@@ -32,20 +27,24 @@ class Discipline < ApplicationRecord
           @discipline.name = @array[1]
           @discipline.department_id = department.blank? ? nil : department
           if !@array[0].nil? && !@array[1].nil?
-            if @discipline.save! then                          
-              @error = false 
-            else   
+            if !@discipline.save! then                            
               raise ActiveRecord::Rollback
             end
           end
         end
       end
+    rescue CustomError => e
+      @error = true   
+      @message = e.message
     rescue CSV::MalformedCSVError
+      @error = true
       @message = "Encolding error (use UTF-8)"
     rescue ActiveRecord::RecordInvalid => e
+      @error = true
       @message = e.message
-    rescue Exception => e
-      @message = e.message
+    rescue Exception
+      @error = true
+      @message = "Error to read csv file"
     end
 
     return @error, @message
