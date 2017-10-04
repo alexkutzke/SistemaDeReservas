@@ -25,7 +25,7 @@ class SectorsController < ApplicationController
     end
   end
 
-  # GET /sectors/edit/1
+  # GET /sectors/1/edit
   def edit
   end
 

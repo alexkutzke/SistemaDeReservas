@@ -13,10 +13,7 @@
             <%= link_to '<span><i class="fa fa-user"></i></span><span>Perfis</span>'.html_safe, roles_path  %>  
         </li>
         <li <% if active == 3 %> class='sidenav-active' <% end %> >
-            <a data-toggle="tooltip" title="Usuários" href="usuarios">
-                <span><i class="fa fa-group"></i></span>
-                <span>Usuários</span>
-            </a>
+            <%= link_to '<span><i class="fa fa-group"></i></span><span>Usuários</span>'.html_safe, users_path  %>
         </li>
         <li <% if active == 4 %> class='sidenav-active' <% end %>>
             <%= link_to '<span><i class="fa fa-th-list"></i></span><span>Setores</span>'.html_safe, sectors_path  %>  

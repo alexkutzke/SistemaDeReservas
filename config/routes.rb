@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :departments do
     collection do
         post 'import'
@@ -10,8 +11,6 @@ Rails.application.routes.draw do
         post 'import'
     end
   end
-
-  resources :periods
 
   resources :classrooms do
         collection do
@@ -25,6 +24,9 @@ Rails.application.routes.draw do
         post 'import'
     end
   end
+
+  resources :users
+  resources :periods
   resources :materiels, :path => 'equipments'
   resources :dashboards
   resources :welcome
