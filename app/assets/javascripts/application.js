@@ -16,19 +16,43 @@
 //= require turbolinks
 //= require bootstrap
 //= require_tree .
-//= require moment 
+//= require moment
 //= require fullcalendar
 //= require fullcalendar/gcal
 
-$(document).on('turbolinks:load', function() {
-    $('#fullcalendar').fullCalendar({
-        header: {
+var initialize_calendar;
+initialize_calendar = function() {
+  $('#fullcalendar').each(function(){
+    var calendar = $(this);
+    calendar.fullCalendar({
+      header: {
         center: 'title',
         left: 'prev,next',
-        right: 'agendaDay,agendaWeek'
-    },
-    locale : 'pt-br',
-    defaultView: "agendaWeek"
-    })
-});
-
+        right: 'month,agendaWeek,agendaDay'
+      },
+      buttonText: {
+        today: 'Hoje',
+        month: 'mês',
+        week: 'semana',
+        day: 'dia'
+      },
+      monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+      monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+      dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+      dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+      minTime: "06:00:00",
+      maxTime: "23:00:00",
+      height: 793,
+      locale : 'pt-br',
+      defaultView: "agendaWeek",
+      selectable: true,
+      selectHelper: true,
+      editable: true,
+      eventLimit: true,
+      allDaySlot: false,
+      slotMinutes: 60,
+      slotEventOverlap: false
+    });
+  });
+};
+$(document).on('turbolinks:load', initialize_calendar);

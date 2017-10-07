@@ -41,6 +41,7 @@ class ClassroomsController < ApplicationController
         format.html { redirect_to classrooms_path }
         format.json { render :json =>  @classroom.to_json(include: :category), status: :created }
       else
+        puts "format #{format}"
         # render new, buy change the url
         format.html { render :new }
         format.json { render json: @classroom.errors, status: :unprocessable_entity }
@@ -55,7 +56,7 @@ class ClassroomsController < ApplicationController
     respond_to do |format|
       if @classroom.update(classroom_params)
         format.html { redirect_to classrooms_path }
-        format.json { render :json => @classroom.to_json(include: :category), status: :created }             
+        format.json { render :json => @classroom.to_json(include: :category), status: :created }
       else
         format.html { render :edit }
         format.json { render json: @classroom.errors, status: :unprocessable_entity }
@@ -89,10 +90,12 @@ class ClassroomsController < ApplicationController
   end
 
   def classroom_params
-    params.require(:room).permit(:capacity, :room, :building, :category_id, :state, :description, :responsible_person)
+    params.require(:classroom).permit(:capacity, :room, :building, :category_id, :state, :description, :responsible_person)
   end
 
   def get_categories
     @categories = Category.all
   end
+
+  helper_method :get_categories
 end

@@ -22,6 +22,8 @@ TODO list
 
 # pegar total de registros e fazer um progress bar
 
+# se existe uma sala com uma categoria, não se pode excluir esta categoria
+
 DONE list
 
 # as informações do chechbox que não são selecionados, não estão sendo enviados. Como mandar sempre todos os checkbox, mesmo não sendo selecionados? (Feito)
