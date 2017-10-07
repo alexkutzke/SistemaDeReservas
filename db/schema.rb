@@ -10,19 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170930135320) do
-
-  create_table "actions", force: :cascade do |t|
-    t.boolean  "view"
-    t.boolean  "register"
-    t.boolean  "edit"
-    t.boolean  "remove"
-    t.integer  "session"
-    t.integer  "perfil_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["perfil_id"], name: "index_actions_on_perfil_id"
-  end
+ActiveRecord::Schema.define(version: 20171003210747) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -67,6 +55,7 @@ ActiveRecord::Schema.define(version: 20170930135320) do
     t.integer  "period_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_klasses_on_name", unique: true
     t.index ["period_id"], name: "index_klasses_on_period_id"
   end
 
@@ -79,13 +68,6 @@ ActiveRecord::Schema.define(version: 20170930135320) do
     t.index ["room_id"], name: "index_materiels_on_room_id"
   end
 
-  create_table "perfils", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_perfils_on_name", unique: true
-  end
-
   create_table "periods", force: :cascade do |t|
     t.string   "name"
     t.boolean  "state"
@@ -95,10 +77,52 @@ ActiveRecord::Schema.define(version: 20170930135320) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "permissions", force: :cascade do |t|
+    t.boolean  "view"
+    t.boolean  "register"
+    t.boolean  "edit"
+    t.boolean  "remove"
+    t.integer  "session"
+    t.integer  "role_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["role_id"], name: "index_permissions_on_role_id"
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_roles_on_name", unique: true
+  end
+
   create_table "sectors", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email",                             default: "", null: false
+    t.string   "encrypted_password",     limit: 20, default: "", null: false
+    t.string   "cpf",                    limit: 11
+    t.string   "phone_number",           limit: 11
+    t.integer  "role_id"
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                     default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+    t.index ["cpf"], name: "index_users_on_cpf", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["role_id"], name: "index_users_on_role_id"
   end
 
 end

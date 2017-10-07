@@ -61,5 +61,8 @@ gem 'will_paginate-bootstrap'
 gem 'fullcalendar-rails'
 gem 'momentjs-rails'
 
+# devise gem (authentication)
+gem 'devise'
+
 # mysql
 # gem 'mysql2'

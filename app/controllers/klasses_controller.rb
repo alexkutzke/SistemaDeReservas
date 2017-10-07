@@ -1,5 +1,6 @@
 class KlassesController < ApplicationController
     before_action :set_klass, only: [:show, :edit, :update, :destroy]
+    before_action :get_periods, only: [:new, :edit, :import]
 
     # GET /classes
     # GET /classes.json
@@ -14,8 +15,8 @@ class KlassesController < ApplicationController
     end
 
     # GET /classes/new
-    def Klass
-      @klass = StudentClass.new
+    def new
+      @klass = Klass.new
     end
 
     # GET /classes/1.json
@@ -32,7 +33,7 @@ class KlassesController < ApplicationController
     # POST /classes
     # POST /classes.json
     def create
-      @klass = StudentClass.new(klass_params)
+      @klass = Klass.new(klass_params)
       respond_to do |format|
             if @klass.save
                 format.html { redirect_to klasses_path }
@@ -68,12 +69,25 @@ class KlassesController < ApplicationController
         end
     end
 
+    def import
+      @array = Klass.import(params[:file], params[:period_id])
+      if @array[0]
+        redirect_to new_klass_path, :flash => { :error => @array[1] }
+      else
+        redirect_to klasses_path
+      end
+    end
+
     private
     def set_klass
-      @studentClass = Klass.find(params[:id])
+      @klass = Klass.find(params[:id])
     end
 
     def klass_params
       params.require(:student_class).permit(:name, :period_id)
+    end
+
+    def get_periods
+      @periods = Period.all
     end
 end

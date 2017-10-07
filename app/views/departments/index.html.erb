@@ -7,6 +7,9 @@
             <li><i class="fa fa-university"></i> Departamentos</li>
         </ol>
     </div>
+
+    <%= render :partial => 'layouts/flash_notice' %>
+
     <div class="row">
         <div class="col-sm-2">
             <%= link_to '<span><i class="fa fa-plus"></i></span><span> Novo Departamento</span>'.html_safe, new_department_path, :class => 'btn btn-green' %>
