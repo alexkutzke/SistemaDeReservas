@@ -51,7 +51,19 @@ initialize_calendar = function() {
       eventLimit: true,
       allDaySlot: false,
       slotMinutes: 60,
-      slotEventOverlap: false
+      slotEventOverlap: false,
+      select: function(start, end, allDay) {
+        console.log("é pra abrir o modal");
+        alert("chegou aqui");
+      },
+      eventClick:  function(event, jsEvent, view) {
+        //set the values and open the modal
+        console.log("é pra abrir o modal");
+        alert("chegou aqui");
+        // $("#eventInfo").html(event.description);
+        // $("#eventLink").attr('href', event.url);
+        // $("#eventContent").dialog({ modal: true, title: event.title });
+      }
     });
   });
 };

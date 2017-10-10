@@ -61,8 +61,15 @@ gem 'will_paginate-bootstrap'
 gem 'fullcalendar-rails'
 gem 'momentjs-rails'
 
-# devise gem (authentication)
+# gem 'bcrypt', '3.1.7'
+
 gem 'devise'
+
+if Bundler::WINDOWS
+  gem 'bcrypt-ruby', '~> 3.0.0', require: false
+else
+  gem 'bcrypt', '~> 3.1.10', require: false
+end
 
 # mysql
 # gem 'mysql2'

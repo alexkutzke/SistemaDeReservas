@@ -33,3 +33,5 @@ INFO
 # Li que usar transaction não é bom. Mas, para inserir no banco, ele faz um único insert com todos os registros e isso deixa a inserção bem mais rápido do que fazer uma a uma.
 
 PROBLEMAS COM O PARSE
+
+# transaction

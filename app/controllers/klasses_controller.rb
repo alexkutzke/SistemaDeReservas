@@ -84,7 +84,7 @@ class KlassesController < ApplicationController
     end
 
     def klass_params
-      params.require(:student_class).permit(:name, :period_id)
+      params.require(:klass).permit(:name, :period_id)
     end
 
     def get_periods

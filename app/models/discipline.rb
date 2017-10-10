@@ -27,14 +27,14 @@ class Discipline < ApplicationRecord
           @discipline.name = @array[1]
           @discipline.department_id = department.blank? ? nil : department
           if !@array[0].nil? && !@array[1].nil?
-            if !@discipline.save! then                            
+            if !@discipline.save! then
               raise ActiveRecord::Rollback
             end
           end
         end
       end
     rescue CustomError => e
-      @error = true   
+      @error = true
       @message = e.message
     rescue CSV::MalformedCSVError
       @error = true

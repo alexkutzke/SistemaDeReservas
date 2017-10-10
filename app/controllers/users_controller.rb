@@ -34,6 +34,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
+    @user.password = user_params[:encrypted_password]
     respond_to do |format|
       if @user.save
         format.html { redirect_to users_path }
@@ -71,7 +72,7 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    param(:user).require(:name, :email, :password, :cpf, :phone_number, :role_id)
+    params.require(:user).permit(:name, :email, :encrypted_password, :password_confirmation, :cpf, :phone_number, :role_id)
   end
 
   def set_user
