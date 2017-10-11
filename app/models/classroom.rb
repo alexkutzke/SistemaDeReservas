@@ -20,7 +20,7 @@ class Classroom < ApplicationRecord
           @classroom.room = row['place']
           @classroom.building = row['building']
           if !(row['capacity'] !~ /\D/)
-            raise CustomError, "Capacity column must have only numbers" 
+            raise CustomError, "Capacity column must have only numbers"
           end
           @classroom.capacity = row['capacity']
           @classroom.state = true
@@ -28,22 +28,22 @@ class Classroom < ApplicationRecord
             raise CustomError, "Category is required"
           end
           @classroom.category_id = category
-          if !@classroom.save! then                          
+          if !@classroom.save! then
             raise ActiveRecord::Rollback
           end
         end
       end
-    rescue CustomError => e
-      @error = true   
+   rescue CustomError => e
+      @error = true
       @message = e.message
     rescue CSV::MalformedCSVError
-      @error = true 
+      @error = true
       @message = "Encolding error (use UTF-8)"
     rescue ActiveRecord::RecordInvalid => e
       @error = true
-      @message = e.message 
+      @message = e.message
     rescue Exception
-      @error = true 
+      @error = true
       @message = "Error to read csv file"
     end
 

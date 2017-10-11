@@ -2,36 +2,6 @@ TODO list
 
 # set department_id to be null
 
-# Ao criar um novo array e uma nova variavel @actions, as informações colocadas vão ser perdidas nos checkbox, caso seja utilizado redirect_to. Como manter as informações? Com o render, as colunas da tabela são duplicadas.
-
-# como fazer a validação desses checkbox?
-
-# Quando eu crio Perfil.new and Array of session no controlador e uso o render 'new', eu perco a váriavel array. Logo precisei definir-os na view. Ao definir na view, eu perco as informações selecionadas anteriormente.
-
-# Como pegar os actions_attributes from form
-
-# Ao usar render 'new', as colunas da tabela são duplicadas.
-
-# Import CSV file: pegar total de registros e fazer um progress bar
-
-# Melhorar o controlador no meptodo de import (Melhor forma de tratar os erros)
-
 # flash or @object.erros when use redirec_to
 
 # remove presence true to department_id field at discipline model
-
-# pegar total de registros e fazer um progress bar
-
-# se existe uma sala com uma categoria, não se pode excluir esta categoria
-
-DONE list
-
-# as informações do chechbox que não são selecionados, não estão sendo enviados. Como mandar sempre todos os checkbox, mesmo não sendo selecionados? (Feito)
-
-INFO
-
-# Li que usar transaction não é bom. Mas, para inserir no banco, ele faz um único insert com todos os registros e isso deixa a inserção bem mais rápido do que fazer uma a uma.
-
-PROBLEMAS COM O PARSE
-
-# transaction

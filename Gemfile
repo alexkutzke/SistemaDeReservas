@@ -66,9 +66,9 @@ gem 'momentjs-rails'
 gem 'devise'
 
 if Bundler::WINDOWS
-  gem 'bcrypt-ruby', '~> 3.0.0', require: false
+  gem 'bcrypt', platforms: :ruby
 else
-  gem 'bcrypt', '~> 3.1.10', require: false
+  gem 'bcrypt'
 end
 
 # mysql

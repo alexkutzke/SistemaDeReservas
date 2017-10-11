@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  end_at: 2017-10-10 17:55:24
+  start_at: 2017-10-10 17:55:24
+  date_at: 2017-10-10
+  quantity: 1
+  state: false
+  reservation: false
+  klass: one
+  discipline: one
+  classroom: one
+
+two:
+  end_at: 2017-10-10 17:55:24
+  start_at: 2017-10-10 17:55:24
+  date_at: 2017-10-10
+  quantity: 1
+  state: false
+  reservation: false
+  klass: two
+  discipline: two
+  classroom: two

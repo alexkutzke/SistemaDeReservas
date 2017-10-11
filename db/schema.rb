@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171010190356) do
+ActiveRecord::Schema.define(version: 20171010212929) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -96,6 +96,23 @@ ActiveRecord::Schema.define(version: 20171010190356) do
     t.index ["name"], name: "index_roles_on_name", unique: true
   end
 
+  create_table "schedules", force: :cascade do |t|
+    t.time     "end_at",                       null: false
+    t.time     "start_at",                     null: false
+    t.date     "date_at",                      null: false
+    t.integer  "quantity",      default: 1
+    t.integer  "state",         default: 1
+    t.boolean  "reservation",   default: true
+    t.integer  "klass_id"
+    t.integer  "discipline_id"
+    t.integer  "classroom_id"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.index ["classroom_id"], name: "index_schedules_on_classroom_id"
+    t.index ["discipline_id"], name: "index_schedules_on_discipline_id"
+    t.index ["klass_id"], name: "index_schedules_on_klass_id"
+  end
+
   create_table "sectors", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -117,6 +134,7 @@ ActiveRecord::Schema.define(version: 20171010190356) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.index ["cpf"], name: "index_users_on_cpf", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"
