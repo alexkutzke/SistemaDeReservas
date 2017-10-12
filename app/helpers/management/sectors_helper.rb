@@ -1,0 +1,2 @@
+module Management::SectorsHelper
+end

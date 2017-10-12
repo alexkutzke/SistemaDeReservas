@@ -10,6 +10,10 @@ class Klass < ApplicationRecord
 
   def self.import(file, period)
     begin
+      puts file.blank?
+      if file.blank?
+        raise CustomError, "Select a csv file"
+      end
       Klass.transaction do
         CSV.foreach(file.path, headers: true) do |row|
           if row['Students Sets'].nil?
@@ -23,23 +27,23 @@ class Klass < ApplicationRecord
           @klass.period_id = period
           @found = Klass.find_by(name: @klass.name)
           if @found.nil? then
-            if !@klass.save! then                          
+            if !@klass.save! then
               raise ActiveRecord::Rollback
             end
           end
         end
       end
     rescue CustomError => e
-      @error = true   
+      @error = true
       @message = e.message
     rescue CSV::MalformedCSVError
-      @error = true 
+      @error = true
       @message = "Encolding error (use UTF-8)"
     rescue ActiveRecord::RecordInvalid => e
       @error = true
-      @message = e.message 
+      @message = e.message
     rescue Exception => e
-      @error = true 
+      @error = true
       @message = "Error to read csv file"
     end
 

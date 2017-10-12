@@ -1,0 +1,74 @@
+<% if @period.errors.any? %>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="alert alert-danger">
+                <h2>
+                    Atenção:
+                </h2>
+                <ul>
+                    <% @period.errors.full_messages.each do | msg | %>
+                        <li><%= msg %></li>
+                    <% end %>
+                </ul>
+            </div>
+        </div>
+    </div>
+<% end %>
+
+<div class="row">
+    <div class="col-md-10">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <%= form_for([:management, @period], :html => {class: 'form-horizontal'}) do |f| %>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <div style="border-bottom: 2px solid #ddd;">
+                                <% if @period.new_record? %>
+                                    <h3><i class="fa fa-plus"></i> Novo Período</h3>
+                                <% else %>
+                                    <h3><i class="fa fa-edit"></i> Editar Período</h3>
+                                <% end %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="padding-top: 10px">
+                        <%= f.label :name, '<span style="color:red">*</span> Período'.html_safe, class: 'control-label col-sm-3' %>
+                        <div class="col-sm-7">
+                            <%= f.text_field :name, class: 'form-control', placeholder: '1° Semestre de 2017' %>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <%= f.label :state, 'Status', class: 'control-label col-sm-3' %>
+                        <div class="col-sm-7">
+                                <%= f.check_box :state, {class: 'checkbox'}, true, false %>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <%= f.label :start_date, '<span style="color:red">*</span> Data de início'.html_safe, class: 'control-label col-sm-3' %>
+                        <div class="col-sm-7">
+                            <%= f.date_field :start_date, class: 'form-control', placeholder: '31/07/2012' %>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <%= f.label :end_date, '<span style="color:red">*</span> Data de fim'.html_safe, class: 'control-label col-sm-3' %>
+                        <div class="col-sm-7">
+                            <%= f.date_field :end_date, class: 'form-control', placeholder: '21/12/2012' %>
+                        </div>
+                    </div>
+                    <div class="form-group pull">
+                        <div class="col-sm-offset-3 col-sm-7">
+                            <div class="pull-right">
+                                <%= link_to 'Voltar', management_periods_path, class: 'btn btn-danger' %>
+                                <% if @period.new_record? %>
+                                    <%= f.submit 'Cadastrar', class: 'btn btn-green' %>
+                                <% else %>
+                                    <%= f.submit 'Editar', class: 'btn btn-green' %>
+                                <% end %>
+                            </div>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>

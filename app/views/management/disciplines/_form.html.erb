@@ -1,0 +1,79 @@
+<p id="error">
+    <% flash.each do |name, msg| -%>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="alert alert-danger">
+                    <%= content_tag :div, msg, class: name %>
+                </div>
+            </div>
+        </div>
+    <% end -%>
+</p>
+<% if @discipline.errors.any? %>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="alert alert-danger">
+                <h2>
+                    Atenção:
+                </h2>
+                <ul>
+                    <% @discipline.errors.full_messages.each do | msg | %>
+                        <li><%= msg %></li>
+                    <% end %>
+                </ul>
+            </div>
+        </div>
+    </div>
+<% end %>
+
+<div class="row">
+    <div class="col-md-10">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <%= form_for([:management, @discipline], :html => {class: 'form-horizontal'}) do |f| %>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <div style="border-bottom: 2px solid #ddd;">
+                                <% if @discipline.new_record? %>
+                                    <h3><i class="fa fa-plus"></i> Nova Disciplina</h3>
+                                <% else %>
+                                    <h3><i class="fa fa-edit"></i> Editar Disciplina</h3>
+                                <% end %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="padding-top: 10px">
+                        <%= f.label :name, '<span style="color:red">*</span> Nome'.html_safe, class: 'control-label col-sm-3' %>
+                        <div class="col-sm-7">
+                            <%= f.text_field :name, class: 'form-control', placeholder: 'Banco de Dados I', autofocus: true %>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <%= f.label :discipline_code, '<span style="color:red">*</span> Código da Disciplina'.html_safe, class: 'control-label col-sm-3' %>
+                        <div class="col-sm-7">
+                            <%= f.text_field :discipline_code, class: 'form-control', placeholder: 'TI123' %>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <%= f.label :department_id, 'Departamento', class: 'control-label col-sm-3' %>
+                        <div class="col-sm-7">
+                             <%= f.collection_select :department_id, Department.get_departments, :id, :name, {}, {class: "form-control"} %>
+                        </div>
+                    </div>
+                    <div class="form-group pull">
+                        <div class="col-sm-offset-3 col-sm-7">
+                            <div class="pull-right">
+                                <%= link_to 'Voltar', management_disciplines_path, class: 'btn btn-danger' %>
+                                <% if @discipline.new_record? %>
+                                    <%= f.submit 'Cadastrar', class: 'btn btn-green' %>
+                                <% else %>
+                                    <%= f.submit 'Editar', class: 'btn btn-green' %>
+                                <% end %>
+                            </div>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>

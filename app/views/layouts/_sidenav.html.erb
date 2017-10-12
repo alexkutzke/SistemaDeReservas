@@ -10,34 +10,34 @@
             </a>
         </li>
         <li <% if active == 2 %> class='sidenav-active' <% end %>>
-            <%= link_to '<span><i class="fa fa-user"></i></span><span>Perfis</span>'.html_safe, roles_path  %>
+            <%= link_to '<span><i class="fa fa-user"></i></span><span>Perfis</span>'.html_safe, management_roles_path  %>
         </li>
         <li <% if active == 3 %> class='sidenav-active' <% end %> >
-            <%= link_to '<span><i class="fa fa-group"></i></span><span>Usuários</span>'.html_safe, users_path  %>
+            <%= link_to '<span><i class="fa fa-group"></i></span><span>Usuários</span>'.html_safe, management_users_path  %>
         </li>
         <li <% if active == 4 %> class='sidenav-active' <% end %>>
-            <%= link_to '<span><i class="fa fa-th-list"></i></span><span>Setores</span>'.html_safe, sectors_path  %>
+            <%= link_to '<span><i class="fa fa-th-list"></i></span><span>Setores</span>'.html_safe, management_sectors_path  %>
         </li>
         <li <% if active == 5 %> class='sidenav-active' <% end %>>
-            <%= link_to '<span><i class="fa fa-institution"></i></span><span>Departamentos</span>'.html_safe, departments_path  %>
+            <%= link_to '<span><i class="fa fa-institution"></i></span><span>Departamentos</span>'.html_safe, management_departments_path  %>
         </li>
         <li <% if active == 6 %> class='sidenav-active' <% end %>>
-            <%= link_to '<span><i class="fa fa-th"></i></span><span>Categorias</span>'.html_safe, categories_path  %>
+            <%= link_to '<span><i class="fa fa-th"></i></span><span>Categorias</span>'.html_safe, management_categories_path  %>
         </li>
         <li <% if active == 7 %> class='sidenav-active' <% end %> >
-            <%= link_to '<span><i class="fa fa-map-marker"></i></span><span>Salas</span>'.html_safe, classrooms_path  %>
+            <%= link_to '<span><i class="fa fa-map-marker"></i></span><span>Salas</span>'.html_safe, management_classrooms_path  %>
         </li>
         <li <% if active == 8 %> class='sidenav-active' <% end %> >
-            <%= link_to '<span><i class="fa fa-book"></i></span><span>Disciplinas</span>'.html_safe, disciplines_path  %>
+            <%= link_to '<span><i class="fa fa-book"></i></span><span>Disciplinas</span>'.html_safe, management_disciplines_path  %>
         </li>
         <li <% if active == 9 %> class='sidenav-active' <% end %> >
-            <%= link_to '<span><i class="fa fa-graduation-cap"></i></span><span>Turmas</span>'.html_safe, klasses_path  %>
+            <%= link_to '<span><i class="fa fa-graduation-cap"></i></span><span>Turmas</span>'.html_safe, management_klasses_path  %>
         </li>
         <li <% if active == 10 %> class='sidenav-active' <% end %> >
-            <%= link_to '<span><i class="fa fa-gavel"></i></span><span>Equipamentos</span>'.html_safe, materiels_path  %>
+            <%= link_to '<span><i class="fa fa-gavel"></i></span><span>Equipamentos</span>'.html_safe, management_materiels_path  %>
         </li>
         <li <% if active == 11 %> class='sidenav-active' <% end %> >
-            <%= link_to '<span><i class="fa fa-clock-o"></i></span><span>Períodos</span>'.html_safe, periods_path  %>
+            <%= link_to '<span><i class="fa fa-clock-o"></i></span><span>Períodos</span>'.html_safe, management_periods_path  %>
         </li>
     </ul>
 </div>
