@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   namespace :management, :path => 'acesso' do
+
     scope(:path_names => { :new => "cadastrar", :edit => "editar" }) do
       resources :departments, :path => 'departamentos' do
         collection do

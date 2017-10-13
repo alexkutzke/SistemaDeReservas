@@ -1,5 +1,12 @@
-<!-- <%= render :partial => 'layouts/sidenav', :locals => {:active => 0} %> -->
+<%= render :partial => 'layouts/sidenav', :locals => {:active => 0} %>
 <div class="main-content">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><i class="fa fa-calendar"></i> Reservas</li>
+        </ol>
+    </div>
+
+    <%= render :partial => 'layouts/flash_notice' %>
     <div class="row box">
         <form role="form" class="form">
             <div class="form-group">

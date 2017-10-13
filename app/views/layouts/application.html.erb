@@ -11,9 +11,16 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   </head>
 
-  <body>
-    <%= render :partial => 'layouts/header', :locals => {:name => "João"} %>
-    <%= render :partial => 'layouts/sidenav', :locals => {:active => 1} %>
-    <%= yield %>
-  </body>
+  <% if current_user.present? %>
+    <body style="background-color:#F7F7F7">
+        <%= render :partial => 'layouts/header', :locals => {:name => "João"} %>
+        <%= render :partial => 'layouts/sidenav', :locals => {:active => 1} %>
+        <%= yield %>
+    </body>
+  <% else %>
+    <body style="background-color:#ececec">
+      <%= render :partial => 'layouts/navbar', :locals => {:active => 0} %>
+      <%= yield %>
+    </body>
+  <% end %>
 </html>

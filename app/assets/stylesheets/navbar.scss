@@ -26,6 +26,10 @@
     background-color: #223242 !important;
 }
 
+.navbar-nav>.active{
+    background-color: red !important;
+}
+
 @media (min-width: 768px) {
     .navbar {
         border-radius: 0px;
@@ -44,7 +48,3 @@
 .navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover{
      background-color: #138670;
 }
-
-
-
-

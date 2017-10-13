@@ -1,4 +1,5 @@
 <nav class="nav navbar navbar-fixed-top">
+  <div class="container">
     <div class="navbar-header">
         <button id="button-navbar" type="button" data-toggle="collapse" class="navbar-toggle" data-target="#navbar">
             <span class="icon-bar"></span>
@@ -11,15 +12,17 @@
             <span class="icon-bar"></span>
         </button>-->
     </div>
-    <div class="collapse navbar-collapse nav navbar-nav navbar-right" id="navbar">
+    <div class="collapse navbar-collapse" id="navbar">
         <ul class="nav navbar-nav">
-            <li>
-                <a href="meuperfil"><span class="fa fa-style fa-user"></span> <%= name %></a>
-            </li>
-            <li>
-              <%= link_to '<span class="fa fa-style fa-sign-out"></span> Sair'.html_safe, destroy_user_session_path, method: :delete %>
-            </li>
-            <!-- <li><a href="logout"><span class="fa fa-style fa-sign-out"></span> Sair</a></li> -->
+          <li <% if active == 0 %> class='sidenav-active' <% end %>>
+              <%= link_to '<span><i class="fa fa-home"></i></span><span> Início</span>'.html_safe, root_path  %>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li <% if active == 1 %> class='active' <% end %>>
+              <%= link_to '<span><i class="fa fa-sign-in"></i></span><span> Login</span>'.html_safe, new_user_session_path  %>
+          </li>
         </ul>
     </div>
+  </div>
 </nav>

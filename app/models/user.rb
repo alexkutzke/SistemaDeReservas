@@ -4,6 +4,7 @@ class User < ApplicationRecord
   belongs_to :role
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-
+  validates :name, presence: true, length: { minimum: 3 }
+  validates :email, presence: true, uniqueness: true, length: { minimum: 3 }
   validates :cpf, presence: true, uniqueness: true,length: { minimum: 11, maximum: 11 }
 end

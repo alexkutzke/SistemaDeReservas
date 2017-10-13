@@ -1,7 +1,7 @@
-<div class='sidenav'>
+<div class='sidenav' style="margin-top:50px">
     <ul>
-        <li <% if active == 0 %> class='sidenav-active' <% end %> >
-            <%= link_to '<span><i class="fa fa-calendar"></i></span><span>Reservas</span>'.html_safe, welcome_index_url  %>
+        <li <% if active == 0 %> class='sidenav-active' <% end %>>
+            <%= link_to '<span><i class="fa fa-calendar"></i></span><span>Reservas</span>'.html_safe, management_schedules_path  %>
         </li>
         <li <% if active == 1 %> class='sidenav-active' <% end %> >
             <a data-toggle="tooltip" title="Solicitações" href="solicitacoes">
