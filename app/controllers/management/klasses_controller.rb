@@ -1,4 +1,5 @@
 class Management::KlassesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_klass, only: [:show, :edit, :update, :destroy]
   before_action :get_periods, only: [:new, :edit, :import]
 

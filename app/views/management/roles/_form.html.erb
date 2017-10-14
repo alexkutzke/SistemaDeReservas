@@ -53,6 +53,7 @@
                                 <th>Cadastrar</th>
                                 <th>Editar</th>
                                 <th>Excluir</th>
+                                <th>Importar</th>
                             </tr>
                             <%
 
@@ -68,12 +69,12 @@
                                     <%= f.fields_for "permission[#{i}]", @role.permissions[i] do |permission_form| %>
                                         <td>
                                             <%= permission_form.hidden_field :id %>
-                                            <%= permission_form.hidden_field :view, :value => ""  %>
-                                            <%= permission_form.check_box :view, {class: 'checkbox'} %>
+                                            <%= permission_form.hidden_field :index, :value => ""  %>
+                                            <%= permission_form.check_box :index, {class: 'checkbox'} %>
                                         </td>
                                         <td>
-                                            <%= permission_form.hidden_field :register, :value =>  "" %>
-                                            <%= permission_form.check_box :register, {class: 'checkbox'} %>
+                                            <%= permission_form.hidden_field :new, :value =>  "" %>
+                                            <%= permission_form.check_box :new, {class: 'checkbox'} %>
                                         </td>
                                         <td>
                                             <%= permission_form.hidden_field :edit, :value =>  "" %>
@@ -82,6 +83,10 @@
                                         <td>
                                             <%= permission_form.hidden_field :remove, :value =>  "" %>
                                             <%= permission_form.check_box :remove, {class: 'checkbox'} %>
+                                        </td>
+                                        <td>
+                                            <%= permission_form.hidden_field :import, :value =>  "" %>
+                                            <%= permission_form.check_box :import, {class: 'checkbox'} %>
                                         </td>
                                     <% end %>
                                 </tr>

@@ -1,5 +1,7 @@
 class Management::RolesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_role, only: [:show, :edit, :destroy, :update]
+  before_action :set_sessions_array, only: [:new, :edit, :create]
 
   # GET /perfils
   # GET /perfils.json
@@ -16,7 +18,6 @@ class Management::RolesController < ApplicationController
   # POST /perfils/new
   def new
     @role = Role.new
-    @sessions = Array.new(["Reservas", "Solicitações",  "Perfis", "Usuários", "Departamentos", "Categorias", "Salas", "Disciplinas", "Turmas", "Equipamentos", "Períodos"])
     @sessions.each_with_index do |session,i|
         a = @role.permissions.build
         a.session = i
@@ -32,7 +33,6 @@ class Management::RolesController < ApplicationController
 
   # GET /perfils/edit/1
   def edit
-    @sessions = Array.new(["Reservas", "Solicitações",  "Perfis", "Usuários", "Departamentos", "Categorias", "Salas", "Disciplinas", "Turmas", "Equipamentos", "Períodos"])
   end
 
   # POST /perfils
@@ -48,7 +48,6 @@ class Management::RolesController < ApplicationController
             format.html { redirect_to management_roles_path }
             format.json { render json:  @role, status: :created }
         else
-            @sessions = Array.new(["Reservas", "Solicitações",  "Perfis", "Usuários", "Departamentos", "Categorias", "Salas", "Disciplinas", "Turmas", "Equipamentos", "Períodos"])
             format.html { render :new }
             format.json { render json: @role.errors, status: :unprocessable_entity }
         end
@@ -61,7 +60,7 @@ class Management::RolesController < ApplicationController
     respond_to do |format|
       if @role.update(role_params)
         @role.permissions = params[:role][:permission].map do |key, value|
-            Permission.update(value["id"], :view =>  value["view"], :register => value["register"], :edit => value["edit"], :remove => value["remove"])
+            Permission.update(value["id"], :index =>  value["index"], :new => value["new"], :edit => value["edit"], :remove => value["remove"], :import => value["import"])
         end
         format.html { redirect_to management_roles_path }
         format.json { render json: @role, status: :ok }
@@ -95,6 +94,10 @@ class Management::RolesController < ApplicationController
   end
 
   def role_and_actions_params
-    params.require(:role).permit(:permission_attributes => [:id, :view, :register, :edit, :remove])
+    params.require(:role).permit(:permission_attributes => [:id, :index, :new, :edit, :remove])
+  end
+
+  def set_sessions_array
+    @sessions = Array.new(["Reservas", "Solicitações",  "Perfis", "Usuários", "Setores", "Departamentos", "Categorias", "Salas", "Disciplinas", "Turmas", "Equipamentos", "Períodos"])
   end
 end

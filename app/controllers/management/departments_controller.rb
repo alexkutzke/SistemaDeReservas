@@ -1,4 +1,5 @@
 class Management::DepartmentsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_department, only: [:show, :update, :destroy, :edit]
   before_action :get_departments, only: [:new, :edit]
 

@@ -1,5 +1,6 @@
 class Management::ClassroomsController < ApplicationController
   require 'csv'
+  before_action :authenticate_user!
   before_action :set_room, only: [:show, :edit, :update, :destroy]
   before_action :get_categories, only: [:new, :edit, :import]
 

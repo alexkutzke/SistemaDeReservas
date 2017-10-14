@@ -2,11 +2,7 @@ Rails.application.routes.draw do
   namespace :management, :path => 'acesso' do
 
     scope(:path_names => { :new => "cadastrar", :edit => "editar" }) do
-      resources :departments, :path => 'departamentos' do
-        collection do
-          post 'import'
-        end
-      end
+      resources :departments, :path => 'departamentos'
     end
     scope(:path_names => { :new => "cadastrar", :edit => "editar" }) do
       resources :users, :path => "usuarios"
@@ -15,14 +11,14 @@ Rails.application.routes.draw do
     scope(:path_names => { :new => "cadastrar", :edit => "editar" }) do
       resources :disciplines, :path => "disciplinas" do
         collection do
-          post 'import'
+          post 'import', :path => 'importar'
         end
       end
     end
     scope(:path_names => { :new => "cadastrar", :edit => "editar" }) do
       resources :classrooms, :path => "salas" do
         collection do
-          post 'import'
+          post 'import', :path => 'importar'
         end
       end
     end
@@ -32,7 +28,7 @@ Rails.application.routes.draw do
     scope(:path_names => { :new => "cadastrar", :edit => "editar" }) do
       resources :klasses, :path => "turmas" do
         collection do
-            post 'import'
+            post 'import', :path => 'importar'
         end
       end
     end
@@ -51,6 +47,6 @@ Rails.application.routes.draw do
     end
   end
   resources :welcome
-  devise_for :users
+  devise_for :users, :path => "usuarios"
   root 'welcome#index'
 end

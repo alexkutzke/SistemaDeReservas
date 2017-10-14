@@ -1,4 +1,5 @@
 class Management::UsersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :get_roles, only: [:new, :edit]
 

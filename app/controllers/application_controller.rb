@@ -7,4 +7,13 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_in, keys: [:email, :encrypted_password, :remember_me])
     devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :password, :password_confirmation, :name, :cpf, :role_id])
   end
+
+  protected
+  def get_current_user
+    @currentUser = User.find(current_user.id)
+  end
+
+  def get_permission_from_user
+    @permission = Permission.where("role_id", @currentUser)
+  end
 end

@@ -1,4 +1,5 @@
 class Management::DisciplinesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_discipline, only: [:update, :destroy, :edit, :show]
 
   # GET /disciplines

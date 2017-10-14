@@ -1,4 +1,5 @@
 class Management::MaterielsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_materiel, only: [:show, :edit, :update, :destroy]
   before_action :get_rooms, only: [:new, :edit]
 

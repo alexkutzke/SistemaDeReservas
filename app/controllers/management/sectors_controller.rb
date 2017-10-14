@@ -1,4 +1,5 @@
 class Management::SectorsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_sector, only: [:show, :edit, :update, :destroy]
 
   # GET /sectors

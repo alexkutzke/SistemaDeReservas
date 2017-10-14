@@ -1,5 +1,11 @@
 TODO list
 
+# remove role, remove user, or
+  - remove role, and set role_id field on permission table to null; Then,
+  role_id field on database must be a nullable;
+
+  -------------------------------------------------------------
+
 # set department_id to be null
 
 # flash or @object.erros when use redirec_to
