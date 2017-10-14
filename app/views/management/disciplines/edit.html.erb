@@ -1,0 +1,13 @@
+<%= render :partial => 'layouts/sidenav', :locals => {:active => 8} %>
+<div class="main-content">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="dashboard"><i class="fa fa-calendar"></i> Reservas</a></li>
+            <li><%= link_to '<i class="fa fa-book"></i> Disciplinas'.html_safe, management_disciplines_path %></li>
+            <li><i class="fa fa-edit"></i> Editar Disciplina</li>
+        </ol>
+    </div>
+    <div class="form">
+        <%= render 'form' %>
+    </div>
+</div>

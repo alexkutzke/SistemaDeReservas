@@ -1,0 +1,23 @@
+<%= render :partial => 'layouts/sidenav', :locals => {:active => 0} %>
+<div class="main-content">
+    <div class="row box">
+        <form role="form" class="form">
+            <div class="form-group">
+                <label class="control-label" for="salas">Sala</label>
+                <select class="form-control" autofocus>
+                    <option selected value="1">A01</option>
+                    <option value="2">A02</option>
+                    <option value="3">A03</option>
+                </select>
+            </div>
+
+        </form>
+    </div>
+    <div class="row" >
+        <div class="col-md-12" >
+            <div id="calendar-background">
+                <div id="fullcalendar"></div>
+            </div>
+        </div>
+    </div>
+</div>

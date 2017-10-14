@@ -8,7 +8,7 @@
         <!--<button type="button" id="button-reduce">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-            <span class="icon-bar"></span> 
+            <span class="icon-bar"></span>
         </button>-->
     </div>
     <div class="collapse navbar-collapse nav navbar-nav navbar-right" id="navbar">
@@ -16,7 +16,10 @@
             <li>
                 <a href="meuperfil"><span class="fa fa-style fa-user"></span> <%= name %></a>
             </li>
-            <li><a href="logout"><span class="fa fa-style fa-sign-out"></span> Sair</a></li>
+            <li>
+              <%= link_to '<span class="fa fa-style fa-sign-out"></span> Sair'.html_safe, destroy_user_session_path, method: :delete %>
+            </li>
+            <!-- <li><a href="logout"><span class="fa fa-style fa-sign-out"></span> Sair</a></li> -->
         </ul>
     </div>
 </nav>

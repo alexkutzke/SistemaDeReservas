@@ -1,0 +1,104 @@
+<p id="error">
+    <% flash.each do |name, msg| -%>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="alert alert-danger">
+                    <%= content_tag :div, msg, class: name %>
+                </div>
+            </div>
+        </div>
+    <% end -%>
+</p>
+<% if @classroom.errors.any? %>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="alert alert-danger">
+                <h2>
+                    Atenção:
+                </h2>
+                <ul>
+                    <% @classroom.errors.full_messages.each do | msg | %>
+                        <li><%= msg %></li>
+                    <% end %>
+                </ul>
+            </div>
+        </div>
+    </div>
+<% end %>
+
+<div class="row">
+    <div class="col-md-10">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <%= form_for([:management, @classroom], :html => {class: 'form-horizontal'}) do |f| %>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <div style="border-bottom: 2px solid #ddd;">
+                                <% if @classroom.new_record? %>
+                                    <h3><i class="fa fa-plus"></i> Nova Sala</h3>
+                                <% else %>
+                                    <h3><i class="fa fa-edit"></i> Editar Sala</h3>
+                                <% end %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="padding-top: 10px">
+                        <%= f.label :room, '<span style="color:red">*</span> Sala'.html_safe, class: 'control-label col-sm-3' %>
+                        <div class="col-sm-7">
+                            <%= f.text_field :room, class: 'form-control', placeholder: 'A01', autofocus: true %>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <%= f.label :building, '<span style="color:red">*</span> Bloco'.html_safe, class: 'control-label col-sm-3' %>
+                        <div class="col-sm-7">
+                            <%= f.text_field :building, class: 'form-control', placeholder: 'A' %>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <%= f.label :capacity, '<span style="color:red">*</span> Capacidade'.html_safe, class: 'control-label col-sm-3' %>
+                        <div class="col-sm-2">
+                            <%= f.number_field :capacity, class: 'form-control', placeholder: '30' %>
+                        </div>
+                        <%= f.label :category, 'Categoria', class: 'control-label col-sm-1' %>
+                        <div class="col-sm-4">
+                             <%= f.collection_select :category_id, Category.all, :id, :name, {}, {class: "form-control"} %>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <%= f.label :state, 'Status', class: 'control-label col-sm-3' %>
+                        <div class="col-sm-7">
+                                <%= f.check_box :state, {class: 'checkbox'}, true, false %>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <%= f.label :responsible_person, 'Responsável'.html_safe, class: 'control-label col-sm-3' %>
+                        <div class="col-sm-7">
+                            <%= f.text_field :responsible_person, class: 'form-control', placeholder: 'João da Silva' %>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <%= f.label :description, 'Descrição', class: 'control-label col-sm-3' %>
+                        <div class="col-sm-7">
+                            <%= f.text_area :description, class: 'form-control', placeholder: 'Esta sala possui um quadro negro, 1 mesa + cadeira para professor' %>
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                    </div>
+                    <div class="form-group pull">
+                        <div class="col-sm-offset-3 col-sm-7">
+                            <div class="pull-right">
+                                <%= link_to 'Voltar', management_classrooms_path, class: 'btn btn-danger' %>
+                                <% if @classroom.new_record? %>
+                                    <%= f.submit 'Cadastrar', class: 'btn btn-green' %>
+                                <% else %>
+                                    <%= f.submit 'Editar', class: 'btn btn-green' %>
+                                <% end %>
+                            </div>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>

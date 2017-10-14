@@ -26,6 +26,10 @@
     background-color: #223242 !important;
 }
 
+.navbar-nav>.active{
+    background-color: red !important;
+}
+
 @media (min-width: 768px) {
     .navbar {
         border-radius: 0px;
@@ -45,6 +49,7 @@
      background-color: #138670;
 }
 
-
-
-
+.nav > li > a:focus {
+  outline: none;
+  background-color: #509e81;
+}

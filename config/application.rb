@@ -13,3 +13,6 @@ module TesteFolder
     # -- all .rb files in that directory are automatically loaded.
   end
 end
+
+# config.active_record.time_zone_aware_types = [:datetime]
+# config.active_record.time_zone_aware_types = [:datetime, :time]

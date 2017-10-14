@@ -11,6 +11,10 @@ class Classroom < ApplicationRecord
 
   def self.import(file, category)
     begin
+      puts file.blank?
+      if file.blank?
+        raise CustomError, "Select a csv file"
+      end
       Discipline.transaction do
         CSV.foreach(file.path, headers: true) do |row|
           if row['place'].nil? || row['building'].nil? || row['capacity'].nil?

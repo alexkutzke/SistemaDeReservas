@@ -15,6 +15,10 @@ class Discipline < ApplicationRecord
   # import discipline csv file
   def self.import(file, department)
     begin
+      puts file.blank?
+      if file.blank?
+        raise CustomError, "Select a csv file"
+      end
       Discipline.transaction do
         CSV.foreach(file.path, headers: true) do |row|
           if row['Subject'].nil?

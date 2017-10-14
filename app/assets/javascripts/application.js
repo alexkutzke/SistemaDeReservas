@@ -50,14 +50,43 @@ initialize_calendar = function() {
       editable: true,
       eventLimit: true,
       allDaySlot: false,
-      slotMinutes: 60,
       slotEventOverlap: false,
+      // events: [{
+      //   title: 'event1',
+      //   start: '2017-10-12'
+      // }],
+      events: function(start, end, timezone, callback) {
+        $.ajax({
+            url: '/schedules.json',
+            dataType: 'json',
+            data: {
+                // our hypothetical feed requires UNIX timestamps
+                start: start.unix(),
+                end: end.unix()
+            },
+            success: function(doc) {
+                var events = [];
+                var i = 0;
+                $(doc).find('schedules').each(function() {
+                    i++;
+                    events.push({
+                        title: 'Event ' + i,
+                        start: $(this).attr('start_at'), // will be parsed
+                        end: $(this).attr('end_at')
+                    });
+
+                });
+                callback(events);
+            }
+        });
+      },
+      // events: '/schedules.json',
       select: function(start, end, allDay) {
-        
+        console.log(start.format());
+        console.log(end.format());
       },
       eventClick:  function(event, jsEvent, view) {
         //set the values and open the modal
-        console.log("é pra abrir o modal");
         alert("chegou aqui");
         // $("#eventInfo").html(event.description);
         // $("#eventLink").attr('href', event.url);

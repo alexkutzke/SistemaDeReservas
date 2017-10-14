@@ -1,0 +1,28 @@
+<nav class="nav navbar navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+        <button id="button-navbar" type="button" data-toggle="collapse" class="navbar-toggle" data-target="#navbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <!--<button type="button" id="button-reduce">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>-->
+    </div>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="nav navbar-nav">
+          <li <% if active == 0 %> class='sidenav-active' <% end %>>
+              <%= link_to '<span><i class="fa fa-home"></i></span><span> Início</span>'.html_safe, root_path  %>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li <% if active == 1 %> class='active' <% end %>>
+              <%= link_to '<span><i class="fa fa-sign-in"></i></span><span> Login</span>'.html_safe, new_user_session_path  %>
+          </li>
+        </ul>
+    </div>
+  </div>
+</nav>
