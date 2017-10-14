@@ -1,7 +1,6 @@
 class Management::DepartmentsController < ApplicationController
   before_action :authenticate_user!, :set_session, :get_current_user, :get_permissions_from_user, :authorize
   before_action :set_department, only: [:show, :update, :destroy, :edit]
-  before_action :get_departments, only: [:new, :edit]
 
   # GET /departments
   # GET /departments.json
@@ -76,10 +75,6 @@ class Management::DepartmentsController < ApplicationController
 
   def department_params
     params.require(:department).permit(:name, :abbreviation, :code, :place)
-  end
-
-  def get_departments
-    @departments = Department.all
   end
 
   def set_session

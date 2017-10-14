@@ -1,8 +1,7 @@
 class Policy
-  attr_reader :user, :permission, :session_id, :record
+  attr_reader :permission
 
-  def initialize(user, permission)
-    @user = user
+  def initialize(permission)
     @permission = permission
   end
 
@@ -12,7 +11,7 @@ class Policy
   end
 
   def update?
-    false
+    true
   end
 
   def index?
@@ -20,18 +19,18 @@ class Policy
   end
 
   def new?
-    permission.new?
+    permission.new
   end
 
   def edit?
-    permission.edit?
+    permission.edit
   end
 
   def destroy?
-    permission.remove?
+    permission.remove
   end
 
   def import?
-    permission.import?
+    permission.import
   end
 end

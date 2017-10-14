@@ -10,11 +10,13 @@
 
     <%= render :partial => 'layouts/flash_notice' %>
 
-    <div class="row">
-        <div class="col-sm-2">
-            <%= link_to '<span><i class="fa fa-plus"></i></span><span> Novo Departamento</span>'.html_safe, new_management_department_path, :class => 'btn btn-green' %>
-        </div>
-    </div>
+    <% if can :new, :department %>
+      <div class="row">
+          <div class="col-sm-2">
+              <%= link_to '<span><i class="fa fa-plus"></i></span><span> Novo Departamento</span>'.html_safe, new_management_department_path, :class => 'btn btn-green' %>
+          </div>
+      </div>
+    <% end %>
 
     <div class="row" style="margin-top:15px;">
         <div class="col-md-10">
@@ -35,22 +37,38 @@
                                 <th>Sigla</th>
                                 <th>Código</th>
                                 <th>Local</th>
-                                <th style="width: 100px"><i class="fa fa-cog"></i></th>
+                                <% if can(:edit, :department) || can(:destroy, :department) %>
+                                  <th style="width: 100px"><i class="fa fa-cog"></i></th>
+                                <% end %>
                             </tr>
                             <% @departments.each do |d| %>
                                 <tr>
-                                    <td><%= d.name %></td>
-                                    <td><%= d.abbreviation %></td>
-                                    <td><%= d.code %></td>
-                                    <td><%= d.place %></td>
+                                  <td><%= d.name %></td>
+                                  <td><%= d.abbreviation %></td>
+                                  <td><%= d.code %></td>
+                                  <td><%= d.place %></td>
+                                  <% if can(:edit, :department) && can(:destroy, :department) %>
                                     <td>
-                                        <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_management_department_path(d),  :class => 'btn btn-info' %>
-                                        <%= link_to '<i class="fa fa-trash"></i>'.html_safe,
-                                             management_department_path(d),
-                                                            method: :delete,
-                                                            data: {confirm: 'Are you sure?'},
-                                            :class => 'btn btn-danger' %>,
+                                      <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_management_department_path(d),  :class => 'btn btn-info' %>
+                                      <%= link_to '<i class="fa fa-trash"></i>'.html_safe,
+                                           management_department_path(d),
+                                                          method: :delete,
+                                                          data: {confirm: 'Are you sure?'},
+                                          :class => 'btn btn-danger' %>
                                     </td>
+                                  <% elsif can(:edit, :classroom) && !can(:destroy, :classroom) %>
+                                    <td>
+                                      <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_management_department_path(d),  :class => 'btn btn-info' %>
+                                    </td>
+                                  <% elsif !can(:edit, :department) && can(:destroy, :department) %>
+                                    <td>
+                                      <%= link_to '<i class="fa fa-trash"></i>'.html_safe,
+                                           management_department_path(d),
+                                                          method: :delete,
+                                                          data: {confirm: 'Are you sure?'},
+                                          :class => 'btn btn-danger' %>
+                                    </td>
+                                  <% end %>
                                 </tr>
                             <% end %>
                         </table>

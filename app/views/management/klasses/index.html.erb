@@ -9,11 +9,13 @@
 
     <%= render :partial => 'layouts/flash_notice' %>
 
-    <div class="row">
-        <div class="col-sm-2">
-            <%= link_to '<span><i class="fa fa-plus"></i></span><span> Nova Turma</span>'.html_safe, new_management_klass_path, :class => 'btn btn-green' %>
-        </div>
-    </div>
+    <% if can :new, :klass %>
+      <div class="row">
+          <div class="col-sm-2">
+              <%= link_to '<span><i class="fa fa-plus"></i></span><span> Nova Turma</span>'.html_safe, new_management_klass_path, :class => 'btn btn-green' %>
+          </div>
+      </div>
+    <% end %>
 
     <div class="row" style="margin-top:15px;">
         <div class="col-md-10">
@@ -32,20 +34,36 @@
                             <tr>
                                 <th>Turma</th>
                                 <th>Período</th>
-                                <th style="width: 100px"><i class="fa fa-cog"></i></th>
+                                <% if can(:edit, :klass) || can(:destroy, :klass) %>
+                                  <th style="width: 100px"><i class="fa fa-cog"></i></th>
+                                <% end %>
                             </tr>
                             <% @klasses.each do |k| %>
                                 <tr>
                                     <td><%= k.name %></td>
                                     <td><%= k.period.name %></td>
-                                    <td>
+                                    <% if can(:edit, :klass) && can(:destroy, :klass) %>
+                                      <td>
                                         <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_management_klass_path(k),  :class => 'btn btn-info' %>
                                         <%= link_to '<i class="fa fa-trash"></i>'.html_safe,
                                              management_klass_path(k),
                                                             method: :delete,
                                                             data: {confirm: 'Are you sure?'},
-                                            :class => 'btn btn-danger' %>,
-                                    </td>
+                                            :class => 'btn btn-danger' %>
+                                      </td>
+                                    <% elsif !(can :edit, :klass) && can(:destroy, :klass) %>
+                                      <td>
+                                        <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_management_klass_path(k),  :class => 'btn btn-info' %>
+                                      </td>
+                                    <% elsif !(can :edit, :klass) && can(:destroy, :klass) %>
+                                      <td>
+                                        <%= link_to '<i class="fa fa-trash"></i>'.html_safe,
+                                             management_klass_path(k),
+                                                            method: :delete,
+                                                            data: {confirm: 'Are you sure?'},
+                                            :class => 'btn btn-danger' %>
+                                      </td>
+                                    <% end %>
                                 </tr>
                             <% end %>
                         </table>

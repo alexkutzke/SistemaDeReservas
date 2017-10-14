@@ -9,11 +9,13 @@
 
     <%= render :partial => 'layouts/flash_notice' %>
 
-    <div class="row">
-        <div class="col-sm-2">
-            <%= link_to '<span><i class="fa fa-plus"></i></span><span> Nova Sala</span>'.html_safe, new_management_classroom_path, :class => 'btn btn-green' %>
-        </div>
-    </div>
+    <% if can :new, :classroom %>
+      <div class="row">
+          <div class="col-sm-2">
+              <%= link_to '<span><i class="fa fa-plus"></i></span><span> Nova Sala</span>'.html_safe, new_management_classroom_path, :class => 'btn btn-green' %>
+          </div>
+      </div>
+    <% end %>
 
     <div class="row" style="margin-top:15px;">
         <div class="col-md-10">
@@ -34,7 +36,9 @@
                                 <th>Bloco</th>
                                 <th>Capacidade</th>
                                 <th>Categoria</th>
-                                <th style="width: 100px"><i class="fa fa-cog"></i></th>
+                                <% if can(:edit, :classroom) || can(:destroy, :classroom) %>
+                                  <th style="width: 100px"><i class="fa fa-cog"></i></th>
+                                <% end %>
                             </tr>
                             <% @classrooms.each do |r| %>
                                 <tr>
@@ -46,14 +50,28 @@
                                     <% else %>
                                         <td><%= r.category.name %></td>
                                     <% end %>
-                                    <td>
+                                    <% if can(:edit, :classroom) && can(:destroy, :classroom) %>
+                                      <td>
                                         <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_management_classroom_path(r),  :class => 'btn btn-info' %>
                                         <%= link_to '<i class="fa fa-trash"></i>'.html_safe,
                                              management_classroom_path(r),
                                                             method: :delete,
                                                             data: {confirm: 'Are you sure?'},
-                                            :class => 'btn btn-danger' %>,
-                                    </td>
+                                            :class => 'btn btn-danger' %>
+                                      </td>
+                                    <% elsif can(:edit, :classroom) && !can(:destroy, :classroom) %>
+                                      <td>
+                                        <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_management_classroom_path(r),  :class => 'btn btn-info' %>
+                                      </td>
+                                    <% elsif !can(:edit, :classroom) && can(:destroy, :classroom) %>
+                                      <td>
+                                        <%= link_to '<i class="fa fa-trash"></i>'.html_safe,
+                                             management_classroom_path(r),
+                                                            method: :delete,
+                                                            data: {confirm: 'Are you sure?'},
+                                            :class => 'btn btn-danger' %>
+                                      </td>
+                                    <% end %>
                                 </tr>
                             <% end %>
                         </table>

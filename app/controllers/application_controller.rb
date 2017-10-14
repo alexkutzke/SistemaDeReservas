@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
 
   protected
   def get_current_user
+    @arraySession = { schedule: 0, solicitation: 1, role: 2, user: 3, sector: 4, department: 5, category: 6, classroom: 7,  discipline: 8, klass: 9, materiel: 10, period: 11}
     @currentUser = User.find(current_user.id)
   end
 
@@ -20,10 +21,24 @@ class ApplicationController < ActionController::Base
   end
 
   def policy
-    Policy.new(@currentUser,@permission)
+    Policy.new(@permission)
   end
 
   def authorize
-    redirect_to management_schedules_path unless policy().public_send(params[:action] + "?")
+    controllers = params[:controller].split("/")
+    if params[:action] == 'new' || params[:action] == 'edit' || params[:action] == 'destroy'
+      puts "management_#{controllers[1]}_path"
+      redirect_to send("management_#{controllers[1]}_path") unless policy.public_send(params[:action] + "?")
+    else
+      redirect_to management_schedules_path unless policy.public_send(params[:action] + "?")
+    end
   end
+
+  # required send session id or session symbol
+  def can(action, session)
+    @session = @arraySession[session]; get_permissions_from_user
+    policy.public_send("#{action}?")
+  end
+
+  helper_method :can, :get_current_user
 end
