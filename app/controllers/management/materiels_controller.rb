@@ -1,5 +1,5 @@
 class Management::MaterielsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :set_session, :get_current_user, :get_permissions_from_user, :authorize
   before_action :set_materiel, only: [:show, :edit, :update, :destroy]
   before_action :get_rooms, only: [:new, :edit]
 
@@ -81,5 +81,9 @@ class Management::MaterielsController < ApplicationController
 
   def get_rooms
     @rooms = Classroom.all
+  end
+
+  def set_session
+    @session = 10
   end
 end

@@ -1,5 +1,5 @@
 class Management::RolesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :set_session, :get_current_user, :get_permissions_from_user, :authorize
   before_action :set_role, only: [:show, :edit, :destroy, :update]
   before_action :set_sessions_array, only: [:new, :edit, :create]
 
@@ -43,7 +43,13 @@ class Management::RolesController < ApplicationController
     # create a Array of action object from each line from table
     respond_to do |format|
         if @role.save
-            @role.permissions = params[:role][:permission].values.map {|action_p| Permission.create(action_p)}
+            @i = 0;
+            @role.permissions = params[:role][:permission].values.map do |action_p|
+              @p = Permission.new(action_p)
+              @p.session = @i
+              @i = @i + 1
+              @p
+            end
             @role.save
             format.html { redirect_to management_roles_path }
             format.json { render json:  @role, status: :created }
@@ -99,5 +105,9 @@ class Management::RolesController < ApplicationController
 
   def set_sessions_array
     @sessions = Array.new(["Reservas", "Solicitações",  "Perfis", "Usuários", "Setores", "Departamentos", "Categorias", "Salas", "Disciplinas", "Turmas", "Equipamentos", "Períodos"])
+  end
+
+  def set_session
+    @session = 2
   end
 end

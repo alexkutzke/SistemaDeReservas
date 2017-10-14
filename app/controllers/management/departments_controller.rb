@@ -1,5 +1,5 @@
 class Management::DepartmentsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :set_session, :get_current_user, :get_permissions_from_user, :authorize
   before_action :set_department, only: [:show, :update, :destroy, :edit]
   before_action :get_departments, only: [:new, :edit]
 
@@ -80,5 +80,9 @@ class Management::DepartmentsController < ApplicationController
 
   def get_departments
     @departments = Department.all
+  end
+
+  def set_session
+    @session = 5
   end
 end

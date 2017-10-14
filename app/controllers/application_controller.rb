@@ -13,7 +13,17 @@ class ApplicationController < ActionController::Base
     @currentUser = User.find(current_user.id)
   end
 
-  def get_permission_from_user
-    @permission = Permission.where("role_id", @currentUser)
+  def get_permissions_from_user
+    Permission.where(role_id: @currentUser.role_id, session: @session).each do |p|
+      @permission = Permission.find(p.id)
+    end
+  end
+
+  def policy
+    Policy.new(@currentUser,@permission)
+  end
+
+  def authorize
+    redirect_to management_schedules_path unless policy().public_send(params[:action] + "?")
   end
 end

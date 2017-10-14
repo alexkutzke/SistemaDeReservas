@@ -1,5 +1,5 @@
 class Management::SectorsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :set_session, :get_current_user, :get_permissions_from_user, :authorize
   before_action :set_sector, only: [:show, :edit, :update, :destroy]
 
   # GET /sectors
@@ -76,5 +76,9 @@ class Management::SectorsController < ApplicationController
 
   def sector_params
     params.require(:sector).permit(:name)
+  end
+
+  def set_session
+    @session = 4
   end
 end

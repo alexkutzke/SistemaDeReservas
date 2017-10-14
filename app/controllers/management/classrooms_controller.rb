@@ -1,6 +1,6 @@
 class Management::ClassroomsController < ApplicationController
   require 'csv'
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :set_session, :get_current_user, :get_permissions_from_user, :authorize
   before_action :set_room, only: [:show, :edit, :update, :destroy]
   before_action :get_categories, only: [:new, :edit, :import]
 
@@ -96,6 +96,10 @@ class Management::ClassroomsController < ApplicationController
 
   def get_categories
     @categories = Category.all
+  end
+
+  def set_session
+    @session = 7
   end
 
   helper_method :get_categories

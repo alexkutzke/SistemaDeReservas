@@ -1,5 +1,5 @@
 class Management::KlassesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :set_session, :get_current_user, :get_permissions_from_user, :authorize
   before_action :set_klass, only: [:show, :edit, :update, :destroy]
   before_action :get_periods, only: [:new, :edit, :import]
 
@@ -90,5 +90,9 @@ class Management::KlassesController < ApplicationController
 
   def get_periods
     @periods = Period.all
+  end
+  
+  def set_session
+    @session = 9
   end
 end

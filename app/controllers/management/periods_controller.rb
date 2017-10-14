@@ -1,5 +1,5 @@
 class Management::PeriodsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :set_session, :get_current_user, :get_permissions_from_user, :authorize
   before_action :set_period, only: [:show, :edit, :update, :destroy]
 
   # GET /periods
@@ -78,5 +78,9 @@ class Management::PeriodsController < ApplicationController
 
   def period_params
     params.require(:period).permit(:state, :name, :start_date, :end_date)
+  end
+  
+  def set_session
+    @session =  11
   end
 end

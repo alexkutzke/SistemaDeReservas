@@ -1,6 +1,5 @@
 class Management::CategoriesController < ApplicationController
-  before_action :authenticate_user!, :get_current_user, :get_permission_from_user
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :set_session, :get_current_user, :get_permissions_from_user, :authorize
   before_action :set_category, only: [:show, :update, :destroy, :edit]
 
   # GET /categories
@@ -77,5 +76,9 @@ class Management::CategoriesController < ApplicationController
 
   def category_params
     params.require(:category).permit(:name)
+  end
+
+  def set_session
+    @session = 6
   end
 end

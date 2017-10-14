@@ -1,5 +1,5 @@
 class Management::DisciplinesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :set_session, :get_current_user, :get_permissions_from_user, :authorize
   before_action :set_discipline, only: [:update, :destroy, :edit, :show]
 
   # GET /disciplines
@@ -84,5 +84,8 @@ class Management::DisciplinesController < ApplicationController
   end
   def discipline_params
     params.require(:discipline).permit(:name, :discipline_code, :department_id)
+  end
+  def set_session
+    @session = 8
   end
 end
