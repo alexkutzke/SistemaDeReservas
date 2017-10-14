@@ -53,8 +53,4 @@ class Classroom < ApplicationRecord
 
     return @error, @message
   end
-
-  def self.get_classrooms
-    Classroom.all
-  end
 end

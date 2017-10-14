@@ -1,5 +1,6 @@
 class Management::CategoriesController < ApplicationController
   before_action :authenticate_user!, :set_session, :get_current_user, :get_permissions_from_user, :authorize
+  before_action :get_permission_from_index, only: [:index]
   before_action :set_category, only: [:show, :update, :destroy, :edit]
 
   # GET /categories
@@ -80,5 +81,9 @@ class Management::CategoriesController < ApplicationController
 
   def set_session
     @session = 6
+  end
+
+  def get_permission_from_index
+    can[:edit] = can :edit, :category
   end
 end

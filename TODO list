@@ -6,6 +6,10 @@ TODO list
 
   -------------------------------------------------------------
 
+# add modal to back and edit button on forms
+
+-------------------------------------------------------------------
+
 # set department_id to be null
 
 # flash or @object.erros when use redirec_to

@@ -108,6 +108,6 @@ class Management::RolesController < ApplicationController
   end
 
   def set_session
-    @session = 2
+    @session = 6
   end
 end

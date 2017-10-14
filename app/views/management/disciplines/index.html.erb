@@ -9,11 +9,13 @@
 
     <%= render :partial => 'layouts/flash_notice' %>
 
-    <div class="row">
-        <div class="col-sm-2">
-            <%= link_to '<span><i class="fa fa-plus"></i></span><span> Nova Disciplina</span>'.html_safe, new_management_discipline_path, :class => 'btn btn-green' %>
-        </div>
-    </div>
+    <% if can :new, :discipline %>
+      <div class="row">
+          <div class="col-sm-2">
+              <%= link_to '<span><i class="fa fa-plus"></i></span><span> Nova Disciplina</span>'.html_safe, new_management_discipline_path, :class => 'btn btn-green' %>
+          </div>
+      </div>
+    <% end %>
 
     <div class="row" style="margin-top:15px;">
         <div class="col-md-10">
@@ -33,25 +35,41 @@
                                 <th>Nome</th>
                                 <th>Código</th>
                                 <th>Departamento</th>
-                                <th style="width: 100px"><i class="fa fa-cog"></i></th>
+                                <% if can(:edit, :discipline) || can(:destroy, :discipline) %>
+                                  <th style="width: 100px"><i class="fa fa-cog"></i></th>
+                                <% end %>
                             </tr>
                             <% @disciplines.each do |d| %>
                                 <tr>
-                                    <td><%= d.name %></td>
-                                    <td><%= d.discipline_code %></td>
-                                    <% if !d.department.nil? %>
-                                        <td><%= d.department.name %></td>
-                                    <% else %>
-                                        <td></td>
-                                    <% end %>
+                                  <td><%= d.name %></td>
+                                  <td><%= d.discipline_code %></td>
+                                  <% if !d.department.nil? %>
+                                      <td><%= d.department.name %></td>
+                                  <% else %>
+                                      <td></td>
+                                  <% end %>
+                                  <% if can(:edit, :discipline) && can(:destroy, :discipline) %>
                                     <td>
                                         <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_management_discipline_path(d),  :class => 'btn btn-info' %>
                                         <%= link_to '<i class="fa fa-trash"></i>'.html_safe,
                                             management_discipline_path(d),
                                                             method: :delete,
                                                             data: {confirm: 'Are you sure?'},
-                                            :class => 'btn btn-danger' %>,
+                                            :class => 'btn btn-danger' %>
                                     </td>
+                                  <% elsif can(:edit, :discipline) && !can(:destroy, :discipline) %>
+                                    <td>
+                                      <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_management_discipline_path(d),  :class => 'btn btn-info' %>
+                                    </td>
+                                  <% elsif !(can :edit, :discipline) && can(:destroy, :discipline) %>
+                                    <td>
+                                      <%= link_to '<i class="fa fa-trash"></i>'.html_safe,
+                                          management_discipline_path(d),
+                                                          method: :delete,
+                                                          data: {confirm: 'Are you sure?'},
+                                          :class => 'btn btn-danger' %>
+                                    </td>
+                                  <% end %>
                                 </tr>
                             <% end %>
                         </table>

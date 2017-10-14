@@ -1,7 +1,6 @@
 class Management::UsersController < ApplicationController
   before_action :authenticate_user!, :set_session, :get_current_user, :get_permissions_from_user, :authorize
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :get_roles, only: [:new, :edit]
 
   # GET /usuarios
   # GET /usuarios.json
@@ -83,10 +82,6 @@ class Management::UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
-  end
-
-  def get_roles
-    @roles = Role.all
   end
 
   def set_session

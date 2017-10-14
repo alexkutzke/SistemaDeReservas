@@ -1,8 +1,6 @@
 class Management::ClassroomsController < ApplicationController
-  require 'csv'
   before_action :authenticate_user!, :set_session, :get_current_user, :get_permissions_from_user, :authorize
   before_action :set_room, only: [:show, :edit, :update, :destroy]
-  before_action :get_categories, only: [:new, :edit, :import]
 
   # GET /classrooms
   # GET /classrooms.json
@@ -92,10 +90,6 @@ class Management::ClassroomsController < ApplicationController
 
   def classroom_params
     params.require(:classroom).permit(:capacity, :room, :building, :category_id, :state, :description, :responsible_person)
-  end
-
-  def get_categories
-    @categories = Category.all
   end
 
   def set_session

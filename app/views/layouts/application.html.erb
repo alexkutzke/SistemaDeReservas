@@ -5,22 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': true %>
+    <% if !user_signed_in? %>
+      <%= stylesheet_link_tag    'welcome', media: 'all', 'data-turbolinks-track': true %>
+    <% end %>
 
     <%= javascript_include_tag 'application', 'data-turbolinks-track': true %>
 
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   </head>
 
-  <% if current_user.present? %>
+  <% if user_signed_in? %>
     <body style="background-color:#F7F7F7">
+        <% get_current_user %>
         <%= render :partial => 'layouts/header', :locals => {:name => "João"} %>
-        <%= render :partial => 'layouts/sidenav', :locals => {:active => 1} %>
-        <%= yield %>
-    </body>
+        <%= render :partial => 'layouts/sidenav', :locals => {:active => 0} %>
   <% else %>
     <body style="background-color:#ececec">
       <%= render :partial => 'layouts/navbar', :locals => {:active => 0} %>
-      <%= yield %>
-    </body>
   <% end %>
+  <%= yield %>
+  </body>
 </html>

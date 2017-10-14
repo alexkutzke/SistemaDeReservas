@@ -82,9 +82,11 @@ class Management::DisciplinesController < ApplicationController
   def set_discipline
     @discipline = Discipline.find(params[:id])
   end
+
   def discipline_params
     params.require(:discipline).permit(:name, :discipline_code, :department_id)
   end
+
   def set_session
     @session = 8
   end
