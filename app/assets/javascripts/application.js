@@ -57,40 +57,43 @@ initialize_calendar = function() {
       // }],
       events: function(start, end, timezone, callback) {
         $.ajax({
-            url: '/schedules.json',
+            url: '/reservas',
             dataType: 'json',
             data: {
                 // our hypothetical feed requires UNIX timestamps
-                start: start.unix(),
-                end: end.unix()
+                start: moment(start).format('YYYY-MM-DD'),
+                // start: start.unix(),
+                end: moment(end).format('YYYY-MM-DD')
             },
             success: function(doc) {
-                var events = [];
-                var i = 0;
-                $(doc).find('schedules').each(function() {
-                    i++;
-                    events.push({
-                        title: 'Event ' + i,
-                        start: $(this).attr('start_at'), // will be parsed
-                        end: $(this).attr('end_at')
-                    });
-
-                });
-                callback(events);
+                console.log("aquiii")
+                console.log(doc)
             }
         });
       },
-      // events: '/schedules.json',
+      // events: '/reservas.json',
+      // events: [
+      //   {
+      //       title: 'My Event',
+      //       start: '2017-10-14',
+      //       end: '2017-10-14',
+      //       description: 'This is a cool event',
+      //       user: "Lais"
+      //   }
+      //   // more events here
+      // ],
+      eventRender: function(event, element) {
+          console.log(event[0])
+      },
       select: function(start, end, allDay) {
-        console.log(start.format());
-        console.log(end.format());
+        $("#new-schedule").modal("show");
       },
       eventClick:  function(event, jsEvent, view) {
-        //set the values and open the modal
-        alert("chegou aqui");
-        // $("#eventInfo").html(event.description);
-        // $("#eventLink").attr('href', event.url);
-        // $("#eventContent").dialog({ modal: true, title: event.title });
+        // //set the values and open the modal
+        // alert("chegou aqui");
+        // // $("#eventInfo").html(event.description);
+        // // $("#eventLink").attr('href', event.url);
+        // // $("#eventContent").dialog({ modal: true, title: event.title });
       }
     });
   });

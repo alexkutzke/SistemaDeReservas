@@ -46,6 +46,7 @@ Rails.application.routes.draw do
       resources :sectors, :path => "setores"
     end
   end
+  resources :schedules, :path => "reservas"
   resources :welcome
   devise_for :users, :path => "usuarios"
   root 'welcome#index'

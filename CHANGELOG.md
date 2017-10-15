@@ -34,3 +34,9 @@ Changes by branch
 
 ## Issue/10
 - Add integration testing for categories, classrooms, departments, disciplines, klasses, equipments, periods, sectors models
+
+## Issue/20
+
+- Add management folder to restricted area
+- Add authentication with devise
+- Add authorization - my own permission 'gem'
