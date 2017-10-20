@@ -51,40 +51,44 @@ initialize_calendar = function() {
       eventLimit: true,
       allDaySlot: false,
       slotEventOverlap: false,
-      // events: [{
-      //   title: 'event1',
-      //   start: '2017-10-12'
-      // }],
-      events: function(start, end, timezone, callback) {
-        $.ajax({
-            url: '/reservas',
-            dataType: 'json',
-            data: {
-                // our hypothetical feed requires UNIX timestamps
-                start: moment(start).format('YYYY-MM-DD'),
-                // start: start.unix(),
-                end: moment(end).format('YYYY-MM-DD')
-            },
-            success: function(doc) {
-                console.log("aquiii")
-                console.log(doc)
-            }
-        });
+      events: "/reservas.json",
+      // events: function(start, end, timezone, callback) {
+      //   $.ajax({
+      //       url: '/reservas',
+      //       dataType: 'json',
+      //       data: {
+      //           start: moment(start).format('YYYY-MM-DD'),
+      //           end: moment(end).format('YYYY-MM-DD')
+      //       },
+      //       success: function(doc) {
+      //         console.log(doc[0]);
+      //           var events = new Array();
+      //           for(i=0;i<doc.length;i++) {
+      //             event = new Object();
+      //             event.id = doc[i]["id"];
+      //             event.reservation = doc[i]["reservation"];
+      //             event.color = doc[i]["reservation"] ? '#cccccc' : '#000000';
+      //             event.start = doc[i]["start_at"];
+      //             event.end = doc[i]["end_at"];
+      //             event.user_id = doc[i]["user"]["id"];
+      //             event.user_name = doc[i]["user"]["name"];
+      //             events.push(event);
+      //           }
+      //           callback(events);
+      //       }
+      //   });
+      // },
+      eventRender: function(event, element, view){
+        console.log(element);
       },
-      // events: '/reservas.json',
-      // events: [
-      //   {
-      //       title: 'My Event',
-      //       start: '2017-10-14',
-      //       end: '2017-10-14',
-      //       description: 'This is a cool event',
-      //       user: "Lais"
-      //   }
-      //   // more events here
-      // ],
-      eventRender: function(event, element) {
-          console.log(event[0])
-      },
+        // viewRender: function(view, element) {
+        // var events = $('#fullcalendar').fullCalendar('clientEvents');
+        // handleViewChange(events);
+
+      // eventRender: function(event, element) {
+      //   element.find('.fc-title').append("<br/>Nome: " + event.id);
+      //     element.attr('id', event.id);
+      // },
       select: function(start, end, allDay) {
         $("#new-schedule").modal("show");
       },
@@ -98,4 +102,5 @@ initialize_calendar = function() {
     });
   });
 };
+
 $(document).on('turbolinks:load', initialize_calendar);

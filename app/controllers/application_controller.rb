@@ -26,13 +26,18 @@ class ApplicationController < ActionController::Base
 
   def authorize
     controllers = params[:controller].split("/")
-    if params[:action] == 'new' || params[:action] == 'edit' || params[:action] == 'destroy'
-      puts "management_#{controllers[1]}_path"
-      redirect_to send("management_#{controllers[1]}_path") unless policy.public_send(params[:action] + "?")
-    else
-      redirect_to management_schedules_path unless policy.public_send(params[:action] + "?")
+    permission = policy.public_send(params[:action] + "?")
+    if !permission
+      if params[:action] == 'new' || params[:action] == 'edit' || params[:action] == 'destroy'
+        redirect_to send("management_#{controllers[1]}_path")
+      elsif params[:action] == 'index' && permission
+        redirect_to send("management_#{controllers[1]}_path")
+      else
+        redirect_to management_schedules_path
+      end
     end
   end
+
 
   # required send session id or session symbol
   def can(action, session)

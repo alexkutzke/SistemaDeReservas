@@ -7,11 +7,11 @@ class Policy
 
   # create and update model is not on permission table. Always return false
   def create?
-    false
+    permission.new
   end
 
   def update?
-    true
+    permission.edit
   end
 
   def index?

@@ -46,6 +46,7 @@ class Management::RolesController < ApplicationController
             @i = 0;
             @role.permissions = params[:role][:permission].values.map do |action_p|
               @p = Permission.new(action_p)
+              if @p.new || @p.edit || @p.remove then @p.index = true end
               @p.session = @i
               @i = @i + 1
               @p
@@ -66,7 +67,9 @@ class Management::RolesController < ApplicationController
     respond_to do |format|
       if @role.update(role_params)
         @role.permissions = params[:role][:permission].map do |key, value|
-            Permission.update(value["id"], :index =>  value["index"], :new => value["new"], :edit => value["edit"], :remove => value["remove"], :import => value["import"])
+            index = value["index"] ? true : false
+            index = true if value["new"] || value["edit"] || value["remove"]
+            Permission.update(value["id"], :index =>  index, :new => value["new"], :edit => value["edit"], :remove => value["remove"], :import => value["import"])
         end
         format.html { redirect_to management_roles_path }
         format.json { render json: @role, status: :ok }
@@ -104,7 +107,56 @@ class Management::RolesController < ApplicationController
   end
 
   def set_sessions_array
-    @sessions = Array.new(["Reservas", "Solicitações",  "Perfis", "Usuários", "Setores", "Departamentos", "Categorias", "Salas", "Disciplinas", "Turmas", "Equipamentos", "Períodos"])
+    @sessions = [
+      {
+        :name => "Reservas",
+        :permissions => [:index, :new, :edit,:remove, :import]
+      },
+      {
+        :name => "Solicitações",
+        :permissions => [:index, :new, :edit,:remove]
+      },
+      {
+        :name => "Perfis",
+        :permissions => [:index, :new, :edit,:remove]
+      },
+      {
+        :name => "Usuários",
+        :permissions => [:index, :new, :edit,:remove, :import]
+      },
+      {
+        :name => "Setores",
+        :permissions => [:index, :new, :edit,:remove]
+      },
+      {
+        :name => "Departamentos",
+        :permissions => [:index, :new, :edit,:remove]
+      },
+      {
+        :name => "Categorias",
+        :permissions => [:index, :new, :edit,:remove]
+      },
+      {
+        :name => "Salas",
+        :permissions => [:index, :new, :edit,:remove, :import]
+      },
+      {
+        :name => "Disciplinas",
+        :permissions => [:index, :new, :edit,:remove, :import]
+      },
+      {
+        :name => "Turmas",
+        :permissions => [:index, :new, :edit,:remove, :import]
+      },
+      {
+        :name => "Equipamentos",
+        :permissions => [:index, :new, :edit,:remove]
+      },
+      {
+        :name => "Períodos",
+        :permissions => [:index, :new, :edit,:remove]
+      }
+    ]
   end
 
   def set_session

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171013142906) do
+ActiveRecord::Schema.define(version: 20171019195322) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -98,20 +98,21 @@ ActiveRecord::Schema.define(version: 20171013142906) do
   end
 
   create_table "schedules", force: :cascade do |t|
-    t.time     "end_at",                       null: false
-    t.time     "start_at",                     null: false
-    t.date     "date_at",                      null: false
+    t.datetime "end_at",                       null: false
+    t.datetime "start_at",                     null: false
     t.integer  "quantity",      default: 1
     t.integer  "state",         default: 1
     t.boolean  "reservation",   default: true
     t.integer  "klass_id"
     t.integer  "discipline_id"
     t.integer  "classroom_id"
+    t.integer  "user_id"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.index ["classroom_id"], name: "index_schedules_on_classroom_id"
     t.index ["discipline_id"], name: "index_schedules_on_discipline_id"
     t.index ["klass_id"], name: "index_schedules_on_klass_id"
+    t.index ["user_id"], name: "index_schedules_on_user_id"
   end
 
   create_table "sectors", force: :cascade do |t|

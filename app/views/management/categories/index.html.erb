@@ -9,7 +9,7 @@
 
     <%= render :partial => 'layouts/flash_notice' %>
 
-    <% if can :new. :category %>
+    <% if can :new, :category %>
       <div class="row">
           <div class="col-sm-2">
               <%= link_to '<span><i class="fa fa-plus"></i></span><span> Nova Categoria</span>'.html_safe, new_management_category_path, :class => 'btn btn-green' %>
