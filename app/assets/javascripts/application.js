@@ -19,6 +19,7 @@
 //= require moment
 //= require fullcalendar
 //= require fullcalendar/gcal
+//= require daterangepicker
 
 var initialize_calendar;
 initialize_calendar = function() {
@@ -51,7 +52,47 @@ initialize_calendar = function() {
       eventLimit: true,
       allDaySlot: false,
       slotEventOverlap: false,
-      events: "/reservas.json",
+      events: '/events.json',
+      select: function(start, end) {
+          //here I validate that the user can't create an event before today
+        var todayDate = Date.now();
+        if (start < todayDate){
+          alert("Você não pode reservar uma data no passado...");
+          $("#calendar").fullCalendar("unselect");
+          return;
+        }
+        $.getScript('/events/new', function() {
+          $('#event_date_range').val(moment(start).format("MM/DD/YYYY HH:mm") + ' - ' + moment(end).format("MM/DD/YYYY HH:mm"))
+          date_range_picker();
+          $('.start_hidden').val(moment(start).format('YYYY-MM-DD HH:mm'));
+          $('.end_hidden').val(moment(end).format('YYYY-MM-DD HH:mm'));
+        });
+
+        calendar.fullCalendar('unselect');
+      },
+      eventDrop: function(event, delta, revertFunc) {
+        event_data = {
+          event: {
+            id: event.id,
+            start: event.start.format(),
+            end: event.end.format()
+          }
+        };
+        $.ajax({
+            url: event.update_url,
+            data: event_data,
+            type: 'PATCH'
+        });
+      },
+      eventClick: function(event, jsEvent, view) {
+        $.getScript(event.edit_url, function() {
+          $('#event_date_range').val(moment(event.start).format("MM/DD/YYYY HH:mm") + ' - ' + moment(event.end).format("MM/DD/YYYY HH:mm"))
+          date_range_picker();
+          $('.start_hidden').val(moment(event.start).format('YYYY-MM-DD HH:mm'));
+          $('.end_hidden').val(moment(event.end).format('YYYY-MM-DD HH:mm'));
+        });
+      }
+    });
       // events: function(start, end, timezone, callback) {
       //   $.ajax({
       //       url: '/reservas',
@@ -78,9 +119,9 @@ initialize_calendar = function() {
       //       }
       //   });
       // },
-      eventRender: function(event, element, view){
-        console.log(element);
-      },
+      // eventRender: function(event, element, view){
+      //   console.log(element);
+      // },
         // viewRender: function(view, element) {
         // var events = $('#fullcalendar').fullCalendar('clientEvents');
         // handleViewChange(events);
@@ -89,18 +130,17 @@ initialize_calendar = function() {
       //   element.find('.fc-title').append("<br/>Nome: " + event.id);
       //     element.attr('id', event.id);
       // },
-      select: function(start, end, allDay) {
-        $("#new-schedule").modal("show");
-      },
-      eventClick:  function(event, jsEvent, view) {
-        // //set the values and open the modal
-        // alert("chegou aqui");
-        // // $("#eventInfo").html(event.description);
-        // // $("#eventLink").attr('href', event.url);
-        // // $("#eventContent").dialog({ modal: true, title: event.title });
-      }
+      // select: function(start, end, allDay) {
+      //   $("#new-schedule").modal("show");
+      // },
+      // eventClick:  function(event, jsEvent, view) {
+      //   // //set the values and open the modal
+      //   // alert("chegou aqui");
+      //   // // $("#eventInfo").html(event.description);
+      //   // // $("#eventLink").attr('href', event.url);
+      //   // // $("#eventContent").dialog({ modal: true, title: event.title });
+      // }
     });
-  });
 };
 
 $(document).on('turbolinks:load', initialize_calendar);
