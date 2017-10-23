@@ -6,6 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+
+Role.delete_all
 User.delete_all
 # Discipline.delete_all
 # Classroom.delete_all
@@ -14,20 +16,18 @@ Role.delete_all
 Permission.delete_all
 Discipline.delete_all
 Classroom.delete_all
-
-p1 = Role.create(name: "admin")
-p2 = Role.create(name: "Admin Coordenação Acadêmica")
-p3 = Role.create(name: "Admin Direção")
-
-Permission.create(role_id: p1.id, session: 0, view: false, register: false, edit: false, remove: false)
-Permission.create(role_id: p1.id, session: 2, view: true, register: true, edit: true, remove: true)
-Permission.create(role_id: p1.id, session: 4, view: true, register: true, edit: true, remove: true)
-Permission.create(role_id: p1.id, session: 5, view: true, register: true, edit: true, remove: true)
-Permission.create(role_id: p1.id, session: 6, view: true, register: true, edit: true, remove: true)
-Permission.create(role_id: p1.id, session: 7, view: true, register: true, edit: true, remove: true)
-Permission.create(role_id: p1.id, session: 8, view: true, register: true, edit: true, remove: true)
-Permission.create(role_id: p1.id, session: 9, view: true, register: true, edit: true, remove: true)
-Permission.create(role_id: p1.id, session: 10, view: true, register: true, edit: true, remove: true)
-
-Permission.create(role_id: p2.id, session: 4, view: true, register: false, edit: false, remove: false)
 =end
+p1 = Role.create(name: "Admin")
+
+Permission.create(role_id: p1.id, session: 0, index: true, new: true, edit: true, remove: true)
+Permission.create(role_id: p1.id, session: 1, index: true, new: true, edit: true, remove: true)
+Permission.create(role_id: p1.id, session: 2, index: true, new: true, edit: true, remove: true)
+Permission.create(role_id: p1.id, session: 3, index: true, new: true, edit: true, remove: true)
+Permission.create(role_id: p1.id, session: 4, index: true, new: true, edit: true, remove: true)
+Permission.create(role_id: p1.id, session: 5, index: true, new: true, edit: true, remove: true)
+Permission.create(role_id: p1.id, session: 6, index: true, new: true, edit: true, remove: true)
+Permission.create(role_id: p1.id, session: 7, index: true, new: true, edit: true, remove: true)
+Permission.create(role_id: p1.id, session: 8, index: true, new: true, edit: true, remove: true)
+Permission.create(role_id: p1.id, session: 9, index: true, new: true, edit: true, remove: true)
+Permission.create(role_id: p1.id, session: 10, index: true, new: true, edit: true, remove: true)
+Permission.create(role_id: p1.id, session: 11, index: true, new: true, edit: true, remove: true)

@@ -1,5 +1,5 @@
 class Management::RolesController < ApplicationController
-  before_action :authenticate_user!, :set_session, :get_current_user, :get_permissions_from_user, :authorize
+  before_action :authenticate_user!, :set_session, :get_current_user, :get_permissions_from_user, :set_sessions_array, :authorize
   before_action :set_role, only: [:show, :edit, :destroy, :update]
   before_action :set_sessions_array, only: [:new, :edit, :create]
 

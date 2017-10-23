@@ -63,7 +63,7 @@
 
                                 # como fazer a validação desses checkbox?
                             %>
-                            <% Role.set_sessions_array.each_with_index do |session,i| %>
+                            <% @sessions.each_with_index do |session,i| %>
                                 <tr>
                                     <td><%=  session[:name] %></td>
                                     <%= f.fields_for "permission[#{i}]", @role.permissions[i] do |permission_form| %>
