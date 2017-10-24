@@ -2,6 +2,7 @@ var date_range_picker;
 date_range_picker = function() {
   $('.date-range-picker').each(function(){
     $(this).daterangepicker({
+        moment(date, "DD/MM/YYYY").locale('pt-br').format('ddd'),
         timePicker: true,
         timePickerIncrement: 30,
         alwaysShowCalendars: true

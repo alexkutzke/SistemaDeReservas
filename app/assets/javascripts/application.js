@@ -20,6 +20,7 @@
 //= require fullcalendar
 //= require fullcalendar/gcal
 //= require daterangepicker
+//= pt-br
 
 var initialize_calendar;
 initialize_calendar = function() {
