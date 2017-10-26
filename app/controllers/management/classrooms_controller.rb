@@ -95,6 +95,4 @@ class Management::ClassroomsController < ApplicationController
   def set_session
     @session = 7
   end
-
-  helper_method :get_categories
 end

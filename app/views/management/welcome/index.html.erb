@@ -4,11 +4,7 @@
     <form role="form" class="form">
       <div class="form-group">
         <label class="control-label" for="salas">Sala</label>
-        <select class="form-control" autofocus>
-          <option selected value="1">A01</option>
-          <option value="2">A02</option>
-          <option value="3">A03</option>
-        </select>
+        <%= select_tag('classroom', options_from_collection_for_select(@classrooms, 'id', 'room'), class: 'form-control combo-classroom') %>
       </div>
 
     </form>
@@ -20,4 +16,19 @@
       </div>
     </div>
   </div>
+  <% if user_signed_in? %>
+    <div class="modal fade" id="new_event">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Nova Reserva</h4>
+          </div>
+          <div class="modal-body">
+            <%= render 'events/form', event: @event %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </div>

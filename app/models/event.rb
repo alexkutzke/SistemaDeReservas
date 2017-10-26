@@ -6,4 +6,8 @@ class Event < ApplicationRecord
 
   validates :title, presence: true
   attr_accessor :date_range
+
+  def as_json(options={})
+    super(:include => [:classroom, :user, :klass, :discipline])
+  end
 end

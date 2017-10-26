@@ -8,10 +8,13 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :password, :password_confirmation, :name, :cpf, :role_id])
   end
 
-  protected
   def get_current_user
     @arraySession = { schedule: 0, solicitation: 1, role: 2, user: 3, sector: 4, department: 5, category: 6, classroom: 7,  discipline: 8, klass: 9, materiel: 10, period: 11}
     @currentUser = User.find(current_user.id)
+  end
+
+  def after_sign_in_path_for(resource)
+    management_schedules_path # Or :prefix_to_your_route
   end
 
   def get_permissions_from_user

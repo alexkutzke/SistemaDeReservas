@@ -4,7 +4,11 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @events = Event.where(start: params[:start]..params[:end])
+    if params.has_key?(:classroom)
+      @events = Event.where(start: params[:start]..params[:end], classroom_id: params[:classroom])
+    else
+      @events = Event.where(start: params[:start]..params[:end])
+    end
     respond_to do |format|
       format.html
       format.json { render json: @events }
@@ -16,6 +20,9 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
+    respond_to do |format|
+      format.json { render json: @event.to_json(:include => [:classroom, :user, :klass, :discipline]) }
+    end
   end
 
   # GET /events/new
@@ -70,11 +77,12 @@ class EventsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event
+      puts params[:id]
       @event = Event.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:start_at, :end_at, :reservation, :description, :frequency, :state, :klass_id, :discipline_id, :classroom_id, :user_id)
+      params.require(:event).permit(:start, :end, :reservation, :title, :frequency, :state, :klass_id, :discipline_id, :classroom_id, :user_id)
     end
 end
