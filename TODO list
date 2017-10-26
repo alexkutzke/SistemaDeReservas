@@ -10,6 +10,10 @@ TODO list
 
 -------------------------------------------------------------------
 
+# add Role controller method "set_sessions_array" in model and call it before_action
+
+-------------------------------------------------------------------------------
+
 # set department_id to be null
 
 # flash or @object.erros when use redirec_to

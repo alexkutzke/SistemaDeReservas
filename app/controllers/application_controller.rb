@@ -8,10 +8,13 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :password, :password_confirmation, :name, :cpf, :role_id])
   end
 
-  protected
   def get_current_user
     @arraySession = { schedule: 0, solicitation: 1, role: 2, user: 3, sector: 4, department: 5, category: 6, classroom: 7,  discipline: 8, klass: 9, materiel: 10, period: 11}
     @currentUser = User.find(current_user.id)
+  end
+
+  def after_sign_in_path_for(resource)
+    management_schedules_path # Or :prefix_to_your_route
   end
 
   def get_permissions_from_user
@@ -26,13 +29,18 @@ class ApplicationController < ActionController::Base
 
   def authorize
     controllers = params[:controller].split("/")
-    if params[:action] == 'new' || params[:action] == 'edit' || params[:action] == 'destroy'
-      puts "management_#{controllers[1]}_path"
-      redirect_to send("management_#{controllers[1]}_path") unless policy.public_send(params[:action] + "?")
-    else
-      redirect_to management_schedules_path unless policy.public_send(params[:action] + "?")
+    permission = policy.public_send(params[:action] + "?")
+    if !permission
+      if params[:action] == 'new' || params[:action] == 'edit' || params[:action] == 'destroy'
+        redirect_to send("management_#{controllers[1]}_path")
+      elsif params[:action] == 'index' && permission
+        redirect_to send("management_#{controllers[1]}_path")
+      else
+        redirect_to management_schedules_path
+      end
     end
   end
+
 
   # required send session id or session symbol
   def can(action, session)

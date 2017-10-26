@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  start_at: 2017-10-20 18:30:42
+  end_at: 2017-10-20 18:30:42
+  reservation: false
+  description: MyString
+  frequency: 1
+  state: 1
+  klass: one
+  discipline: one
+  classroom: one
+  user: one
+
+two:
+  start_at: 2017-10-20 18:30:42
+  end_at: 2017-10-20 18:30:42
+  reservation: false
+  description: MyString
+  frequency: 1
+  state: 1
+  klass: two
+  discipline: two
+  classroom: two
+  user: two

@@ -9,7 +9,7 @@
 
   <%= render :partial => 'layouts/flash_notice' %>
 
-  <% if can :new %>
+  <% if can :new, :user %>
   <div class="row">
     <div class="col-sm-2">
       <%= link_to '<span><i class="fa fa-plus"></i></span><span> Novo Usuário</span>'.html_safe, new_management_user_path, :class => 'btn btn-green' %>
@@ -53,7 +53,7 @@
                         data: {confirm: 'Are you sure?'},
                         :class => 'btn btn-danger' %>
                     </td>
-                  <% elsif can(:edit, :period) && !can(:destroy, :period) %>
+                  <% elsif can(:edit, :user) && !can(:destroy, :user) %>
                     <td>
                       <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_management_user_path(user),  :class => 'btn btn-info' %>
                     </td>

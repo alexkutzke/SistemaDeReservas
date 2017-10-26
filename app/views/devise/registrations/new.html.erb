@@ -1,45 +1,45 @@
 <%= render :partial => 'layouts/navbar', :locals => {:active => 2} %>
-<div class="row" style="margin-top: 70px">
+<div class="row" style="margin-top: 100px">
   <div class="col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6">
     <div class="panel panel-default">
       <div class="panel-body">
         <div class="row">
           <h3 class="title-h3"><i class="fa fa-plus"></i> Novo usuário</h3>
         </div>
-        <div class="row" style="margin-top:20px;">
+        <div class="row" style="margin-top:5px">
           <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
             <%= devise_error_messages! %>
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
-                  <%= f.label :name %><br />
+                  <%= f.label :name, :class => "sr-only" %><br />
                   <%= f.text_field :name, class: 'form-control', placeholder: 'Nome', autofocus: true %>
                 </div>
               </div>
             </div>
 
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-12" style="margin-top:-20px">
                 <div class="form-group">
-                  <%= f.label :cpf %><br />
+                  <%= f.label :cpf, :class => "sr-only" %><br />
                   <%= f.text_field :cpf, class: 'form-control', placeholder: 'CPF' %>
                 </div>
               </div>
             </div>
 
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-12" style="margin-top:-20px">
                 <div class="form-group">
-                  <%= f.label :email %><br />
+                  <%= f.label :email, :class => "sr-only" %><br />
                   <%= f.email_field :email, class: 'form-control', placeholder: 'Email' %>
                 </div>
               </div>
             </div>
 
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-12" style="margin-top:-5px">
                 <div class="form-group">
-                  <%= f.label :password %>
+                  <%= f.label :password, :class => "sr-only" %>
                   <% if @minimum_password_length %>
                   <em>(<%= @minimum_password_length %> characters minimum)</em>
                   <% end %><br />
@@ -49,25 +49,25 @@
             </div>
 
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-12" style="margin-top:-20px">
                 <div class="form-group">
-                  <%= f.label :password_confirmation %><br />
+                  <%= f.label :password_confirmation, :class => "sr-only" %><br />
                   <%= f.password_field :password_confirmation, class: 'form-control', placeholder: 'Confirmar senha', autocomplete: "off" %>
                 </div>
               </div>
             </div>
 
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-12" style="margin-top:-5px">
                 <div class="form-group">
-                  <%= f.label :role_id %><br />
-                  <%= f.collection_select(:role_id, Role.get_roles, :id, :name, {}, {class: "form-control"}) %>
+                  <%= f.label :role_id, 'Perfil' %><br />
+                  <%= f.collection_select(:role_id, Role.all, :id, :name, {}, {class: "form-control"}) %>
                 </div>
               </div>
             </div>
 
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-12" style="margin-top:0px">
                 <div class="form-group">
                   <%= f.submit "Cadastrar", class: 'btn btn-green  col-xs-12' %>
                 </div>
@@ -75,8 +75,8 @@
             </div>
           <% end %>
 
-          <div class="row" style="margin-top: 10px">
-            <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-12" style="margin-top:0px">
               <div class="form-group">
                 <div class="pull-right">
                   <%= render "devise/shared/links" %>

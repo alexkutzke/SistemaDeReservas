@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
+  resources :events
   namespace :management, :path => 'acesso' do
-    resources :welcome
     scope(:path_names => { :new => "cadastrar", :edit => "editar" }) do
       resources :departments, :path => 'departamentos'
     end
@@ -46,6 +46,7 @@ Rails.application.routes.draw do
       resources :sectors, :path => "setores"
     end
   end
+  resources :schedules, :path => "reservas"
   resources :welcome
   devise_for :users, :path => "usuarios"
   root 'welcome#index'

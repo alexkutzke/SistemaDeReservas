@@ -65,12 +65,14 @@
                             %>
                             <% @sessions.each_with_index do |session,i| %>
                                 <tr>
-                                    <td><%=  session %></td>
+                                    <td><%=  session[:name] %></td>
                                     <%= f.fields_for "permission[#{i}]", @role.permissions[i] do |permission_form| %>
                                         <td>
+                                          <% unless session[:permissions].index(:new).nil? %>
                                             <%= permission_form.hidden_field :id %>
                                             <%= permission_form.hidden_field :index, :value => ""  %>
                                             <%= permission_form.check_box :index, {class: 'checkbox'} %>
+                                          <% end %>
                                         </td>
                                         <td>
                                             <%= permission_form.hidden_field :new, :value =>  "" %>
@@ -85,8 +87,10 @@
                                             <%= permission_form.check_box :remove, {class: 'checkbox'} %>
                                         </td>
                                         <td>
+                                          <% unless session[:permissions].index(:import).nil? %>
                                             <%= permission_form.hidden_field :import, :value =>  "" %>
                                             <%= permission_form.check_box :import, {class: 'checkbox'} %>
+                                          <% end %>
                                         </td>
                                     <% end %>
                                 </tr>

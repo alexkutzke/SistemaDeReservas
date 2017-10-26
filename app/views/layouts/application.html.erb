@@ -5,12 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': true %>
+
     <% if !user_signed_in? %>
       <%= stylesheet_link_tag    'welcome', media: 'all', 'data-turbolinks-track': true %>
     <% end %>
 
     <%= javascript_include_tag 'application', 'data-turbolinks-track': true %>
-
+    <% if user_signed_in? %>
+      <%= javascript_include_tag 'management/reservations', 'data-turbolinks-track': true %>
+    <% else %>
+      <%= javascript_include_tag 'reservations', 'data-turbolinks-track': true %>
+    <% end %>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   </head>
 
@@ -24,5 +29,6 @@
       <%= render :partial => 'layouts/navbar', :locals => {:active => 0} %>
   <% end %>
   <%= yield %>
+  <div id='remote_container'></div>
   </body>
 </html>
