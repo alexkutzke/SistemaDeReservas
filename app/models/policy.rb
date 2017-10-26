@@ -14,6 +14,10 @@ class Policy
     permission.edit
   end
 
+  def show?
+    permission.edit
+  end
+
   def index?
     permission.index
   end

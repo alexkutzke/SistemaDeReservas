@@ -1,30 +1,27 @@
 <%= render :partial => 'layouts/sidenav', :locals => {:active => 0} %>
 <div class="main-content">
-    <div class="row">
-        <ol class="breadcrumb">
-            <li><i class="fa fa-calendar"></i> Reservas</li>
-        </ol>
-    </div>
+  <div class="row">
+      <ol class="breadcrumb">
+          <li><i class="fa fa-calendar"></i> Reservas</li>
+      </ol>
+  </div>
+  <%= render :partial => 'layouts/flash_notice' %>
+  <div class="row box">
+      <form role="form" class="form">
+          <div class="form-group">
+              <label class="control-label" for="salas">Sala</label>
+              <%= select_tag('classroom', options_from_collection_for_select(@classrooms, 'id', 'room'), class: 'form-control combo-classroom') %>
+          </div>
+      </form>
+  </div>
+  <div class="row" >
+      <div class="col-md-12" >
+          <div id="calendar-background">
+              <div id="fullcalendar"></div>
+          </div>
+      </div>
+  </div>
+  <%= render 'new', event: @event %>
+  <%= render 'show' %>
 
-    <%= render :partial => 'layouts/flash_notice' %>
-    <div class="row box">
-        <form role="form" class="form">
-            <div class="form-group">
-                <label class="control-label" for="salas">Sala</label>
-                <select class="form-control" autofocus>
-                    <option selected value="1">A01</option>
-                    <option value="2">A02</option>
-                    <option value="3">A03</option>
-                </select>
-            </div>
-
-        </form>
-    </div>
-    <div class="row" >
-        <div class="col-md-12" >
-            <div id="calendar-background">
-                <div id="fullcalendar"></div>
-            </div>
-        </div>
-    </div>
 </div>

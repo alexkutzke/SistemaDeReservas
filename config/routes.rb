@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     scope(:path_names => { :new => "cadastrar", :edit => "editar" }) do
       resources :users, :path => "usuarios"
     end
+    resources :events
     resources :schedules, :path => 'reservas'
     scope(:path_names => { :new => "cadastrar", :edit => "editar" }) do
       resources :disciplines, :path => "disciplinas" do
@@ -49,5 +50,8 @@ Rails.application.routes.draw do
   resources :schedules, :path => "reservas"
   resources :welcome
   devise_for :users, :path => "usuarios"
+  authenticated :user do
+    root :to => redirect('acesso/reservas')
+  end
   root 'welcome#index'
 end

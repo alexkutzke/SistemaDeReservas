@@ -1,0 +1,67 @@
+<div class="modal fade" data-backdrop="static" id="show_event">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Reserva</h4>
+      </div>
+      <div class="modal-body">
+        <%= form_for(@event, :html => {class: 'form-horizontal'}) do |f| %>
+          <% if @event.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+              <ul>
+              <% @event.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="form-group">
+            <%= f.label :title, 'Descrição', class: 'control-label col-sm-3' %>
+            <div class="col-sm-9">
+              <%= f.text_field :title, class: 'form-control event_title', placeholder: 'Festa da Ana', disabled: true %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :user, 'Solicitante/Professor', class: 'control-label col-sm-3' %>
+            <div class="col-sm-9">
+              <%= f.text_field :user, class: 'form-control event_user', placeholder: 'Maria', disabled: true %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :classroom, 'Sala', class: 'control-label col-sm-3' %>
+            <div class="col-sm-9">
+              <%= f.text_field :classroom, class: 'form-control event_classroom', placeholder: 'A01', disabled: true %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :date_range, 'Período', class: 'control-label col-sm-3' %>
+            <div class="col-sm-9">
+              <%= f.text_field :date_range, class: 'form-control event_date_range', disabled: true %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :frequency, 'Semanas', class: 'control-label col-sm-3' %>
+            <div class="col-sm-9">
+              <%= f.text_field :frequency, class: 'form-control event_frequency', disabled: true %>
+            </div>
+          </div>
+
+          <div class="form-group pull">
+            <div class="col-sm-offset-3 col-sm-9">
+              <div class="pull-right">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

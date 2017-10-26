@@ -44,6 +44,7 @@ initialize_calendar = function() {
           success: function(doc) {
             var events = new Array();
             for(i=0;i<doc.length;i++) {
+              console.log('here');
               event = new Object();
               event.id = doc[i]["id"];
               event.title = doc[i]["title"];
@@ -76,12 +77,14 @@ initialize_calendar = function() {
           contentType: "application/json; charset=utf-8",
           success: function(doc) {
             var event = new Object();
-            $("#event_title").val(doc["title"]);
+            if(doc.hasOwnProperty("discipline"))
+              $("#event_title").val(doc["discipline"]["name"] + " / Turma: " + doc["klass"]["name"]);
+            else
+              $("#event_title").val(doc["title"]);
             $("#event_user").val(doc["user"]["name"]);
             $("#event_classroom").val(doc["classroom"]["room"]);
             $("#event_frequency").val(doc["frequency"]);
-            console.log(doc["start"]);
-            $('#event_date_range').val(moment(doc["start"]).format("DD/MM/YYYY HH:mm") + ' - ' + moment(doc["end"]).format("DD/MM/YYYY HH:mm"))
+            $('#event_date_range').val(moment.utc(doc["start"]).format("DD/MM/YYYY HH:mm") + ' - ' + moment.utc(doc["end"]).format("DD/MM/YYYY HH:mm"))
             $('#show_event').modal('show');
           },
           error: function(doc) {
@@ -95,8 +98,8 @@ initialize_calendar = function() {
 $('.combo-classroom').change(function(){
   var selectedSite = $('.combo-classroom').val();
   var events = {
-        url: '/events.json',
-        type: 'POST',
+        url: '/classroom.json',
+        type: 'GET',
         data: {
           siteid: selectedSite
         }
@@ -106,3 +109,6 @@ $('.combo-classroom').change(function(){
 });
 
 $(document).on('turbolinks:load', initialize_calendar);
+$(document).ready(function(){
+
+});

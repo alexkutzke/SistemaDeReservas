@@ -31,7 +31,7 @@ initialize_calendar = function() {
       slotEventOverlap: false,
       events: function(start, end, timezone, callback) {
         $.ajax({
-          url: '/events',
+          url: '/acesso/reservas',
           type: 'GET',
           dataType: "json",
           contentType: "application/json; charset=utf-8",
@@ -66,7 +66,7 @@ initialize_calendar = function() {
           $("#calendar").fullCalendar("unselect");
           return;
         }
-        $('#event_date_range').val(moment(start).format("DD/MM/YYYY HH:mm") + ' - ' + moment(end).format("DD/MM/YYYY HH:mm"))
+        $('.event_date_range').val(moment(start).format("DD/MM/YYYY HH:mm") + ' - ' + moment(end).format("DD/MM/YYYY HH:mm"))
         $('.start_hidden').val(moment(start).format('YYYY-MM-DD HH:mm'));
         $('.end_hidden').val(moment(end).format('YYYY-MM-DD HH:mm'));
         $('#new_event').modal('show');
@@ -80,6 +80,28 @@ initialize_calendar = function() {
 
         calendar.fullCalendar('unselect');
       },
+      eventClick:  function(event, jsEvent, view) {
+        $.ajax({
+          url: '/acesso/reservas/' + event.id,
+          type: 'GET',
+          dataType: "json",
+          contentType: "application/json; charset=utf-8",
+          success: function(doc) {
+            var event = new Object();
+            if(doc.hasOwnProperty("discipline"))
+              $(".event_title").val(doc["discipline"]["name"] + " / Turma: " + doc["klass"]["name"]);
+            else
+              $(".event_title").val(doc["title"]);
+            $(".event_user").val(doc["user"]["name"]);
+            $(".event_classroom").val(doc["classroom"]["room"]);
+            $(".event_frequency").val(doc["frequency"]);
+            $(".event_date_range").val(moment.utc(doc["start"]).format("DD/MM/YYYY HH:mm") + ' - ' + moment.utc(doc["end"]).format("DD/MM/YYYY HH:mm"));
+            $('#show_event').modal('show');
+          },
+          error: function(doc) {
+          }
+        });
+      },
       eventDrop: function(event, delta, revertFunc) {
         event_data = {
           event: {
@@ -92,15 +114,6 @@ initialize_calendar = function() {
             url: event.update_url,
             data: event_data,
             type: 'PATCH'
-        });
-      },
-      eventClick: function(event, jsEvent, view) {
-        console.log("aqqqqqqq ahahah ahahah");
-        $.getScript(event.edit_url, function() {
-          $('#event_date_range').val(moment(event.start).format("MM/DD/YYYY HH:mm") + ' - ' + moment(event.end).format("MM/DD/YYYY HH:mm"))
-          date_range_picker();
-          $('.start_hidden').val(moment(event.start).format('YYYY-MM-DD HH:mm'));
-          $('.end_hidden').val(moment(event.end).format('YYYY-MM-DD HH:mm'));
         });
       }
     });

@@ -4,7 +4,7 @@ class CreateEvents < ActiveRecord::Migration[5.0]
       t.datetime :start, null: false
       t.datetime :end, null: false
       t.boolean :reservation, default: true
-      t.string :title, 255, null: true
+      t.string :title, null: true
       t.integer :frequency, default: 1
       t.integer :state, default: 1
       t.references :klass, foreign_key: true
