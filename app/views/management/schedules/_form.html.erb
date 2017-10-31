@@ -1,4 +1,4 @@
-<%= form_for([:management, @schedule], :html => {class: 'form-horizontal'}, :remote => true) do |f| %>
+<%= form_for([:management, @schedule], :html => {class: 'form-horizontal', :'data-type' => 'json'}, :remote => true) do |f| %>
   <% if @schedule.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
@@ -25,7 +25,7 @@
 
   <div class="form-group">
     <%= f.label :user, '<span style="color:red">*</span> Solicitante/Professor'.html_safe, class: 'control-label col-sm-3' %>
-    <%= f.hidden_field :user, value: @currentUser.id, class: 'form-control user_hidden' %>
+    <%= f.hidden_field :user_id, value: @currentUser.id, class: 'form-control user_hidden' %>
     <div class="col-sm-9">
       <%= f.text_field :user_name, value: @currentUser.name,  class: 'form-control schedule_user', placeholder: 'Maria', disabled: true %>
     </div>
@@ -33,8 +33,9 @@
 
   <div class="form-group">
     <%= f.label :classroom, 'Sala', class: 'control-label col-sm-3' %>
+    <%= f.hidden_field :classroom_id, class: 'form-control schedule_classroom' %>
     <div class="col-sm-9">
-      <%= f.text_field :classroom, class: 'form-control schedule_classroom', placeholder: 'A02', disabled: true %>
+      <%= f.text_field :classroom, class: 'form-control schedule_classroom_name', placeholder: 'A02', readonly: true %>
     </div>
   </div>
 

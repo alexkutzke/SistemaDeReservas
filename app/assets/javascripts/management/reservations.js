@@ -71,8 +71,10 @@ initialize_calendar = function() {
           $("#calendar").fullCalendar("unselect");
           return;
         }
+        $('#schedule_title').val("");
         $('.schedule_date_range').val(moment(start).format("DD/MM/YYYY HH:mm") + ' - ' + moment(end).format("DD/MM/YYYY HH:mm"))
-        $('.schedule_classroom').val($('.combo-classroom').text());
+        $('.schedule_classroom_name').val($('.combo-classroom').text());
+        $('.schedule_classroom').val($('.combo-classroom').val());
         $('.start_hidden').val(moment(start).format('YYYY-MM-DD HH:mm'));
         $('.end_hidden').val(moment(end).format('YYYY-MM-DD HH:mm'));
         $('#new_event').modal('show');
@@ -172,12 +174,24 @@ $("#new_schedule").submit(function(e) {
   e.preventDefault();
 });
 
-$("#new_schedule_button").on('click', function(e) {
-  // console.log(here);
-  // e.preventDefault();
-  if (1>2) {
-     $("#new_schedule_button").submit();
-  }
+
+$(document).on('turbolinks:load', function() {
+  initialize_calendar();
+
+  $('#new_schedule').submit(function () {
+    var valuesToSubmit = $(this).serialize();
+    $.ajax({
+        type: "POST",
+        url: $(this).attr('action'), //sumbits it to the given url of the form
+        data: valuesToSubmit,
+        dataType: "JSON" // you want a difference between normal and ajax-calls, and json is standard
+    }).success(function(json){
+        console.log("success", json);
+        $('#new_event').modal('hide');
+    }).error(function(json){
+      console.log("error");
+    });
+    return false;
 });
 
-$(document).on('turbolinks:load', initialize_calendar);
+});
