@@ -60,9 +60,13 @@ initialize_calendar = function() {
 
       select: function(start, end) {
           //here I validate that the user can't create an event before today
-        var currentDate = moment().format("DD/MM/YYYY HH:mm");
-        var start_at = moment(start).format("DD/MM/YYYY HH:mm");
-        if (moment(start).format("DD/MM/YYYY HH:mm") < currentDate){
+        // console.log("moment = " + moment());
+        // console.log("moment = " + moment().format("DD/MM/YYYY HH:mm"));
+        // console.log("start = " + start);
+        // console.log("start = " + moment(start).format("DD/MM/YYYY HH:mm"));
+        // console.log(moment.utc(start) < moment());
+        // console.log(moment(start).format("DD/MM/YYYY HH:mm") < moment().format("DD/MM/YYYY HH:mm"));
+        if (moment(start) < moment()){
           alert("Você não pode reservar uma data no passado...");
           $("#calendar").fullCalendar("unselect");
           return;
@@ -159,5 +163,21 @@ initialize_calendar = function() {
       // }
     });
 };
+
+$("#new_schedule").submit(function(e) {
+  if (1>2) {
+     $("#submitBet").submit();
+  }
+  console.log(here);
+  e.preventDefault();
+});
+
+$("#new_schedule_button").on('click', function(e) {
+  // console.log(here);
+  // e.preventDefault();
+  if (1>2) {
+     $("#new_schedule_button").submit();
+  }
+});
 
 $(document).on('turbolinks:load', initialize_calendar);

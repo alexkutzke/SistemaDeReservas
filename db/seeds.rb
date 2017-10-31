@@ -46,3 +46,4 @@ Permission.create(role_id: p1.id, session: 11, index: true, new: true, edit: tru
 @classroom = Classroom.create(room: "A01", building: "A", state: true, capacity: 30, category_id: @category.id);
 
 Schedule.create(title: "Festa da Ana", start: "2017-10-26 14:00:00", end: "2017-10-26 14:30:00", classroom_id: @classroom.id, user_id: 1);
+Schedule.create(title: "#Churras", start: "2017-10-31 14:00:00", end: "2017-10-26 14:30:00", classroom_id: @classroom.id, user_id: 1);
