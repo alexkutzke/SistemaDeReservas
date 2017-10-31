@@ -1,3 +1,31 @@
+function new_schedule(start, end, callback) {
+  $.ajax({
+    url: '/acesso/reservas',
+    type: 'GET',
+    dataType: "json",
+    contentType: "application/json; charset=utf-8",
+    data: {
+        start: moment(start).format('YYYY-MM-DD'),
+        end: moment(end).format('YYYY-MM-DD'),
+        classroom: $("#classroom").val()
+    },
+    success: function(doc) {
+      var events = new Array();
+      for(i=0;i<doc.length;i++) {
+        event = new Object();
+        event.title = doc[i]["title"];
+        event.id = doc[i]["id"];
+        event.reservation = doc[i]["reservation"];
+        event.color = doc[i]["reservation"] ? '#000000' : '#cccccc';
+        event.start = doc[i]["start"];
+        event.end = doc[i]["end"];
+        event.user_id = doc[i]["user_id"];
+        events.push(event);
+      }
+      callback(events);
+    }
+  });
+}
 var initialize_calendar;
 initialize_calendar = function() {
   $('#fullcalendar').each(function(){
@@ -30,32 +58,7 @@ initialize_calendar = function() {
       allDaySlot: false,
       slotEventOverlap: false,
       events: function(start, end, timezone, callback) {
-        $.ajax({
-          url: '/acesso/reservas',
-          type: 'GET',
-          dataType: "json",
-          contentType: "application/json; charset=utf-8",
-          data: {
-              start: moment(start).format('YYYY-MM-DD'),
-              end: moment(end).format('YYYY-MM-DD'),
-              classroom: $("#classroom").val()
-          },
-          success: function(doc) {
-            var events = new Array();
-            for(i=0;i<doc.length;i++) {
-              event = new Object();
-              event.title = doc[i]["title"];
-              event.id = doc[i]["id"];
-              event.reservation = doc[i]["reservation"];
-              event.color = doc[i]["reservation"] ? '#000000' : '#cccccc';
-              event.start = doc[i]["start"];
-              event.end = doc[i]["end"];
-              event.user_id = doc[i]["user_id"];
-              events.push(event);
-            }
-            callback(events);
-          }
-        });
+        new_schedule(start, end, callback);
       },
 
       select: function(start, end) {
@@ -186,7 +189,8 @@ $(document).on('turbolinks:load', function() {
         data: valuesToSubmit,
         dataType: "JSON" // you want a difference between normal and ajax-calls, and json is standard
     }).success(function(json){
-        console.log("success", json);
+        json['color'] = '#000000';
+        $("#fullcalendar").fullCalendar( 'renderEvent', json);
         $('#new_event').modal('hide');
     }).error(function(json){
       console.log("error");
