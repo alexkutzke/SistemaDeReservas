@@ -1,5 +1,6 @@
 class Discipline < ApplicationRecord
   require 'csv'
+  has_many :schedules
   belongs_to :department, optional: true
   validates :name, presence: true, length: { minimum: 3 }
   validates :discipline_code, presence: true, length: {minimum: 3 }

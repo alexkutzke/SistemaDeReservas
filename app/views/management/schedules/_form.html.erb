@@ -1,10 +1,10 @@
-<%= form_for(:event, :html => {class: 'form-horizontal'}) do |f| %>
-  <% if @event.errors.any? %>
+<%= form_for([:management, @schedule], :html => {class: 'form-horizontal'}) do |f| %>
+  <% if @schedule.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
 
       <ul>
-      <% @event.errors.full_messages.each do |message| %>
+      <% @schedule.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -12,21 +12,36 @@
   <% end %>
 
   <div class="form-group">
-    <%= f.label :title, '<span style="color:red">*</span> Descrição'.html_safe, class: 'control-label col-sm-3' %>
+    <%= f.label :title, 'Descrição', class: 'control-label col-sm-3' %>
     <div class="col-sm-9">
       <%= f.text_field :title, class: 'form-control', placeholder: 'Festa da Ana', autofocus: true %>
     </div>
   </div>
 
-  <div class="form-group">
+  <div class="form-group" style="margin-bottom: 0px;">
     <%= f.hidden_field :start, value: Date.today, class: 'control-label col-sm-3 start_hidden' %>
     <%= f.hidden_field :end, value: Date.today, class: 'form-control end_hidden' %>
   </div>
 
   <div class="form-group">
+    <%= f.label :user, '<span style="color:red">*</span> Solicitante/Professor'.html_safe, class: 'control-label col-sm-3' %>
+    <%= f.hidden_field :user, value: @currentUser.id, class: 'form-control user_hidden' %>
+    <div class="col-sm-9">
+      <%= f.text_field :user_name, value: @currentUser.name,  class: 'form-control schedule_user', placeholder: 'Maria', disabled: true %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :classroom, 'Sala', class: 'control-label col-sm-3' %>
+    <div class="col-sm-9">
+      <%= f.text_field :classroom, class: 'form-control schedule_classroom', placeholder: 'A02', disabled: true %>
+    </div>
+  </div>
+
+  <div class="form-group">
     <%= f.label :date_range, '<span style="color:red">*</span> Período'.html_safe, class: 'control-label col-sm-3' %>
     <div class="col-sm-9">
-      <%= f.text_field :date_range, class: 'form-control event_date_range', disabled: true %>
+      <%= f.text_field :date_range, class: 'form-control schedule_date_range', disabled: true %>
     </div>
   </div>
 

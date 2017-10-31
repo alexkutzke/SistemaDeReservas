@@ -10,6 +10,8 @@ Role.delete_all
 Category.delete_all
 Classroom.delete_all
 Permission.delete_all
+Event.delete_all
+Schedule.delete_all
 
 p1 = Role.create(name: "Admin")
 
@@ -43,4 +45,4 @@ Permission.create(role_id: p1.id, session: 11, index: true, new: true, edit: tru
 @category = Category.create(name: 'Sala de aula')
 @classroom = Classroom.create(room: "A01", building: "A", state: true, capacity: 30, category_id: @category.id);
 
-Event.create(title: "Festa da Ana", start: "2017-10-26 14:00:00", end: "2017-10-26 14:30:00", classroom_id: @classroom.id, user_id: 1);
+Schedule.create(title: "Festa da Ana", start: "2017-10-26 14:00:00", end: "2017-10-26 14:30:00", classroom_id: @classroom.id, user_id: 1);

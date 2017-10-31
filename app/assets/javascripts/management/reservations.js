@@ -60,25 +60,18 @@ initialize_calendar = function() {
 
       select: function(start, end) {
           //here I validate that the user can't create an event before today
-        var todayDate = Date.now();
-        if (start < todayDate){
+        var currentDate = moment().format("DD/MM/YYYY HH:mm");
+        var start_at = moment(start).format("DD/MM/YYYY HH:mm");
+        if (moment(start).format("DD/MM/YYYY HH:mm") < currentDate){
           alert("Você não pode reservar uma data no passado...");
           $("#calendar").fullCalendar("unselect");
           return;
         }
-        $('.event_date_range').val(moment(start).format("DD/MM/YYYY HH:mm") + ' - ' + moment(end).format("DD/MM/YYYY HH:mm"))
+        $('.schedule_date_range').val(moment(start).format("DD/MM/YYYY HH:mm") + ' - ' + moment(end).format("DD/MM/YYYY HH:mm"))
+        $('.schedule_classroom').val($('.combo-classroom').text());
         $('.start_hidden').val(moment(start).format('YYYY-MM-DD HH:mm'));
         $('.end_hidden').val(moment(end).format('YYYY-MM-DD HH:mm'));
         $('#new_event').modal('show');
-
-        // $.getScript('/events/new', function() {
-        //   $('#event_date_range').val(moment(start).format("MM/DD/YYYY HH:mm") + ' - ' + moment(end).format("MM/DD/YYYY HH:mm"))
-        //   date_range_picker();
-        //   $('.start_hidden').val(moment(start).format('YYYY-MM-DD HH:mm'));
-        //   $('.end_hidden').val(moment(end).format('YYYY-MM-DD HH:mm'));
-        // });
-
-        calendar.fullCalendar('unselect');
       },
       eventClick:  function(event, jsEvent, view) {
         $.ajax({
@@ -89,13 +82,13 @@ initialize_calendar = function() {
           success: function(doc) {
             var event = new Object();
             if(doc.hasOwnProperty("discipline"))
-              $(".event_title").val(doc["discipline"]["name"] + " / Turma: " + doc["klass"]["name"]);
+              $(".schedule_title").val(doc["discipline"]["name"] + " / Turma: " + doc["klass"]["name"]);
             else
-              $(".event_title").val(doc["title"]);
-            $(".event_user").val(doc["user"]["name"]);
-            $(".event_classroom").val(doc["classroom"]["room"]);
-            $(".event_frequency").val(doc["frequency"]);
-            $(".event_date_range").val(moment.utc(doc["start"]).format("DD/MM/YYYY HH:mm") + ' - ' + moment.utc(doc["end"]).format("DD/MM/YYYY HH:mm"));
+              $(".schedule_title").val(doc["title"]);
+            $(".schedule_user").val(doc["user"]["name"]);
+            $(".schedule_classroom").val(doc["classroom"]["room"]);
+            $(".schedule_frequency").val(doc["frequency"]);
+            $(".schedule_date_range").val(moment.utc(doc["start"]).format("DD/MM/YYYY HH:mm") + ' - ' + moment.utc(doc["end"]).format("DD/MM/YYYY HH:mm"));
             $('#show_event').modal('show');
           },
           error: function(doc) {

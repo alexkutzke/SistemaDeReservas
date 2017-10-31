@@ -1,6 +1,7 @@
 class Classroom < ApplicationRecord
   require 'csv'
   belongs_to :category
+  has_many :schedules
   validates :capacity, presence: true, length: { minimum: 1 }
   validates :building, presence: true, length: { minimum: 1 }
   validates :room, presence: true, uniqueness: true, length: { minimum: 1 }
