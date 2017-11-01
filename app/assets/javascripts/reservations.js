@@ -14,6 +14,7 @@ initialize_calendar = function() {
         week: 'semana',
         day: 'dia'
       },
+      timeFormat: 'H(:mm)',
       monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
       monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
       dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
@@ -32,7 +33,7 @@ initialize_calendar = function() {
       slotEventOverlap: false,
       events: function(start, end, timezone, callback) {
         $.ajax({
-          url: 'events',
+          url: '/reservas',
           type: 'GET',
           dataType: "json",
           contentType: "application/json; charset=utf-8",
@@ -44,16 +45,24 @@ initialize_calendar = function() {
           success: function(doc) {
             var events = new Array();
             for(i=0;i<doc.length;i++) {
-              console.log('here');
-              event = new Object();
-              event.id = doc[i]["id"];
-              event.title = doc[i]["title"];
-              event.reservation = doc[i]["reservation"];
-              event.color = doc[i]["reservation"] ? '#000000' : '#cccccc';
-              event.start = doc[i]["start"];
-              event.end = doc[i]["end"];
-              event.user_id = doc[i]["user_id"];
-              events.push(event);
+              if (doc[i]["state"] != 3 && doc[i]["state"] != 4) {
+                event = new Object();
+                event.id = doc[i]["id"];
+                event.title = doc[i]["title"];
+                event.reservation = doc[i]["reservation"];
+                switch(doc[i]["state"]) {
+                  case 1:
+                    event.color = '#c3302c';
+                    break;
+                  case 2:
+                    event.color = '#0e6b59';
+                    break;
+                }
+                event.start = doc[i]["start"];
+                event.end = doc[i]["end"];
+                event.user_id = doc[i]["user_id"];
+                events.push(event);
+              }
             }
             callback(events);
           }
@@ -71,7 +80,7 @@ initialize_calendar = function() {
       select: function(start, end) {},
       eventClick:  function(event, jsEvent, view) {
         $.ajax({
-          url: 'events/' + event.id,
+          url: '/reservas/' + event.id,
           type: 'GET',
           dataType: "json",
           contentType: "application/json; charset=utf-8",

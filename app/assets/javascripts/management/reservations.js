@@ -16,7 +16,7 @@ function new_schedule(start, end, callback) {
         event.title = doc[i]["title"];
         event.id = doc[i]["id"];
         event.reservation = doc[i]["reservation"];
-        event.color = doc[i]["reservation"] ? '#000000' : '#cccccc';
+        event.color = doc[i]["reservation"] ? '#0e6b59' : '#cccccc';
         event.start = doc[i]["start"];
         event.end = doc[i]["end"];
         event.user_id = doc[i]["user_id"];
@@ -26,6 +26,7 @@ function new_schedule(start, end, callback) {
     }
   });
 }
+
 var initialize_calendar;
 initialize_calendar = function() {
   $('#fullcalendar').each(function(){
@@ -53,10 +54,11 @@ initialize_calendar = function() {
       defaultView: "agendaWeek",
       selectable: true,
       selectHelper: true,
-      editable: true,
+      editable: false,
       eventLimit: true,
       allDaySlot: false,
       slotEventOverlap: false,
+      eventStartEditable: false,
       events: function(start, end, timezone, callback) {
         new_schedule(start, end, callback);
       },
@@ -117,6 +119,15 @@ initialize_calendar = function() {
             data: event_data,
             type: 'PATCH'
         });
+      },
+
+      windowResize: function(view) {
+        if ($(window).width() < 980){
+          $('#fullcalendar').fullCalendar( 'changeView', 'agendaDay' );
+        } else {
+          console.log("haha");
+          $('#fullcalendar').fullCalendar( 'changeView', 'agendaWeek' );
+        }
       }
     });
       // events: function(start, end, timezone, callback) {
@@ -169,17 +180,36 @@ initialize_calendar = function() {
     });
 };
 
-$("#new_schedule").submit(function(e) {
-  if (1>2) {
-     $("#submitBet").submit();
+function recreateFC(screenWidth) {
+  console.log("hahah"); // This will destroy and recreate the FC taking into account the screen size
+  if (screenWidth < 700) {
+    $('#fullcalendar').fullCalendar({
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: ''
+      },
+      defaultView: 'agendaDay'
+     });
+  } else {
+    $('#fullcalendar').fullCalendar({
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'agendaDay,agendaWeek,month'
+      },
+      defaultView: 'agendaWeek'
+    });
   }
-  console.log(here);
-  e.preventDefault();
-});
+}
 
+$(window).resize(function (e) { //set window resize listener
+  recreateFC($(window).width()); //or you can use $(document).width()
+});
 
 $(document).on('turbolinks:load', function() {
   initialize_calendar();
+  recreateFC($(window).width());
 
   $('#new_schedule').submit(function () {
     var valuesToSubmit = $(this).serialize();
