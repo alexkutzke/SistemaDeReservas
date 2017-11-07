@@ -65,6 +65,8 @@ gem 'momentjs-rails'
 
 gem 'devise'
 
+gem 'ice_cube'
+
 if Bundler::WINDOWS
   gem 'bcrypt', platforms: :ruby
 else

@@ -6,14 +6,14 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# Role.delete_all
-# Category.delete_all
-# Classroom.delete_all
-# Permission.delete_all
-# Event.delete_all
-# Schedule.delete_all
+Role.delete_all
+Category.delete_all
+Classroom.delete_all
+Permission.delete_all
+Event.delete_all
+Schedule.delete_all
 
-# p1 = Role.create(name: "Admin")
+p1 = Role.create(name: "Admin")
 
 # Sessions
 # 0 - Schedules
@@ -29,21 +29,22 @@
 # 10 - Equipamento
 # 11 - Periodo
 
-# Permission.create(role_id: p1.id, session: 0, index: true, new: true, edit: true, remove: true, import: true)
-# Permission.create(role_id: p1.id, session: 1, index: true, edit: true, remove: true)
-# Permission.create(role_id: p1.id, session: 2, index: true, new: true, edit: true, remove: true)
-# Permission.create(role_id: p1.id, session: 3, index: true, new: true, edit: true, remove: true, import: true)
-# Permission.create(role_id: p1.id, session: 4, index: true, new: true, edit: true, remove: true)
-# Permission.create(role_id: p1.id, session: 5, index: true, new: true, edit: true, remove: true)
-# Permission.create(role_id: p1.id, session: 6, index: true, new: true, edit: true, remove: true)
-# Permission.create(role_id: p1.id, session: 7, index: true, new: true, edit: true, remove: true, import: true)
-# Permission.create(role_id: p1.id, session: 8, index: true, new: true, edit: true, remove: true, import: true)
-# Permission.create(role_id: p1.id, session: 9, index: true, new: true, edit: true, remove: true, import: true)
-# Permission.create(role_id: p1.id, session: 10, index: true, new: true, edit: true, remove: true)
-# Permission.create(role_id: p1.id, session: 11, index: true, new: true, edit: true, remove: true)
-#
-# @category = Category.create(name: 'Sala de aula')
-@classroom = Classroom.create(room: "A01", building: "A", state: true, capacity: 30, category_id:3);
+Permission.create(role_id: p1.id, session: 0, index: true, new: true, edit: true, remove: true, import: true)
+Permission.create(role_id: p1.id, session: 1, index: true, edit: true, remove: true)
+Permission.create(role_id: p1.id, session: 2, index: true, new: true, edit: true, remove: true)
+Permission.create(role_id: p1.id, session: 3, index: true, new: true, edit: true, remove: true, import: true)
+Permission.create(role_id: p1.id, session: 4, index: true, new: true, edit: true, remove: true)
+Permission.create(role_id: p1.id, session: 5, index: true, new: true, edit: true, remove: true)
+Permission.create(role_id: p1.id, session: 6, index: true, new: true, edit: true, remove: true)
+Permission.create(role_id: p1.id, session: 7, index: true, new: true, edit: true, remove: true, import: true)
+Permission.create(role_id: p1.id, session: 8, index: true, new: true, edit: true, remove: true, import: true)
+Permission.create(role_id: p1.id, session: 9, index: true, new: true, edit: true, remove: true, import: true)
+Permission.create(role_id: p1.id, session: 10, index: true, new: true, edit: true, remove: true)
+Permission.create(role_id: p1.id, session: 11, index: true, new: true, edit: true, remove: true)
 
-# Schedule.create(title: "Festa da Ana", start: "2017-10-26 14:00:00", end: "2017-10-26 14:30:00", classroom_id: @classroom.id, user_id: 1);
-Schedule.create(title: "Churras", start: "2017-10-31 14:00:00", end: "2017-10-31 14:30:00", classroom_id: 6, user_id: 1);
+@category = Category.create(name: 'Sala de aula')
+@classroom = Classroom.create(room: "A01", building: "A", state: true, capacity: 30, category_id: @category.id);
+
+Schedule.create(title: "Festa da Ana", start: "2017-10-26 14:00:00", end: "2017-10-26 14:30:00", classroom_id: @classroom.id, user_id: 1);
+Schedule.create(title: "Churras", start: "2017-10-31 14:00:00", end: "2017-10-31 14:30:00", classroom_id: @classroom.id, user_id: 1);
+Schedule.create(title: "Festa do João", start: "2017-11-07 19:00:00", end: "2017-11-08 23:00:00", classroom_id: @classroom.id, user_id: 1);

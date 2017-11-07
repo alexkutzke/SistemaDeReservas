@@ -21,7 +21,7 @@ class Schedule < ApplicationRecord
 
   # pode deixar assim, mas se tiver muito dados na tabela, pode ficar lento
   def is_not_overlap (from, to)
-    range = Range.new from, to
+    range = Range.new from + 1, to - 1
     overlaps = Schedule.exclude_self(id).in_range(range)
     overlaps.empty? ? true : false
   end

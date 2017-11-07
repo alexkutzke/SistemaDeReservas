@@ -4,7 +4,7 @@ class CreateSchedules < ActiveRecord::Migration[5.0]
       t.datetime :end, null: false
       t.datetime :start, null: false
       t.integer :frequency, default: 1
-      t.string :color, default: "#c3302c"
+      t.string :color, default: "c3302c"
       t.integer :state, default: 1
       t.boolean :reservation, default: true
       t.string :title, null: true

@@ -24,7 +24,7 @@ class Management::SchedulesController < ApplicationController
       can = 0
     end
     respond_to do |format|
-      format.json { render json: @schedule.to_json(:include => [:classroom, :user, :klass, :discipline]).add("can_destroy" => can)}
+      format.json { render json: @schedule.to_json(:include => [:classroom, :user, :klass, :discipline]) }
       format.js
     end
   end
