@@ -1,4 +1,5 @@
 class Management::SchedulesController < ApplicationController
+  require "ice_cube"
   before_action :authenticate_user!, :set_session, :get_current_user, :get_permissions_from_user, :authorize
   before_action :set_schedule, only: [:show, :update, :destroy]
 
@@ -17,33 +18,27 @@ class Management::SchedulesController < ApplicationController
   end
 
   def show
-    respond_to do |format|
-      format.json { render json: @schedule.to_json(:include => [:classroom, :user, :klass, :discipline]) }
+    if @schedule.user_id == @currentUser.id
+      can = 1
+    else
+      can = 0
     end
-  end
-
-  def create
-    @schedule = Schedule.new(schedules_params)
-
     respond_to do |format|
-      if @schedule.save
-        format.html { redirect_to @schedule, notice: 'Event was successfully created.' }
-        format.json { render json: @schedule, status: :created }
-      else
-        format.html { render :new }
-        format.json { render json: @schedule.errors, status: :unprocessable_entity }
-      end
+      format.json { render json: @schedule.to_json(:include => [:classroom, :user, :klass, :discipline]).add("can_destroy" => can)}
+      format.js
     end
   end
 
   def create
     @schedule = Schedule.new(schedule_params)
+    @schedule.state = 1
+    puts @schedule.state
     respond_to do |format|
-      if @schedule.save
-        format.html { redirect_to :new }
-        format.json { render json:  @schedule, status: :created }
+      if @schedule.is_not_overlap( @schedule.start, @schedule.end) && @schedule.save
+        format.html { redirect_to @schedule, notice: 'Event was successfully created.' }
+        format.json { render json: @schedule, status: :created }
       else
-        format.html { redirect_to management_schedules_path }
+        format.html { render :new }
         format.json { render json: @schedule.errors, status: :unprocessable_entity }
       end
     end

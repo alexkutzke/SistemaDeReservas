@@ -4,14 +4,25 @@ class Schedule < ApplicationRecord
   belongs_to :classroom
   belongs_to :user
   attr_accessor :date_range
-  scope :schedules_between, -> (start_at, end_at) { where("start_at >= ? AND start_at <= ?", start_at, end_at) }
 
   validates :start, presence: true, uniqueness: true
   validates :end, presence: true, uniqueness: true
   validates :user_id, presence: true
   validates :classroom_id, presence: true
 
+  scope :in_range, -> range {
+    where('(start BETWEEN ? AND ?)', range.first, range.last)
+  }
+  scope :exclude_self, -> id { where.not(id: id) }
+
   def as_json(options={})
     super(:include => [:classroom, :user, :klass, :discipline])
+  end
+
+  # pode deixar assim, mas se tiver muito dados na tabela, pode ficar lento
+  def is_not_overlap (from, to)
+    range = Range.new from, to
+    overlaps = Schedule.exclude_self(id).in_range(range)
+    overlaps.empty? ? true : false
   end
 end

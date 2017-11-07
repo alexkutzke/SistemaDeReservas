@@ -16,7 +16,14 @@ function new_schedule(start, end, callback) {
         event.title = doc[i]["title"];
         event.id = doc[i]["id"];
         event.reservation = doc[i]["reservation"];
-        event.color = doc[i]["reservation"] ? '#0e6b59' : '#cccccc';
+        switch(doc[i]["state"]) {
+          case 1:
+            event.color = '#c3302c';
+            break;
+          case 2:
+            event.color = '#0e6b59';
+            break;
+        }
         event.start = doc[i]["start"];
         event.end = doc[i]["end"];
         event.user_id = doc[i]["user_id"];
@@ -65,13 +72,14 @@ initialize_calendar = function() {
 
       select: function(start, end) {
           //here I validate that the user can't create an event before today
-        // console.log("moment = " + moment());
-        // console.log("moment = " + moment().format("DD/MM/YYYY HH:mm"));
+        console.log("moment = " + moment.utc());
+        console.log("moment = " + moment().format("DD/MM/YYYY HH:mm"));
         // console.log("start = " + start);
-        // console.log("start = " + moment(start).format("DD/MM/YYYY HH:mm"));
-        // console.log(moment.utc(start) < moment());
-        // console.log(moment(start).format("DD/MM/YYYY HH:mm") < moment().format("DD/MM/YYYY HH:mm"));
-        if (moment(start) < moment()){
+        console.log("moment start = " + moment.utc(start));
+        console.log("start = " + moment(start).format("DD/MM/YYYY HH:mm"));
+        console.log(moment.utc(start) < moment());
+        //console.log(moment(start).format("DD/MM/YYYY HH:mm") < moment().format("DD/MM/YYYY HH:mm"));
+        if (moment(start).add(2, 'hours') < moment()){
           alert("Você não pode reservar uma data no passado...");
           $("#calendar").fullCalendar("unselect");
           return;
@@ -83,6 +91,9 @@ initialize_calendar = function() {
         $('.start_hidden').val(moment(start).format('YYYY-MM-DD HH:mm'));
         $('.end_hidden').val(moment(end).format('YYYY-MM-DD HH:mm'));
         $('#new_event').modal('show');
+        $('#new_event').on('shown.bs.modal', function(){
+          $('#schedule_title').focus();
+        });
       },
       eventClick:  function(event, jsEvent, view) {
         $.ajax({
@@ -92,6 +103,8 @@ initialize_calendar = function() {
           contentType: "application/json; charset=utf-8",
           success: function(doc) {
             var event = new Object();
+            if (doc["can_delete"] == 1)
+              $("#new_schedule_buttons").append('<a href="/acesso/reservas/' + doc["id"] +'" class="fa fa-trash btn btn-danger" id="schedule_destroy"></a>');
             if(doc.hasOwnProperty("discipline"))
               $(".schedule_title").val(doc["discipline"]["name"] + " / Turma: " + doc["klass"]["name"]);
             else
@@ -219,7 +232,7 @@ $(document).on('turbolinks:load', function() {
         data: valuesToSubmit,
         dataType: "JSON" // you want a difference between normal and ajax-calls, and json is standard
     }).success(function(json){
-        json['color'] = '#000000';
+        json['color'] = '#0e6b59';
         $("#fullcalendar").fullCalendar( 'renderEvent', json);
         $('#new_event').modal('hide');
     }).error(function(json){
