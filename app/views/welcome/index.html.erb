@@ -1,42 +1,53 @@
 <div class="main-content">
-    <div class="row box">
-        <form role="form" class="form">
-            <div class="form-group">
+    <div class="col-md-3" >
+      <div class="row box" >
+        <div class="panel panel-default">
+          <div class="panel-heading" style="background-color:#f5f5f5 !important; border-left: 1px solid #ddd">
+              <label style="color:#8a879c" class="control-label" for="salas">Pesquisar por:</label>
+          </div>
+          <div class="panel-body">
+            <form class="form" id="filtro">
+              <div class="form-group">
                 <label class="control-label" for="salas">Sala</label>
                 <%= select_tag('classroom', options_from_collection_for_select(@classrooms, 'id', 'room'), class: 'form-control combo-classroom') %>
-            </div>
-        </form>
-    </div>
-    <div class="row" >
-        <div class="col-md-12" >
-            <div id="calendar-background">
-                <div id="fullcalendar"></div>
-            </div>
-        </div>
-    </div>
-<% if !current_user.nil? %>
-      <div class="modal fade" data-backdrop="static" id="new_event">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title">Nova Reserva</h4>
-            </div>
-            <div class="modal-body">
-              <%= render 'events/form', event: @event %>
-            </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
-    <% end %>
-    <div class="modal fade" id="show_event">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Reserva</h4>
+    </div>
+    <div class="col-md-9">
+      <div class="row box" >
+          <div class="col-md-12" >
+              <div id="calendar-background">
+                  <div id="fullcalendar"></div>
+              </div>
           </div>
-          <div class="modal-body">
-            <%= render 'events/show' %>
+      </div>
+  <% if !current_user.nil? %>
+        <div class="modal fade" data-backdrop="static" id="new_event">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Nova Reserva</h4>
+              </div>
+              <div class="modal-body">
+                <%= render 'events/form', event: @event %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <div class="modal fade" id="show_event">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Reserva</h4>
+            </div>
+            <div class="modal-body">
+              <%= render 'events/show' %>
+            </div>
           </div>
         </div>
       </div>

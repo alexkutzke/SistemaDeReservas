@@ -1,5 +1,4 @@
 class Management::SchedulesController < ApplicationController
-  require "ice_cube"
   before_action :authenticate_user!, :set_session, :get_current_user, :get_permissions_from_user, :authorize
   before_action :set_schedule, only: [:show, :update, :destroy]
 

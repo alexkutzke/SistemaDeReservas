@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171107093304) do
+ActiveRecord::Schema.define(version: 20171107151919) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20171107093304) do
     t.datetime "end",                          null: false
     t.boolean  "reservation",   default: true
     t.string   "title"
+    t.string   "255"
     t.integer  "frequency",     default: 1
     t.integer  "state",         default: 1
     t.integer  "klass_id"
@@ -117,10 +118,10 @@ ActiveRecord::Schema.define(version: 20171107093304) do
   end
 
   create_table "schedules", force: :cascade do |t|
-    t.datetime "end",                              null: false
-    t.datetime "start",                            null: false
+    t.datetime "end",                               null: false
+    t.datetime "start",                             null: false
     t.integer  "frequency",     default: 1
-    t.string   "color",         default: "c3302c"
+    t.string   "color",         default: "#c3302c"
     t.integer  "state",         default: 1
     t.boolean  "reservation",   default: true
     t.string   "title"
@@ -128,8 +129,8 @@ ActiveRecord::Schema.define(version: 20171107093304) do
     t.integer  "discipline_id"
     t.integer  "classroom_id"
     t.integer  "user_id"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.index ["classroom_id"], name: "index_schedules_on_classroom_id"
     t.index ["discipline_id"], name: "index_schedules_on_discipline_id"
     t.index ["klass_id"], name: "index_schedules_on_klass_id"

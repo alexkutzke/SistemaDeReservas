@@ -44,6 +44,7 @@ initialize_calendar = function() {
           },
           success: function(doc) {
             var events = new Array();
+            console.log(doc);
             for(i=0;i<doc.length;i++) {
               if (doc[i]["state"] != 3 && doc[i]["state"] != 4) {
                 event = new Object();
@@ -58,6 +59,7 @@ initialize_calendar = function() {
                     event.color = '#0e6b59';
                     break;
                 }
+                console.log("start = " +  doc[i]["start"]);
                 event.start = doc[i]["start"];
                 event.end = doc[i]["end"];
                 event.user_id = doc[i]["user_id"];
@@ -104,20 +106,28 @@ initialize_calendar = function() {
   });
 };
 
-$('.combo-classroom').change(function(){
-  var selectedSite = $('.combo-classroom').val();
-  var events = {
-        url: '/classroom.json',
-        type: 'GET',
-        data: {
-          siteid: selectedSite
-        }
-  }
-  $('#calendar').fullCalendar('removeEventSource', events);
-  $('#calendar').fullCalendar('addEventSource', events);
-});
-
 $(document).on('turbolinks:load', initialize_calendar);
 $(document).ready(function(){
-
+  $('.combo-classroom').change(function(){
+    var selectedClassroom = $('.combo-classroom').val();
+    var start = $('#fullcalendar').fullCalendar('getView').start;
+    var end = $('#fullcalendar').fullCalendar('getView').end;
+    $.ajax({
+      url: '/reservas',
+      type: 'GET',
+      dataType: "json",
+      contentType: "application/json; charset=utf-8",
+      data: {
+        classroom: selectedClassroom,
+        start: moment(start).format('YYYY-MM-DD'),
+        end:  moment(end).format('YYYY-MM-DD')
+      },
+      success:  function(doc) {
+          $('#fullcalendar').fullCalendar('removeEvents');
+          $("#fullcalendar").fullCalendar( 'renderEvents', doc);
+      },
+      error: function(error) {
+      }
+    });
+  });
 });
