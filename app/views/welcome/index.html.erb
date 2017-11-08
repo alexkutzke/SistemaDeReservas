@@ -2,14 +2,22 @@
     <div class="col-md-3" >
       <div class="row box" >
         <div class="panel panel-default">
-          <div class="panel-heading" style="background-color:#f5f5f5 !important; border-left: 1px solid #ddd">
-              <label style="color:#8a879c" class="control-label" for="salas">Pesquisar por:</label>
+          <div class="panel-heading" style="background-color:#2d3e50 !important; border-left: 1px solid #ddd">
+              <label style="color:#fff" class="control-label" for="salas">Pesquisar por:</label>
           </div>
           <div class="panel-body">
-            <form class="form" id="filtro">
+            <form class="form" id="search-classroom">
               <div class="form-group">
                 <label class="control-label" for="salas">Sala</label>
                 <%= select_tag('classroom', options_from_collection_for_select(@classrooms, 'id', 'room'), class: 'form-control combo-classroom') %>
+              </div>
+            </form>
+            <form class="form" id="search-calendar">
+              <div class="form-group">
+                <label class="control-label" for="salas">Data</label>
+                <div class="datepicker" style="width: 100%;">
+
+                </div>
               </div>
             </form>
           </div>
@@ -39,14 +47,14 @@
           </div>
         </div>
       <% end %>
-      <div class="modal fade" id="show_event">
+      <div class="modal fade" id="show_schedule">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
               <h4 class="modal-title">Reserva</h4>
             </div>
             <div class="modal-body">
-              <%= render 'events/show' %>
+              <%= render 'schedules/show' %>
             </div>
           </div>
         </div>

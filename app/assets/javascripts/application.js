@@ -18,3 +18,6 @@
 //= require moment
 //= require fullcalendar
 //= require fullcalendar/gcal
+//= require bootstrap-datepicker
+//= require bootstrap-datepicker/core
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.pt-BR.js

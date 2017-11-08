@@ -89,14 +89,29 @@ initialize_calendar = function() {
           success: function(doc) {
             var event = new Object();
             if(doc.hasOwnProperty("discipline"))
-              $("#event_title").val(doc["discipline"]["name"] + " / Turma: " + doc["klass"]["name"]);
+              $("#schedule_title").val(doc["discipline"]["name"] + " / Turma: " + doc["klass"]["name"]);
             else
-              $("#event_title").val(doc["title"]);
-            $("#event_user").val(doc["user"]["name"]);
-            $("#event_classroom").val(doc["classroom"]["room"]);
-            $("#event_frequency").val(doc["frequency"]);
-            $('#event_date_range').val(moment.utc(doc["start"]).format("DD/MM/YYYY HH:mm") + ' - ' + moment.utc(doc["end"]).format("DD/MM/YYYY HH:mm"))
-            $('#show_event').modal('show');
+              $("#schedule_title").val(doc["title"]);
+            $("#schedule_user").val(doc["user"]["name"]);
+            $("#schedule_classroom").val(doc["classroom"]["room"]);
+            $("#schedule_frequency").val(doc["frequency"]);
+            var state;
+            switch (doc["state"]) {
+              case 1:
+                state = "Aguardando aprovação"
+                break;
+              case 2:
+                state = "Aprovado";
+              case 3:
+                state = "Recusado";
+                break;
+              case 4:
+                state = "Cancelado";
+                break;
+            }
+            $("#schedule_state").val(state);
+            $('#schedule_date_range').val(moment.utc(doc["start"]).format("DD/MM/YYYY HH:mm") + ' - ' + moment.utc(doc["end"]).format("DD/MM/YYYY HH:mm"))
+            $('#show_schedule').modal('show');
           },
           error: function(doc) {
           }
@@ -108,26 +123,45 @@ initialize_calendar = function() {
 
 $(document).on('turbolinks:load', initialize_calendar);
 $(document).ready(function(){
+  $('.datepicker').datepicker({
+    showOn: 'button',
+    clearBtn: true,
+    daysOfWeekDisabled: ['0'],
+    format: 'dd/mm/yyyy',
+    language: 'pt-BR',
+    todayHighlight: true
+  });
+  $('.datepicker-days').addClass('table-responsive');
+  $('.table-condensed').addClass('table table-striped');
   $('.combo-classroom').change(function(){
-    var selectedClassroom = $('.combo-classroom').val();
-    var start = $('#fullcalendar').fullCalendar('getView').start;
-    var end = $('#fullcalendar').fullCalendar('getView').end;
-    $.ajax({
-      url: '/reservas',
-      type: 'GET',
-      dataType: "json",
-      contentType: "application/json; charset=utf-8",
-      data: {
-        classroom: selectedClassroom,
-        start: moment(start).format('YYYY-MM-DD'),
-        end:  moment(end).format('YYYY-MM-DD')
-      },
-      success:  function(doc) {
-          $('#fullcalendar').fullCalendar('removeEvents');
-          $("#fullcalendar").fullCalendar( 'renderEvents', doc);
-      },
-      error: function(error) {
-      }
-    });
+    get_schedules_from_classroom();
   });
 });
+
+/*
+ * Call this function when user change classroom combobox
+ * to make a ajax request and get schedules from this classroom
+ */
+function get_schedules_from_classroom() {
+  var selectedClassroom = $('.combo-classroom').val();
+  var start = $('#fullcalendar').fullCalendar('getView').start;
+  var end = $('#fullcalendar').fullCalendar('getView').end;
+  $.ajax({
+    url: '/reservas',
+    type: 'GET',
+    dataType: "json",
+    contentType: "application/json; charset=utf-8",
+    data: {
+      classroom: selectedClassroom,
+      start: moment(start).format('YYYY-MM-DD'),
+      end:  moment(end).format('YYYY-MM-DD')
+    },
+    success:  function(doc) {
+        $('#fullcalendar').fullCalendar('removeEvents');
+        $("#fullcalendar").fullCalendar( 'renderEvents', doc);
+    },
+    error: function(error) {
+      console.log(error);
+    }
+  });
+}

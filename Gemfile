@@ -65,7 +65,7 @@ gem 'momentjs-rails'
 
 gem 'devise'
 
-gem 'ice_cube'
+gem 'bootstrap-datepicker-rails'
 
 if Bundler::WINDOWS
   gem 'bcrypt', platforms: :ruby

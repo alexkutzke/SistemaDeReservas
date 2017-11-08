@@ -15,3 +15,20 @@
 .fc-time-grid, .fc-event {
   margin: 3px;
 }
+
+.datepicker-inline{
+  border: 1px solid #ddd;
+  width: 100%;
+}
+
+.datepicker table tr td.today {
+  color: #fff;
+  background-color: #16a086;
+  border-color: #118871;
+}
+
+.datepicker table tr td.today:hover, .datepicker table tr td.today:active, .datepicker table tr td.today:active:focus{
+  color: #fff !important;
+  background-color: #118871 !important;
+  border-color: #118871 !important;
+}
