@@ -106,6 +106,7 @@ initialize_calendar = function() {
 
 $(document).on('turbolinks:load', function() {
   initialize_calendar();
+  set_fullcalendar_table();
 
   // add new schedule
   $('#new_schedule').submit(function () {
@@ -118,5 +119,9 @@ $(document).on('turbolinks:load', function() {
   $("#show_schedules_buttons").on('click', '#schedule_destroy', function(e) {
     var id = $(this).val();
     destroy_schedule(id);
+  });
+
+  $('.combo-classroom').change(function(){ // on select a new classroom
+    get_schedules_from_classroom();
   });
 });

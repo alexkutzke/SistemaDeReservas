@@ -94,3 +94,14 @@ function get_schedules_from_classroom() {
     }
   });
 }
+
+function set_fullcalendar_table() {
+  $('.fc-agendaWeek-button').on('click', function() {
+    $(".fc-agendaWeek-view").children('table').css('min-width', '650px');
+  });
+  $('.fc-month-button').on('click', function() {
+    $(".fc-month-view").children('table').css('min-width', '650px');
+  });
+  $(".fc-agendaWeek-view").children('table').css('min-width', '650px');
+  $(".fc-view-container").addClass("table-responsive");
+}

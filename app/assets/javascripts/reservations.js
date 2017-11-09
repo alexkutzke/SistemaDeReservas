@@ -42,8 +42,8 @@ initialize_calendar = function() {
   });
 };
 
-$(document).on('turbolinks:load', initialize_calendar);
-$(document).ready(function(){
+$(document).on('turbolinks:load', function() {
+  initialize_calendar();
   $('.datepicker').datepicker({
     showOn: 'button',
     clearBtn: true,
@@ -79,6 +79,7 @@ $(document).ready(function(){
       }
     });
   });
+  set_fullcalendar_table();
   $('.datepicker-days').addClass('table-responsive');
   $('.table-condensed').addClass('table table-striped');
   $('.combo-classroom').change(function(){
