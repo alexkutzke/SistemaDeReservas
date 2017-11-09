@@ -145,7 +145,11 @@ $(document).ready(function(){
         by_day:  true
       },
       success:  function(doc) {
-          console.log(doc);
+        if(doc.length>0) {
+          var d = moment(doc[0]["start"]).format("YYYY-MM-DD");
+          $('#fullcalendar').fullCalendar('gotoDate',  doc["start"]);
+        }
+          console.log("d = " +  doc[0]["start"]);
           $('#fullcalendar').fullCalendar('removeEvents');
           $("#fullcalendar").fullCalendar( 'renderEvents', doc);
       },
