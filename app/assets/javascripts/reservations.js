@@ -44,8 +44,8 @@ initialize_calendar = function() {
           },
           success: function(doc) {
             var events = new Array();
-            console.log(doc);
             for(i=0;i<doc.length;i++) {
+              console.log(doc);
               if (doc[i]["state"] != 3 && doc[i]["state"] != 4) {
                 event = new Object();
                 event.id = doc[i]["id"];
@@ -59,7 +59,6 @@ initialize_calendar = function() {
                     event.color = '#0e6b59';
                     break;
                 }
-                console.log("start = " +  doc[i]["start"]);
                 event.start = doc[i]["start"];
                 event.end = doc[i]["end"];
                 event.user_id = doc[i]["user_id"];
@@ -129,7 +128,31 @@ $(document).ready(function(){
     daysOfWeekDisabled: ['0'],
     format: 'dd/mm/yyyy',
     language: 'pt-BR',
-    todayHighlight: true
+    todayHighlight: true,
+    showOn: 'both'
+  }).on('changeDate', function(ev) {
+    var selectedClassroom = $('.combo-classroom').val();
+    var data = ev.format(0,"yyyy-mm-dd");
+    $.ajax({
+      url: '/reservas',
+      type: 'GET',
+      dataType: "json",
+      contentType: "application/json; charset=utf-8",
+      data: {
+        classroom: selectedClassroom,
+        start: data + " 00:00:00",
+        end: data + "23:59:59",
+        by_day:  true
+      },
+      success:  function(doc) {
+          console.log(doc);
+          $('#fullcalendar').fullCalendar('removeEvents');
+          $("#fullcalendar").fullCalendar( 'renderEvents', doc);
+      },
+      error: function(error) {
+        console.log(error);
+      }
+    });
   });
   $('.datepicker-days').addClass('table-responsive');
   $('.table-condensed').addClass('table table-striped');

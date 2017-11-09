@@ -3,7 +3,9 @@ class SchedulesController < ApplicationController
   # GET /reservas.json
   def index
     @schedule = Schedule.new
-    if params.has_key?(:classroom)
+    if params.has_key?(:by_day)
+      @schedules = Schedule.where(start: params[:start]..params[:end], classroom_id: params[:classroom])
+    elsif params.has_key?(:classroom) && !params.has_key?(:by_day)
       @schedules = Schedule.where(start: params[:start]..params[:end], classroom_id: params[:classroom])
     else
       @schedules = Schedule.where(start: params[:start]..params[:end])

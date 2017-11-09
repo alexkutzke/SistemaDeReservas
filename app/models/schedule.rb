@@ -16,7 +16,11 @@ class Schedule < ApplicationRecord
   scope :exclude_self, -> id { where.not(id: id) }
 
   def as_json(options={})
-    super(:include => [:classroom, :user, :klass, :discipline])
+    if options.has_key?(:id) && options[:id] == self.user_id
+      super(:include => [:classroom, :user, :klass, :discipline]).merge({:can_destroy => true})
+    else
+      super(:include => [:classroom, :user, :klass, :discipline])
+    end
   end
 
   # pode deixar assim, mas se tiver muito dados na tabela, pode ficar lento

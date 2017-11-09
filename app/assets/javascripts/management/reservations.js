@@ -12,6 +12,7 @@ function new_schedule(start, end, callback) {
     success: function(doc) {
       var events = new Array();
       for(i=0;i<doc.length;i++) {
+        console.log(doc);
         event = new Object();
         event.title = doc[i]["title"];
         event.id = doc[i]["id"];
@@ -56,6 +57,7 @@ initialize_calendar = function() {
       dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
       minTime: "06:00:00",
       maxTime: "23:00:00",
+      hiddenDays: [0],
       height: 793,
       locale : 'pt-br',
       defaultView: "agendaWeek",
@@ -86,7 +88,7 @@ initialize_calendar = function() {
         }
         $('#schedule_title').val("");
         $('.schedule_date_range').val(moment(start).format("DD/MM/YYYY HH:mm") + ' - ' + moment(end).format("DD/MM/YYYY HH:mm"))
-        $('.schedule_classroom_name').val($('.combo-classroom').text());
+        $('.schedule_classroom_name').val($('.combo-classroom option:selected').text());
         $('.schedule_classroom').val($('.combo-classroom').val());
         $('.start_hidden').val(moment(start).format('YYYY-MM-DD HH:mm'));
         $('.end_hidden').val(moment(end).format('YYYY-MM-DD HH:mm'));
@@ -103,8 +105,11 @@ initialize_calendar = function() {
           contentType: "application/json; charset=utf-8",
           success: function(doc) {
             var event = new Object();
-            if (doc["can_delete"] == 1)
-              $("#new_schedule_buttons").append('<a href="/acesso/reservas/' + doc["id"] +'" class="fa fa-trash btn btn-danger" id="schedule_destroy"></a>');
+            console.log("log  = " + doc["can_destroy"]);
+            if (doc["can_destroy"]) {
+              $("#schedule_destroy").remove();
+              $("#show_schedules_buttons").append('<button type="button"  value=' + doc["id"] + ' class="btn btn-danger" id="schedule_destroy">Excluir</button>');
+            }
             if(doc.hasOwnProperty("discipline"))
               $(".schedule_title").val(doc["discipline"]["name"] + " / Turma: " + doc["klass"]["name"]);
             else
@@ -113,7 +118,21 @@ initialize_calendar = function() {
             $(".schedule_classroom").val(doc["classroom"]["room"]);
             $(".schedule_frequency").val(doc["frequency"]);
             $(".schedule_date_range").val(moment.utc(doc["start"]).format("DD/MM/YYYY HH:mm") + ' - ' + moment.utc(doc["end"]).format("DD/MM/YYYY HH:mm"));
-            $('#show_event').modal('show');
+            switch (doc["state"]) {
+              case 1:
+                state = "Aguardando aprovação"
+                break;
+              case 2:
+                state = "Aprovado";
+              case 3:
+                state = "Recusado";
+                break;
+              case 4:
+                state = "Cancelado";
+                break;
+            }
+            $("#schedule_state").val(state);
+            $('#show_schedule').modal('show');
           },
           error: function(doc) {
           }
@@ -232,13 +251,28 @@ $(document).on('turbolinks:load', function() {
         data: valuesToSubmit,
         dataType: "JSON" // you want a difference between normal and ajax-calls, and json is standard
     }).success(function(json){
-        json['color'] = '#0e6b59';
+        json['color'] = '#c3302c';
         $("#fullcalendar").fullCalendar( 'renderEvent', json);
         $('#new_event').modal('hide');
     }).error(function(json){
       console.log("error");
     });
     return false;
-});
+  });
 
+  $("#show_schedules_buttons").on('click', '#schedule_destroy', function(e) {
+    var id = $(this).val();
+    $.ajax({
+      type: 'DELETE',
+      url: '/acesso/reservas/' + id,
+      dataType: 'JSON'
+    }).success(function(json) {
+      $('#fullcalendar').fullCalendar('removeEvents', id);
+      $('#show_schedule').modal('hide');
+      console.log("sucesso");
+    }).error(function(error){
+      console.log("error");
+    });
+    console.log("hahaha");
+  });
 });

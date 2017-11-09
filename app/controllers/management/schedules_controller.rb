@@ -12,18 +12,13 @@ class Management::SchedulesController < ApplicationController
     @classrooms = Classroom.where(state: true)
     respond_to do |format|
       format.html
-      format.json { render json: @schedules }
+      format.json { render json: @schedules.as_json()}
     end
   end
 
   def show
-    if @schedule.user_id == @currentUser.id
-      can = 1
-    else
-      can = 0
-    end
     respond_to do |format|
-      format.json { render json: @schedule.to_json(:include => [:classroom, :user, :klass, :discipline]) }
+      format.json { render json: @schedule.to_json(:include => [:classroom, :user, :klass, :discipline], :id => @currentUser.id) }
       format.js
     end
   end
@@ -47,6 +42,11 @@ class Management::SchedulesController < ApplicationController
   end
 
   def destroy
+    @schedule.destroy
+    respond_to do |format|
+      format.html
+      format.json { head :no_content, status: 200 }
+    end
   end
 
   private

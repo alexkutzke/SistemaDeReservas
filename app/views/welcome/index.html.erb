@@ -1,7 +1,7 @@
 <div class="main-content">
     <div class="col-md-3" >
       <div class="row box" >
-        <div class="panel panel-default">
+        <div class="panel panel-default" style="margin-top:10px">
           <div class="panel-heading" style="background-color:#2d3e50 !important; border-left: 1px solid #ddd">
               <label style="color:#fff" class="control-label" for="salas">Pesquisar por:</label>
           </div>
@@ -9,7 +9,7 @@
             <form class="form" id="search-classroom">
               <div class="form-group">
                 <label class="control-label" for="salas">Sala</label>
-                <%= select_tag('classroom', options_from_collection_for_select(@classrooms, 'id', 'room'), class: 'form-control combo-classroom') %>
+                <%= select_tag('classroom', options_from_collection_for_select(@classrooms, :id, :room_capacity), class: 'form-control combo-classroom') %>
               </div>
             </form>
             <form class="form" id="search-calendar">

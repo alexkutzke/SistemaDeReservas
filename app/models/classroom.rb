@@ -10,6 +10,10 @@ class Classroom < ApplicationRecord
     super(include: :category)
   end
 
+  def room_capacity
+    "#{room} - Capacidade: #{capacity}"
+  end
+
   def self.import(file, category)
     begin
       puts file.blank?
