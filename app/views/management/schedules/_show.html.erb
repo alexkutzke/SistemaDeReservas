@@ -6,17 +6,12 @@
       </div>
       <div class="modal-body">
         <%= form_for(@schedule, :html => {class: 'form-horizontal'}) do |f| %>
-          <% if @schedule.errors.any? %>
-            <div id="error_explanation">
-              <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
 
-              <ul>
-              <% @schedule.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-              <% end %>
-              </ul>
-            </div>
-          <% end %>
+          <div id="error" class="hidden">
+              <div class="alert alert-danger">
+                <p class="message-error"></p>
+              </div>
+          </div>
 
           <div class="form-group">
             <%= f.label :title, 'Descrição', class: 'control-label col-sm-3' %>
@@ -63,7 +58,7 @@
           <div class="form-group pull">
             <div class="col-sm-offset-3 col-sm-9">
               <div class="pull-right" id="show_schedules_buttons">
-                <button type="button" id="schedule_close" class="btn btn-default" data-dismiss="modal"> Fechar</button>
+                <button type="button" id="schedule_close" class="btn btn-dark-blue" data-dismiss="modal"> Fechar</button>
               </div>
             </div>
           </div>

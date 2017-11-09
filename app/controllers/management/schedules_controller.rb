@@ -28,12 +28,12 @@ class Management::SchedulesController < ApplicationController
     @schedule.state = 1
     puts @schedule.state
     respond_to do |format|
-      if @schedule.is_not_overlap( @schedule.start, @schedule.end) && @schedule.save
-        format.html { redirect_to @schedule, notice: 'Event was successfully created.' }
+      if @schedule.is_not_overlap( @schedule.start, @schedule.end) && @schedule.validates() &&  @schedule.save
+        format.html { redirect_to @schedule, notice: 'Schedule was successfully created.' }
         format.json { render json: @schedule, status: :created }
       else
         format.html { render :new }
-        format.json { render json: @schedule.errors, status: :unprocessable_entity }
+        format.json { render :json => {:errors => @schedule.errors}, status: :unprocessable_entity }
       end
     end
   end
@@ -42,10 +42,16 @@ class Management::SchedulesController < ApplicationController
   end
 
   def destroy
-    @schedule.destroy
+    if @schedule.user_id == @currentUser.id
+      @schedule.destroy
+    end
+
     respond_to do |format|
-      format.html
-      format.json { head :no_content, status: 200 }
+      if @schedule.destroyed
+        format.json { head :no_content }
+      else
+        format.json { render :json => {:errors => "Schedule was not removed"}, :status => 500 }
+      end
     end
   end
 
