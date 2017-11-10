@@ -10,10 +10,14 @@ function create_schedule(values) { // POST request to create a new schedule
       $('#new_event').modal('hide');
   }).error(function(error){
     error =  error["responseJSON"]["errors"];
-    if (error.hasOwnProperty("title")) {
-      $(".message-error").empty().append("Title " + error["title"]);
-      $("#error").removeClass("hidden");
-    }
+    console.log(error);
+    var message;
+    if (error.hasOwnProperty("title"))
+      message = "Campo descrição é obrigatório.";
+    else
+      message = "Ops, ocorreu um erro. Tente novamente mais tarde. Caso persista o erro, contate um dos administradores do sistema."
+    $(".message-error").empty().append(message);
+    $("#error").removeClass("hidden");
   });
 }
 

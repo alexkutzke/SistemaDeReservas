@@ -7,7 +7,7 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :title, 'Descrição', class: 'control-label col-sm-3' %>
+    <%= f.label :title, '<span style="color:red">*</span> Descrição'.html_safe, class: 'control-label col-sm-3' %>
     <div class="col-sm-9">
       <%= f.text_field :title, class: 'form-control', placeholder: 'Festa da Ana', autofocus: true %>
     </div>
@@ -27,7 +27,7 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :classroom, 'Sala', class: 'control-label col-sm-3' %>
+    <%= f.label :classroom, '<span style="color:red">*</span> Sala'.html_safe, class: 'control-label col-sm-3' %>
     <%= f.hidden_field :classroom_id, class: 'form-control schedule_classroom' %>
     <div class="col-sm-9">
       <%= f.text_field :classroom, class: 'form-control schedule_classroom_name', placeholder: 'A02', readonly: true %>

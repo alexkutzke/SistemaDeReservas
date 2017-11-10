@@ -21,6 +21,11 @@
           </div>
       </div>
   </div>
-  <%= render 'new', event: @schedule %>
-  <%= render 'show' %>
+  
+  <% if can :new, :schedule %>
+    <%= render 'new', event: @schedule %>
+  <% end %>
+  <% if can :edit, :schedule %>
+    <%= render 'show' %>
+  <% end %>
 </div>
