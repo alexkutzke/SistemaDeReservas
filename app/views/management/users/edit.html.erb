@@ -2,9 +2,11 @@
 <div class="main-content">
     <div class="row">
         <ol class="breadcrumb">
-            <li><a href="dashboard"><i class="fa fa-calendar"></i> Reservas</a></li>
-            <li><%= link_to '<i class="fa fa-group"></i> Usuários'.html_safe, management_users_path %></li>
-            <li><i class="fa fa-pencil"></i> Editar Usuário</li>
+          <li>
+            <%= link_to '<i class="fa fa-calendar"></i> Reservas'.html_safe, management_schedules_path %>
+          </li>
+          <li><%= link_to '<i class="fa fa-group"></i> Usuários'.html_safe, management_users_path %></li>
+          <li><i class="fa fa-pencil"></i> Editar Usuário</li>
         </ol>
     </div>
     <div class="form">
