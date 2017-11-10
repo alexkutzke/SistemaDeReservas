@@ -68,10 +68,16 @@ class Management::UsersController < ApplicationController
   # DELETE /usuarios/1
   # DELETE /usuarios/1.json
   def destroy
-    @user.destroy
+    puts "**************"
+    puts "aqui"
     respond_to do |format|
-      format.html { redirect_to  management_users_url, notice: 'User was successfully removed.' }
-      format.json { head :no_content }
+      if @user.id != @currentUser.id && @user.destroy
+        format.html { redirect_to  management_users_url, notice: 'User was successfully removed.' }
+        format.json { head :no_content }
+      else
+        format.html { render :edit }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
     end
   end
 

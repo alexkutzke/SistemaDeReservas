@@ -1,7 +1,7 @@
 function create_schedule(values) { // POST request to create a new schedule
   $.ajax({
       type: 'POST',
-      url: $(this).attr('action'), //sumbits it to the given url of the form
+      url: '/acesso/reservas/', //sumbits it to the given url of the form
       data: values,
       dataType: 'JSON'
   }).success(function(data){

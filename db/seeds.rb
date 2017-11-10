@@ -10,7 +10,6 @@ Role.delete_all
 Category.delete_all
 Classroom.delete_all
 Permission.delete_all
-Event.delete_all
 Schedule.delete_all
 
 # NO CASO DO SEPT
