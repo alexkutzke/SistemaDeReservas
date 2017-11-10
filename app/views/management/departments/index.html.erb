@@ -48,7 +48,7 @@
                                   <td><%= d.name %></td>
                                   <td><%= d.abbreviation %></td>
                                   <td><%= d.code %></td>
-                                  <td><%= d.place %></td>
+                                  <td><%= d.sector.name %></td>
                                   <% if can(:edit, :department) && can(:destroy, :department) %>
                                     <td>
                                       <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_management_department_path(d),  :class => 'btn btn-info' %>

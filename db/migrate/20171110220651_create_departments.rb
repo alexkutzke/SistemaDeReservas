@@ -4,8 +4,7 @@ class CreateDepartments < ActiveRecord::Migration[5.0]
       t.string :name
       t.string :abbreviation
       t.string :code
-      t.string :place
-
+      t.references :sector, foreign_key: true, null: false
       t.timestamps
     end
   end

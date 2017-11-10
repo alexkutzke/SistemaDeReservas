@@ -37,9 +37,9 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <%= f.label :place, '<span style="color:red">*</span> Local'.html_safe, class: 'control-label col-sm-3' %>
+                        <%= f.label :place, '<span style="color:red">*</span> Setor'.html_safe, class: 'control-label col-sm-3' %>
                         <div class="col-sm-7">
-                            <%= f.text_field :place, class: 'form-control', placeholder: 'Politécnico' %>
+                            <%= f.collection_select :sector_id, Sector.all, :id, :name, {}, {class: "form-control"} %>
                         </div>
                     </div>
                     <div class="form-group">
@@ -58,7 +58,6 @@
                         <div class="col-sm-offset-3 col-sm-7">
                             <div class="pull-right">
                               <%= link_to 'Voltar', management_departments_path, class: 'btn btn-danger' %>
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#voltar">Voltar</button>
                                 <% if @department.new_record? %>
                                     <%= f.submit 'Cadastrar', class: 'btn btn-green' %>
                                 <% else %>

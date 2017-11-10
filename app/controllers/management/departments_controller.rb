@@ -74,7 +74,7 @@ class Management::DepartmentsController < ApplicationController
   end
 
   def department_params
-    params.require(:department).permit(:name, :abbreviation, :code, :place)
+    params.require(:department).permit(:name, :abbreviation, :code, :sector_id)
   end
 
   def set_session
