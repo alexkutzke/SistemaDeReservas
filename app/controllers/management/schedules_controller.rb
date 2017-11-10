@@ -1,5 +1,4 @@
 class Management::SchedulesController < ApplicationController
-  require "ice_cube"
   before_action :authenticate_user!, :set_session, :get_current_user, :get_permissions_from_user, :authorize
   before_action :set_schedule, only: [:show, :update, :destroy]
 
@@ -13,18 +12,13 @@ class Management::SchedulesController < ApplicationController
     @classrooms = Classroom.where(state: true)
     respond_to do |format|
       format.html
-      format.json { render json: @schedules }
+      format.json { render json: @schedules.as_json()}
     end
   end
 
   def show
-    if @schedule.user_id == @currentUser.id
-      can = 1
-    else
-      can = 0
-    end
     respond_to do |format|
-      format.json { render json: @schedule.to_json(:include => [:classroom, :user, :klass, :discipline]) }
+      format.json { render json: @schedule.to_json(:include => [:classroom, :user, :klass, :discipline], :id => @currentUser.id) }
       format.js
     end
   end
@@ -34,12 +28,12 @@ class Management::SchedulesController < ApplicationController
     @schedule.state = 1
     puts @schedule.state
     respond_to do |format|
-      if @schedule.is_not_overlap( @schedule.start, @schedule.end) && @schedule.save
-        format.html { redirect_to @schedule, notice: 'Event was successfully created.' }
+      if @schedule.is_not_overlap( @schedule.start, @schedule.end) && @schedule.validates() &&  @schedule.save
+        format.html { redirect_to @schedule, notice: 'Schedule was successfully created.' }
         format.json { render json: @schedule, status: :created }
       else
         format.html { render :new }
-        format.json { render json: @schedule.errors, status: :unprocessable_entity }
+        format.json { render :json => {:errors => @schedule.errors}, status: :unprocessable_entity }
       end
     end
   end
@@ -48,6 +42,17 @@ class Management::SchedulesController < ApplicationController
   end
 
   def destroy
+    if @schedule.user_id == @currentUser.id
+      @schedule.destroy
+    end
+
+    respond_to do |format|
+      if @schedule.destroyed
+        format.json { head :no_content }
+      else
+        format.json { render :json => {:errors => "Schedule was not removed"}, :status => 500 }
+      end
+    end
   end
 
   private

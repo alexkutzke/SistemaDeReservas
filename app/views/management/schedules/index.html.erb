@@ -10,7 +10,7 @@
       <form role="form" class="form">
           <div class="form-group">
               <label class="control-label" for="salas">Sala</label>
-              <%= select_tag('classroom', options_from_collection_for_select(@classrooms, 'id', 'room'), class: 'form-control combo-classroom') %>
+              <%= select_tag('classroom', options_from_collection_for_select(@classrooms, :id, :room_capacity), class: 'form-control combo-classroom') %>
           </div>
       </form>
   </div>
@@ -23,5 +23,4 @@
   </div>
   <%= render 'new', event: @schedule %>
   <%= render 'show' %>
-  <%= link_to "teste", management_schedule_path(4),  remote: true %>
 </div>

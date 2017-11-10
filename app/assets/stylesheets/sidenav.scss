@@ -10,7 +10,7 @@
     left:0px;
     top:0px;
     font-family: "Segoe UI";
-    
+
 }
 
 .sidenav ul{
@@ -50,7 +50,7 @@
 
 
 .sidenav-active{
-    background-color:  #223242;   
+    background-color:  #223242;
 }
 
 li.menu-navigation, li.avatar{
@@ -87,7 +87,7 @@ li.menu-navigation:hover, li.avatar:hover{
       background-color: #243344;
     }
     ::-webkit-scrollbar-thumb {
-      background-color: #16a086; 
+      background-color: #16a086;
     }
 }
 
@@ -108,7 +108,7 @@ li.menu-navigation:hover, li.avatar:hover{
       background-color: #243344;
     }
     ::-webkit-scrollbar-thumb {
-      background-color: #16a086; 
+      background-color: #16a086;
     }
     .sidenav li{
         text-align: center;
@@ -122,18 +122,18 @@ li.menu-navigation:hover, li.avatar:hover{
     .main-content{
         margin-left: 70px;
         min-height: 100%;
-        
-       
+
+
     }
     .navbar{
-        margin-left: 70px;
+        margin-left: 0px;
     }
     .nav .navbar-nav{
         margin-left: 1px;
     }
 }
 
-/* 
+/*
     CSS transition effect when reduce sidenav, navbar e main content
 */
 
@@ -150,13 +150,13 @@ li.menu-navigation:hover, li.avatar:hover{
 }
 
 .main-content{
-   
+
 }
 .full-main-content{
     margin-left: 0px !important;
     transition: 1s;
     -webkit-transition: 1s;
-    
+
 }
 
 /*
@@ -221,12 +221,3 @@ li.menu-navigation:hover, li.avatar:hover{
 .badge{
     background-color: red;
 }
-
-
-
-
-
-
-
-
-

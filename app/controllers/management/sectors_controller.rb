@@ -66,7 +66,7 @@ class Management::SectorsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to management_sectors_url, notice: 'Sector was successfully removed.' }
       format.json { head :no_content }
-  end
+    end
   end
 
   private
