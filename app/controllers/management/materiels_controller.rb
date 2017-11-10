@@ -75,7 +75,7 @@ class Management::MaterielsController < ApplicationController
   end
 
   def materiel_params
-    params.require(:materiel).permit(:name, :patrimony, :classroom_id)
+    params.require(:materiel).permit(:name, :patrimony, :serial_number, :classroom_id)
   end
 
   def set_session
