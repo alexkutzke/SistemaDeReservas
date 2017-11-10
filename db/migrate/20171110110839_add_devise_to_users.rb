@@ -4,9 +4,10 @@ class AddDeviseToUsers < ActiveRecord::Migration[5.0]
       ## Database authenticatable
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
-      t.string :name
-      t.string :cpf, :limit => 11
+      t.string :name, null: false
+      t.string :cpf, :limit => 11, null: false
       t.string :phone_number, :limit => 11
+      t.string :registration_number, null: false
       t.references :role, foreign_key: true
 
       ## Recoverable

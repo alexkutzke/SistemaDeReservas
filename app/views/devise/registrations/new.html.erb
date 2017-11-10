@@ -1,6 +1,22 @@
 <%= render :partial => 'layouts/navbar', :locals => {:active => 2} %>
 <div class="row" style="margin-top: 100px">
   <div class="col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6">
+    <% if @user.errors.any? %>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="alert alert-danger">
+                    <h2>
+                        Atenção:
+                    </h2>
+                    <ul>
+                        <% @user.errors.full_messages.each do |msg| %>
+                            <li><%= msg %></li>
+                        <% end %>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    <% end %>
     <div class="panel panel-default">
       <div class="panel-body">
         <div class="row">
@@ -8,7 +24,6 @@
         </div>
         <div class="row" style="margin-top:5px">
           <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-            <%= devise_error_messages! %>
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
@@ -32,6 +47,15 @@
                 <div class="form-group">
                   <%= f.label :email, :class => "sr-only" %><br />
                   <%= f.email_field :email, class: 'form-control', placeholder: 'Email' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12" style="margin-top:-20px">
+                <div class="form-group">
+                  <%= f.label :registration_number, :class => "sr-only" %><br />
+                  <%= f.email_field :registration_number, class: 'form-control', placeholder: 'Matrícula' %>
                 </div>
               </div>
             </div>

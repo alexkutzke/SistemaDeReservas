@@ -8,4 +8,5 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { minimum: 3 }
   validates :email, presence: true, uniqueness: true, length: { minimum: 3 }
   validates :cpf, presence: true, uniqueness: true,length: { minimum: 11, maximum: 11 }
+  validates :registration_number, presence: true, uniqueness: true
 end
