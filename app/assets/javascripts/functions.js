@@ -21,7 +21,6 @@ function show_schedules(start, end, callback, url) { // render schedules on full
          *  - 3 (Recusado)
          *  - 4 (Cancelado)
          */
-         console.log(data);
         if (data[i]["state"] == 1 || data[i]["state"] == 2) {
           event = new Object();
           if (data[i]["discipline_id"] != null && data[i]["klass_id"] != null)
@@ -49,11 +48,11 @@ function show_schedule(url) {
     dataType: "json",
     contentType: "application/json; charset=utf-8",
     success: function(data) {
+      console.log(data);
       var event = new Object();
-      if (data["can_destroy"]) { // check case if user can remove schedule - add remove button
-        $("#schedule_destroy").remove();
+      $("#schedule_destroy").remove();
+      if (data["can_destroy"]) // check case if user can remove schedule - add remove button
         $("#show_schedules_buttons").append('<button type="button"  value=' + data["id"] + ' class="btn btn-danger" id="schedule_destroy">Excluir</button>');
-      }
 
       if(data.hasOwnProperty("discipline"))
         $(".schedule_title").val(data["klass"]["name"] + " - " + data["discipline"]["discipline_code"] + data["discipline"]["name"]);

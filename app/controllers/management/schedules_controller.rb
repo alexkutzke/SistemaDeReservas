@@ -18,14 +18,19 @@ class Management::SchedulesController < ApplicationController
 
   def show
     respond_to do |format|
-      format.json { render json: @schedule.to_json(:include => [:classroom, :user, :klass, :discipline], :id => @currentUser.id) }
+      if @currentUser.role_id == 1 || @currentUser.role_id == 2
+        format.json { render json: @schedule.to_json(:admin => true) }
+      else
+        format.json { render json: @schedule.to_json(:id => @currentUser.id) }
+      end
       format.js
     end
   end
 
   def create
     @schedule = Schedule.new(schedule_params)
-    puts @schedule.state
+    # case user not admin or academic coordenation, set current user id to schedule
+    @schedule.user_id = @currentUser.id if @currentUser.role_id != 1 || @currentUser.role_id == 2
     respond_to do |format|
       if @schedule.is_not_overlap( @schedule.start, @schedule.end) && @schedule.validates() &&  @schedule.save
         format.html { redirect_to @schedule, notice: 'Schedule was successfully created.' }

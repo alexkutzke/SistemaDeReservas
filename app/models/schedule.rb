@@ -24,7 +24,9 @@ class Schedule < ApplicationRecord
   scope :exclude_self, -> id { where.not(id: id) }
 
   def as_json(options={})
-    if options.has_key?(:id) && options[:id] == self.user_id
+    if options.has_key?(:admin) && options[:admin]
+      super(:include => [:classroom, :user, :klass, :discipline]).merge({:can_destroy => true, :users => User.all})
+    elsif options.has_key?(:id) && options[:id] == self.user_id
       super(:include => [:classroom, :user, :klass, :discipline]).merge({:can_destroy => true})
     else
       super(:include => [:classroom, :user, :klass, :discipline])

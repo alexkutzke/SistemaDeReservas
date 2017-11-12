@@ -1,4 +1,5 @@
 function create_schedule(values) { // POST request to create a new schedule
+  console.log("values" + values);
   $.ajax({
       type: 'POST',
       url: '/acesso/reservas/', //sumbits it to the given url of the form
@@ -7,7 +8,7 @@ function create_schedule(values) { // POST request to create a new schedule
   }).success(function(data){
       data['color'] = '#c3302c';
       $("#fullcalendar").fullCalendar( 'renderEvent', data);
-      $('#new_event').modal('hide');
+      $('#new_schedule_modal').modal('hide');
   }).error(function(error){
     error =  error["responseJSON"]["errors"];
     console.log(error);
@@ -48,6 +49,7 @@ function new_schedule(start, end) {
     $("#calendar").fullCalendar("unselect");
     return;
   }
+
   $('#schedule_title').val("");
   $('.schedule_date_range').val(moment(start).format("DD/MM/YYYY HH:mm") + ' - ' + moment(end).format("DD/MM/YYYY HH:mm"))
   $('.schedule_classroom_name').val($('.combo-classroom option:selected').text());
@@ -55,8 +57,8 @@ function new_schedule(start, end) {
   $('.start_hidden').val(moment(start).format('YYYY-MM-DD HH:mm'));
   $('.end_hidden').val(moment(end).format('YYYY-MM-DD HH:mm'));
   $("#error").addClass("hidden");
-  $('#new_event').modal('show');
-  $('#new_event').on('shown.bs.modal', function(){
+  $('#new_schedule_modal').modal('show');
+  $('#new_schedule_modal').on('shown.bs.modal', function(){
     $('#schedule_title').focus();
   });
 }
@@ -118,6 +120,7 @@ $(document).on('turbolinks:load', function() {
   // add new schedule
   $('#new_schedule').submit(function () {
     var valuesToSubmit = $(this).serialize(); // values from form
+    console.log($(this).serialize());
     create_schedule(valuesToSubmit);
     return false;
   });
