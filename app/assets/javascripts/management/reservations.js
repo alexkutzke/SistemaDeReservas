@@ -1,5 +1,4 @@
 function create_schedule(values) { // POST request to create a new schedule
-  console.log("values" + values);
   $.ajax({
       type: 'POST',
       url: '/acesso/reservas/', //sumbits it to the given url of the form
@@ -120,7 +119,6 @@ $(document).on('turbolinks:load', function() {
   // add new schedule
   $('#new_schedule').submit(function () {
     var valuesToSubmit = $(this).serialize(); // values from form
-    console.log($(this).serialize());
     create_schedule(valuesToSubmit);
     return false;
   });

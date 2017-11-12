@@ -62,6 +62,9 @@
                           <%= link_to '<i class="fa fa-trash"></i>'.html_safe, cancel_management_solicitations_path(s), method: :put,
                           data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger' %>
                       <% end %>
+                    <% elsif s.state == 1 || s.state == 2 %>
+                      <%= link_to '<i class="fa fa-trash"></i>'.html_safe, cancel_management_solicitations_path(s), method: :put,
+                      data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger' %>
                     <% end %>
                   </td>
                 </tr>
