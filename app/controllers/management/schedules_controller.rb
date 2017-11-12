@@ -25,7 +25,6 @@ class Management::SchedulesController < ApplicationController
 
   def create
     @schedule = Schedule.new(schedule_params)
-    @schedule.state = 1
     puts @schedule.state
     respond_to do |format|
       if @schedule.is_not_overlap( @schedule.start, @schedule.end) && @schedule.validates() &&  @schedule.save

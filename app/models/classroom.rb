@@ -5,6 +5,7 @@ class Classroom < ApplicationRecord
   validates :capacity, presence: true, length: { minimum: 1 }
   validates :building, presence: true, length: { minimum: 1 }
   validates :room, presence: true, uniqueness: true, length: { minimum: 1 }
+  validates :category_id, presence: true, length: { minimum: 1 }, numericality: { only_integer: true }
 
   def as_json(options={})
     super(include: :category)

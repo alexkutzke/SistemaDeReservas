@@ -48,5 +48,9 @@ class ApplicationController < ActionController::Base
     policy.public_send("#{action}?")
   end
 
-  helper_method :can, :get_current_user
+  def pending_schedules
+    Schedule.where(state: 1).count
+  end
+
+  helper_method :can, :get_current_user, :pending_schedules
 end

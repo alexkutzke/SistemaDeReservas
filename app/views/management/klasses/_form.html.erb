@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <%= f.label :period, 'Período', class: 'control-label col-sm-3' %>
+                        <%= f.label :period, '<span style="color:red">*</span> Período'.html_safe, class: 'control-label col-sm-3' %>
                         <div class="col-sm-7">
                              <%= f.collection_select(:period_id, Period.all, :id, :name, {}, {class: "form-control"}) %>
                         </div>

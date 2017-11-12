@@ -4,10 +4,9 @@
             <%= link_to '<span><i class="fa fa-calendar"></i></span><span>Reservas</span>'.html_safe, management_schedules_path  %>
         </li>
         <li <% if active == 1 %> class='sidenav-active' <% end %> >
-            <a data-toggle="tooltip" title="Solicitações" href="solicitacoes">
-                <span><i class="fa fa-bell"></i></span>
-                <span>Solicitações <span class="badge"> 1</span></span>
-            </a>
+          <% @count = pending_schedules %>
+          <% @result = @count > 0 ? "<span class=\"badge\"> #{@count} </span> " : ""  %>
+            <%= link_to "<span><i class=\"fa fa-bell\"></i></span><span>Solicitações #{@result}</span>".html_safe, management_solicitations_path  %>
         </li>
         <% if can :index, :role %>
           <li <% if active == 2 %> class='sidenav-active' <% end %>>

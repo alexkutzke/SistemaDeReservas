@@ -34,6 +34,8 @@ class Management::UsersController < ApplicationController
   # POST /usuarios.json
   def create
     @user = User.new(user_params)
+    @user.password = @user.cpf
+    @user.password_confirmation = @user.cpf
     respond_to do |format|
       if @user.save
         format.html { redirect_to management_users_path }
@@ -68,8 +70,6 @@ class Management::UsersController < ApplicationController
   # DELETE /usuarios/1
   # DELETE /usuarios/1.json
   def destroy
-    puts "**************"
-    puts "aqui"
     respond_to do |format|
       if @user.id != @currentUser.id && @user.destroy
         format.html { redirect_to  management_users_url, notice: 'User was successfully removed.' }
@@ -83,7 +83,7 @@ class Management::UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :cpf, :phone_number, :role_id)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :cpf, :phone_number, :role_id, :registration_number)
   end
 
   def set_user

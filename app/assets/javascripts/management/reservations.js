@@ -14,6 +14,8 @@ function create_schedule(values) { // POST request to create a new schedule
     var message;
     if (error.hasOwnProperty("title"))
       message = "Campo descrição é obrigatório.";
+    else if (error.hasOwnProperty("start"))
+      message = "Já temos uma reserva neste período."
     else
       message = "Ops, ocorreu um erro. Tente novamente mais tarde. Caso persista o erro, contate um dos administradores do sistema."
     $(".message-error").empty().append(message);
@@ -83,7 +85,7 @@ initialize_calendar = function() {
       minTime: "06:00:00",
       maxTime: "23:00:00",
       hiddenDays: [0],
-      height: 793,
+      contentHeight: 'auto',
       locale : 'pt-br',
       defaultView: "agendaWeek",
       selectable: true,
@@ -93,6 +95,7 @@ initialize_calendar = function() {
       allDaySlot: false,
       slotEventOverlap: false,
       eventStartEditable: false,
+      timeFormat: 'H(:mm)',
       events: function(start, end, timezone, callback) {
         show_schedules(start, end, callback, "/acesso/reservas");
       },

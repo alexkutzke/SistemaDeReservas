@@ -4,6 +4,11 @@ class Schedule < ApplicationRecord
   belongs_to :classroom
   belongs_to :user
 
+  accepts_nested_attributes_for :user
+  accepts_nested_attributes_for :discipline
+  accepts_nested_attributes_for :classroom
+  accepts_nested_attributes_for :klass
+
   attr_accessor :date_range
   attr_accessor :destroyed
   after_destroy :mark_as_destroyed
@@ -37,6 +42,7 @@ class Schedule < ApplicationRecord
     self.destroyed = true
   end
 
+  # We defined this method when a user create a schedule by modal - field title can't be blank
   def validates()
     if self.title.blank?
       errors.add(:title, :blank, message: "cannot be blank") if self.title.blank?

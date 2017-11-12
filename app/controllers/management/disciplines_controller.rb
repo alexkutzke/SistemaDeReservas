@@ -74,7 +74,7 @@ class Management::DisciplinesController < ApplicationController
     if @array[0]
       redirect_to new_management_discipline_path, :flash => { :error => @array[1] }
     else
-      redirect_to disciplines_path
+      redirect_to management_disciplines_path
     end
   end
 

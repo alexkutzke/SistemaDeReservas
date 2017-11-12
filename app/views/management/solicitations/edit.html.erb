@@ -1,0 +1,15 @@
+<%= render :partial => 'layouts/sidenav', :locals => {:active => 1} %>
+<div class="main-content">
+    <div class="row">
+        <ol class="breadcrumb">
+          <li>
+            <%= link_to '<i class="fa fa-calendar"></i> Reservas'.html_safe, management_schedules_path %>
+          </li>
+          <li><%= link_to '<i class="fa fa-bell"></i> Solicitações'.html_safe, management_solicitations_path %></li>
+          <li><i class="fa fa-eye"></i> Visualizar reserva</li>
+        </ol>
+    </div>
+    <div class="form">
+        <%= render 'form' %>
+    </div>
+</div>

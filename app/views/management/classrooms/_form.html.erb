@@ -48,22 +48,28 @@
                             <%= f.text_field :room, class: 'form-control', placeholder: 'A01', autofocus: true %>
                         </div>
                     </div>
+
                     <div class="form-group">
                         <%= f.label :building, '<span style="color:red">*</span> Bloco'.html_safe, class: 'control-label col-sm-3' %>
                         <div class="col-sm-7">
                             <%= f.text_field :building, class: 'form-control', placeholder: 'A' %>
                         </div>
                     </div>
+
                     <div class="form-group">
                         <%= f.label :capacity, '<span style="color:red">*</span> Capacidade'.html_safe, class: 'control-label col-sm-3' %>
-                        <div class="col-sm-2">
+                        <div class="col-sm-7">
                             <%= f.number_field :capacity, class: 'form-control', placeholder: '30' %>
                         </div>
-                        <%= f.label :category, 'Categoria', class: 'control-label col-sm-1' %>
-                        <div class="col-sm-4">
+                    </div>
+
+                    <div class="form-group">
+                        <%= f.label :category, '<span style="color:red">*</span> Categoria'.html_safe, class: 'control-label col-sm-3' %>
+                        <div class="col-sm-7">
                              <%= f.collection_select :category_id, Category.all, :id, :name, {}, {class: "form-control"} %>
                         </div>
                     </div>
+
                     <div class="form-group">
                         <%= f.label :state, 'Status', class: 'control-label col-sm-3' %>
                         <div class="col-sm-7">

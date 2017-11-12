@@ -21,9 +21,13 @@ function show_schedules(start, end, callback, url) { // render schedules on full
          *  - 3 (Recusado)
          *  - 4 (Cancelado)
          */
+         console.log(data);
         if (data[i]["state"] == 1 || data[i]["state"] == 2) {
           event = new Object();
-          event.title = data[i]["title"];
+          if (data[i]["discipline_id"] != null && data[i]["klass_id"] != null)
+            event.title = data[i]["klass"]["name"] + " - " + data[i]["discipline"]["discipline_code"] + data[i]["discipline"]["name"];
+          else
+            event.title = data[i]["title"];
           event.id = data[i]["id"];
           event.reservation = data[i]["reservation"];
           event.color = data[i]["color"];
@@ -50,8 +54,9 @@ function show_schedule(url) {
         $("#schedule_destroy").remove();
         $("#show_schedules_buttons").append('<button type="button"  value=' + data["id"] + ' class="btn btn-danger" id="schedule_destroy">Excluir</button>');
       }
+
       if(data.hasOwnProperty("discipline"))
-        $(".schedule_title").val(data["discipline"]["name"] + " / Turma: " + data["klass"]["name"]);
+        $(".schedule_title").val(data["klass"]["name"] + " - " + data["discipline"]["discipline_code"] + data["discipline"]["name"]);
       else
         $(".schedule_title").val(data["title"]);
       $(".schedule_user").val(data["user"]["name"]);

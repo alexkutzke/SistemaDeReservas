@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     scope(:path_names => { :new => "cadastrar", :edit => "editar" }) do
       resources :users, :path => "usuarios"
     end
-    resources :events
+    resources :solicitations, :path => 'solicitacoes'
     resources :schedules, :path => 'reservas'
     scope(:path_names => { :new => "cadastrar", :edit => "editar" }) do
       resources :disciplines, :path => "disciplinas" do

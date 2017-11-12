@@ -1,0 +1,74 @@
+<% states = ['Aguardando aprovação', 'Aprovado', 'Recusado', 'Cancelado'] %>
+<div class="row">
+    <div class="col-md-10">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <%= form_for([:management, @solicitation], :html => {class: 'form-horizontal'}) do |f| %>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div style="border-bottom: 2px solid #ddd;">
+                                <h3><i class="fa fa-eye"></i> Reserva</h3>
+                        </div>
+                    </div>
+                </div>
+                <% if @solicitation.klass_id.nil? && @solicitation.discipline_id.nil? %>
+                  <div class="form-group" style="padding-top: 10px">
+                      <%= f.label :title, 'Descrição', class: 'control-label col-sm-3' %>
+                      <div class="col-sm-7">
+                          <%= f.text_field :title, class: 'form-control', placeholder: 'Festa da Ana', autofocus: true, disabled: true %>
+                      </div>
+                  </div>
+                <% else %>
+                  <div class="form-group" style="padding-top: 10px">
+                      <%= f.label :title, 'Descrição', class: 'control-label col-sm-3' %>
+                      <div class="col-sm-7">
+                          <%= f.text_field :title, class: 'form-control', placeholder: 'Festa da Ana', autofocus: true, disabled: true, :value => "#{@solicitation.klass.name} - #{@solicitation.discipline.discipline_code} #{@solicitation.discipline.name}" %>
+                      </div>
+                  </div>
+                <% end %>
+                <%= f.fields_for :user do |user_form| %>
+                  <div class="form-group" style="padding-top: 10px">
+                      <%= user_form.label :name, 'Solicitante', class: 'control-label col-sm-3' %>
+                      <div class="col-sm-7">
+                          <%= user_form.text_field :name, class: 'form-control', placeholder: '21/07/2017', autofocus: true, disabled: true %>
+                      </div>
+                  </div>
+                <% end %>
+                <div class="form-group" style="padding-top: 10px">
+                    <%= f.label :start, 'Início', class: 'control-label col-sm-3' %>
+                    <div class="col-sm-7">
+                        <%= f.text_field :start, class: 'form-control', placeholder: '21/07/2017', :value => @solicitation.start.strftime('%d/%m/%Y %H:%M'), autofocus: true, disabled: true %>
+                    </div>
+                </div>
+                <div class="form-group" style="padding-top: 10px">
+                    <%= f.label :end, 'Fim', class: 'control-label col-sm-3' %>
+                    <div class="col-sm-7">
+                        <%= f.text_field :end, class: 'form-control', placeholder: '21/07/2017', :value => @solicitation.end.strftime('%d/%m/%Y %H:%M'), autofocus: true, disabled: true %>
+                    </div>
+                </div>
+                <%= f.fields_for :classroom do |classroom_form| %>
+                  <div class="form-group" style="padding-top: 10px">
+                      <%= classroom_form.label :room, 'Sala', class: 'control-label col-sm-3' %>
+                      <div class="col-sm-7">
+                          <%= classroom_form.text_field :room, class: 'form-control', placeholder: '21/07/2017', autofocus: true, disabled: true %>
+                      </div>
+                  </div>
+                <% end %>
+                <div class="form-group" style="padding-top: 10px">
+                    <%= f.label :state, 'Status', class: 'control-label col-sm-3' %>
+                    <div class="col-sm-7">
+                        <%= f.text_field :state, class: 'form-control', placeholder: '21/07/2017', autofocus: true, disabled: true, value: get_state(@solicitation.state) %>
+                    </div>
+                </div>
+                <div class="form-group pull">
+                    <div class="col-sm-offset-3 col-sm-7">
+                        <div class="pull-right">
+                            <%= link_to 'Voltar', management_solicitations_path, class: 'btn btn-danger' %>
+                        </div>
+                    </div>
+                </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
