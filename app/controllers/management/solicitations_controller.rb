@@ -3,7 +3,11 @@ class Management::SolicitationsController < ApplicationController
   before_action :set_solicitation, only: [:edit, :approve, :refuse, :cancel]
 
   def index
-    @solicitations = Schedule.order('start DESC').paginate(:page => params[:page], per_page:5)
+    if @currentUser.id == 1 ||  @currentUser.id == 2
+      @solicitations = Schedule.order('start DESC').paginate(:page => params[:page], per_page:5)
+    else
+      @solicitations = Schedule.where(user_id: @currentUser.id).order('start DESC').paginate(:page => params[:page], per_page:5)
+    end
     @number = @solicitations.count
 
     respond_to do |format|

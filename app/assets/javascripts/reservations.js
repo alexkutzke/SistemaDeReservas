@@ -22,7 +22,7 @@ initialize_calendar = function() {
       hiddenDays: [0],
       minTime: "06:00:00",
       maxTime: "23:00:00",
-      height: 793,
+      contentHeight: 'auto',
       locale : 'pt-br',
       defaultView: "agendaWeek",
       selectable: false,

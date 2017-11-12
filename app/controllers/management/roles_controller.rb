@@ -67,8 +67,8 @@ class Management::RolesController < ApplicationController
     respond_to do |format|
       if @role.update(role_params)
         @role.permissions = params[:role][:permission].map do |key, value|
-            index = value["index"] ? true : false
-            index = true if value["new"] || value["edit"] || value["remove"]
+            index = value["index"] == "1" ? true : false
+            index = true if value["new"] == "1" || value["edit"] == "1" || value["remove"] == "1"
             Permission.update(value["id"], :index =>  index, :new => value["new"], :edit => value["edit"], :remove => value["remove"], :import => value["import"])
         end
         format.html { redirect_to management_roles_path }

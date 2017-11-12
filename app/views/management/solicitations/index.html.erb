@@ -37,9 +37,7 @@
                 <th>Data início</th>
                 <th>Data fim</th>
                 <th>Status</th>
-                <% if can(:edit, :solicitation) %>
-                  <th style="width: 150px"><i class="fa fa-cog"></i></th>
-                <% end %>
+                <th style="width: 150px"><i class="fa fa-cog"></i></th>
               </tr>
               <% @solicitations.each do |s| %>
                 <% if s.state == 1 %>
@@ -51,9 +49,9 @@
                   <td><%= s.start.strftime('%d/%m/%Y %H:%M') %></td>
                   <td><%= s.end.strftime('%d/%m/%Y %H:%M') %></td>
                   <td><%= states[s.state-1] %></td>
-                  <% if can(:edit, :solicitation) %>
-                    <td>
-                      <%= link_to '<i class="fa fa-eye"></i>'.html_safe, edit_management_solicitation_path(s),  :class => 'btn btn-info' %>
+                  <td>
+                    <%= link_to '<i class="fa fa-eye"></i>'.html_safe, edit_management_solicitation_path(s),  :class => 'btn btn-info' %>
+                    <% if can(:edit, :solicitation) && (@currentUser.id == 1 || @currentUser.id == 2)  %>
                       <% case s.state %>
                         <% when 1 %>
                           <%= link_to '<i class="fa fa-play"></i>'.html_safe, approve_management_solicitations_path(s), method: :put,
@@ -64,8 +62,8 @@
                           <%= link_to '<i class="fa fa-trash"></i>'.html_safe, cancel_management_solicitations_path(s), method: :put,
                           data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger' %>
                       <% end %>
-                    </td>
-                  <% end %>
+                    <% end %>
+                  </td>
                 </tr>
               <% end %>
             </table>
