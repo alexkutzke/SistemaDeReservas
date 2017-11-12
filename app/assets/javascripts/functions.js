@@ -12,30 +12,7 @@ function show_schedules(start, end, callback, url) { // render schedules on full
         classroom: $("#classroom").val()
     },
     success: function(data) {
-      var events = new Array();
-      for(i=0;i<data.length;i++) {
-        /*
-         * States:
-         *  - 1 (Pendente)
-         *  - 2 (Aprovado)
-         *  - 3 (Recusado)
-         *  - 4 (Cancelado)
-         */
-        if (data[i]["state"] == 1 || data[i]["state"] == 2) {
-          event = new Object();
-          if (data[i]["discipline_id"] != null && data[i]["klass_id"] != null)
-            event.title = data[i]["klass"]["name"] + " - " + data[i]["discipline"]["discipline_code"] + data[i]["discipline"]["name"];
-          else
-            event.title = data[i]["title"];
-          event.id = data[i]["id"];
-          event.reservation = data[i]["reservation"];
-          event.color = data[i]["color"];
-          event.start = data[i]["start"];
-          event.end = data[i]["end"];
-          event.user_id = data[i]["user_id"];
-          events.push(event);
-        }
-      }
+      var events = set_events_array(data);
       callback(events);
     }
   });
@@ -71,6 +48,35 @@ function show_schedule(url) {
   });
 }
 
+function set_events_array(data) {
+  var events = new Array();
+  for(i=0;i<data.length;i++) {
+    /*
+     * States:
+     *  - 1 (Pendente)
+     *  - 2 (Aprovado)
+     *  - 3 (Recusado)
+     *  - 4 (Cancelado)
+     */
+    if (data[i]["state"] == 1 || data[i]["state"] == 2) {
+      event = new Object();
+      if (data[i]["discipline_id"] != null && data[i]["klass_id"] != null)
+        event.title = data[i]["klass"]["name"] + " - " + data[i]["discipline"]["discipline_code"] + data[i]["discipline"]["name"];
+      else
+        event.title = data[i]["title"];
+      event.id = data[i]["id"];
+      event.reservation = data[i]["reservation"];
+      event.color = data[i]["color"];
+      event.start = data[i]["start"];
+      event.end = data[i]["end"];
+      event.user_id = data[i]["user_id"];
+      events.push(event);
+    }
+  }
+
+  return events;
+}
+
 /*
  * Call this function when user change classroom combobox
  * to make a ajax request and get schedules from this classroom
@@ -90,8 +96,9 @@ function get_schedules_from_classroom() {
       end:  moment(end).format('YYYY-MM-DD')
     },
     success:  function(data) {
+        var events = set_events_array(data);
         $('#fullcalendar').fullCalendar('removeEvents');
-        $("#fullcalendar").fullCalendar( 'renderEvents', data);
+        $("#fullcalendar").fullCalendar( 'renderEvents', events);
     },
     error: function(error) {
       console.log(error);
