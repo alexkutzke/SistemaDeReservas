@@ -56,10 +56,13 @@
                       <%= link_to '<i class="fa fa-eye"></i>'.html_safe, edit_management_solicitation_path(s),  :class => 'btn btn-info' %>
                       <% case s.state %>
                         <% when 1 %>
-                          <%= link_to '<i class="fa fa-play"></i>'.html_safe, edit_management_solicitation_path(s),  :class => 'btn btn-success' %>
-                          <%= link_to '<i class="fa fa-remove"></i>'.html_safe, edit_management_solicitation_path(s),  :class => 'btn btn-danger' %>
+                          <%= link_to '<i class="fa fa-play"></i>'.html_safe, approve_management_solicitations_path(s), method: :put,
+                          data: {confirm: 'Are you sure?'},  :class => 'btn btn-success' %>
+                          <%= link_to '<i class="fa fa-remove"></i>'.html_safe, refuse_management_solicitations_path(s), method: :put,
+                          data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger' %>
                         <% when 2 %>
-                          <%= link_to '<i class="fa fa-trash"></i>'.html_safe, edit_management_solicitation_path(s),  :class => 'btn btn-danger' %>
+                          <%= link_to '<i class="fa fa-trash"></i>'.html_safe, cancel_management_solicitations_path(s), method: :put,
+                          data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger' %>
                       <% end %>
                     </td>
                   <% end %>

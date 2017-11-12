@@ -37,4 +37,16 @@ class Policy
   def import?
     permission.import
   end
+
+  def approve?
+    permission.edit
+  end
+
+  def refuse?
+    permission.edit
+  end
+
+  def cancel?
+    permission.edit
+  end
 end

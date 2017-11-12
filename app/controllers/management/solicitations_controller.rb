@@ -1,6 +1,7 @@
 class Management::SolicitationsController < ApplicationController
   before_action :authenticate_user!, :set_session, :get_current_user, :get_permissions_from_user, :authorize, :set_states
-  before_action :set_solicitation, only: [:edit]
+  before_action :set_solicitation, only: [:edit, :approve, :refuse, :cancel]
+
   def index
     @solicitations = Schedule.order('start DESC').paginate(:page => params[:page], per_page:5)
     @number = @solicitations.count
@@ -12,6 +13,42 @@ class Management::SolicitationsController < ApplicationController
   end
 
   def edit
+  end
+
+  def approve
+    respond_to do |format|
+      if @solicitation.update_attributes(:state => 2, :color => "#16a086")
+        format.html { redirect_to management_solicitations_path}
+        format.json { render json: @solicitations.as_json()}
+      else
+        format.html { render :index, notice: 'Schedule was not approve. Try again later.' }
+        format.json { render json: @solicitations.errors}
+      end
+    end
+  end
+
+  def refuse
+    respond_to do |format|
+      if @solicitation.update_attribute(:state, 3)
+        format.html { redirect_to management_solicitations_path}
+        format.json { render json: @solicitations.as_json()}
+      else
+        format.html { render :index, notice: 'Schedule was not refused. Try again later.' }
+        format.json { render json: @solicitations.errors}
+      end
+    end
+  end
+
+  def cancel
+    respond_to do |format|
+      if @solicitation.update_attribute(:state, 4)
+        format.html { redirect_to management_solicitations_path}
+        format.json { render json: @solicitations.as_json()}
+      else
+        format.html { render :index, notice: 'Schedule was not canceled. Try again later.' }
+        format.json { render json: @solicitations.errors}
+      end
+    end
   end
 
   private

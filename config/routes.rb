@@ -7,7 +7,13 @@ Rails.application.routes.draw do
     scope(:path_names => { :new => "cadastrar", :edit => "editar" }) do
       resources :users, :path => "usuarios"
     end
-    resources :solicitations, :path => 'solicitacoes'
+    resources :solicitations, :path => 'solicitacoes'  do
+      collection do
+        put 'approve', :path => 'aprovar/:id'
+        put 'refuse', :path => 'recusar/:id'
+        put 'cancel', :path => 'cancelar/:id'
+      end
+    end
     resources :schedules, :path => 'reservas'
     scope(:path_names => { :new => "cadastrar", :edit => "editar" }) do
       resources :disciplines, :path => "disciplinas" do
