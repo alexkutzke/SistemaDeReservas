@@ -16,7 +16,6 @@ class Discipline < ApplicationRecord
   # import discipline csv file
   def self.import(file, department)
     begin
-      puts file.blank?
       if file.blank?
         raise CustomError, "Select a csv file"
       end
@@ -26,7 +25,6 @@ class Discipline < ApplicationRecord
             raise CustomError, "Incorrectly csv discipline file. Check the columns names"
           end
           @array = row['Subject'].split(/-/)
-          puts @array
           @discipline = Discipline.new
           @discipline.discipline_code = @array[0]
           @discipline.name = @array[1]
@@ -53,5 +51,9 @@ class Discipline < ApplicationRecord
     end
 
     return @error, @message
+  end
+
+  def self.find_by_name(name, cod)
+    Discipline.where(name: name, discipline_code: cod).first
   end
 end

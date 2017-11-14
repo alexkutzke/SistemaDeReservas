@@ -11,7 +11,6 @@ class Klass < ApplicationRecord
 
   def self.import(file, period)
     begin
-      puts file.blank?
       if file.blank?
         raise CustomError, "Select a csv file"
       end
@@ -49,5 +48,9 @@ class Klass < ApplicationRecord
     end
 
     return @error, @message
+  end
+
+  def self.find_by_name(name, period)
+    Klass.where(name: name, period_id: period).first
   end
 end

@@ -5,7 +5,17 @@
           <li><i class="fa fa-calendar"></i> Reservas</li>
       </ol>
   </div>
+
   <%= render :partial => 'layouts/flash_notice' %>
+
+  <% if can :import, :schedule %>
+    <div class="row">
+        <div class="col-sm-2">
+            <%= link_to '<span><i class="fa fa-plus"></i></span><span> Importar</span>'.html_safe, new_management_schedule_path, :class => 'btn btn-green' %>
+        </div>
+    </div>
+  <% end %>
+
   <div class="row box">
       <form role="form" class="form">
           <div class="form-group">

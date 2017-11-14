@@ -16,6 +16,10 @@ class Management::SchedulesController < ApplicationController
     end
   end
 
+  def new
+    @schedule = Schedule.new
+  end
+
   def show
     respond_to do |format|
       if @currentUser.role_id == 1 || @currentUser.role_id == 2
@@ -56,6 +60,15 @@ class Management::SchedulesController < ApplicationController
       else
         format.json { render :json => {:errors => "Schedule was not removed"}, :status => 500 }
       end
+    end
+  end
+
+  def import
+    @array = Schedule.import(params[:file], params[:period_id])
+    if @array[0]
+      redirect_to new_management_schedule_path, :flash => { :error => @array[1] }
+    else
+      redirect_to management_schedules_path
     end
   end
 

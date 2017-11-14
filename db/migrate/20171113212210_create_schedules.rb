@@ -11,7 +11,7 @@ class CreateSchedules < ActiveRecord::Migration[5.0]
       t.references :klass, foreign_key: true, null: true
       t.references :discipline, foreign_key: true, null: true
       t.references :classroom, foreign_key: true
-      t.references :user, foreign_key: true
+      t.references :user, foreign_key: true, null: true
       t.timestamps
     end
   end

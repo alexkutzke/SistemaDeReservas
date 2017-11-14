@@ -1,14 +1,18 @@
-<p id="error">
-    <% flash.each do |name, msg| -%>
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="alert alert-danger">
-                    <%= content_tag :div, msg, class: name %>
-                </div>
+<% if flash[:error] %>
+  <p id="error">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="alert alert-danger">
+              <ul>
+                <% flash.each do |name, msg| -%>
+                  <li><%= content_tag :div, msg, :id => msg.html_safe %></li>
+                <% end %>
+              </ul>
             </div>
         </div>
-    <% end -%>
-</p>
+    </div>
+  </p>
+<% end %>
 <% if @classroom.errors.any? %>
     <div class="row">
         <div class="col-sm-12">

@@ -73,5 +73,7 @@ else
   gem 'bcrypt'
 end
 
+gem 'ice_cube'
+
 # mysql
 # gem 'mysql2'
