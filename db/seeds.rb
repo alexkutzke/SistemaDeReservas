@@ -6,20 +6,19 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# Role.delete_all
-# Category.delete_all
-# Classroom.delete_all
-# Permission.delete_all
+#Role.delete_all
+#Category.delete_all
+#Permission.delete_all
 # Schedule.delete_all
 
 Discipline.delete_all
 Klass.delete_all
 Classroom.delete_all
-#
+
 # # NO CASO DO SEPT
-# p1 = Role.create(id: 1, name: "Admin")
-# p2 = Role.create(id: 2, name: "Coordenação acadêmica")
-# p3 = Role.create(id: 3, name: "Professor")
+#p1 = Role.create(id: 1, name: "Admin")
+#p2 = Role.create(id: 2, name: "Coordenação acadêmica")
+#p3 = Role.create(id: 3, name: "Professor")
 
 # Sessions
 # 0 - Schedules

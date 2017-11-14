@@ -5,7 +5,7 @@ class Management::DisciplinesController < ApplicationController
   # GET /disciplines
   # GET /disciplines.json
   def index
-    @disciplines = Discipline.paginate(:page => params[:page], per_page:5)
+    @disciplines = Discipline.paginate(:page => params[:page], per_page: 30)
     @number = Discipline.count
     respond_to do |format|
       format.html

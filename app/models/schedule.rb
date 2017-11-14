@@ -1,5 +1,6 @@
 class Schedule < ApplicationRecord
   require 'csv'
+  require 'date'
 
   belongs_to :klass, optional: true
   belongs_to :discipline, optional: true
@@ -86,6 +87,15 @@ class Schedule < ApplicationRecord
           classroom = Classroom.find_by_name(row['Room'])
           raise CustomError, "Classroom name not found" if classroom.nil?
 
+          day = row['Day']
+          if day != 'Sábado'  
+            day = row['Day'].scan( /\d+$/ ).first - 1
+          else
+            day = 6
+          end
+
+
+
           user = User.find_by_name(row['Teachers'])
 
           @schedule = Schedule.new
@@ -105,6 +115,8 @@ class Schedule < ApplicationRecord
           puts time.wday
           puts Time.now + 7.days
 
+          date_of_next(day)
+
           if !@schedule.save! then
             raise ActiveRecord::Rollback
           end
@@ -122,5 +134,17 @@ class Schedule < ApplicationRecord
 
   def replicate_schedule
     s = IceCube::Schedule.new
+  end
+
+  def date_of_next(day)
+    array = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday')
+    puts '****'
+    puts day
+    puts array[day]
+    date  = Date.parse(array[day])
+    puts date
+    delta = date > Date.today ? 0 : 7
+    puts delta
+    date + delta
   end
 end

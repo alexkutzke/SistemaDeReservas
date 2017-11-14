@@ -5,7 +5,7 @@ class Management::KlassesController < ApplicationController
   # GET /classes
   # GET /classes.json
   def index
-    @klasses = Klass.paginate(:page => params[:page], per_page:5)
+    @klasses = Klass.paginate(:page => params[:page], per_page: 30)
     @number = Klass.count
 
     respond_to do |format|

@@ -5,7 +5,7 @@ class Management::SectorsController < ApplicationController
   # GET /sectors
   # GET /sectors.json
   def index
-    @sectors = Sector.paginate(:page => params[:page], per_page: 5)
+    @sectors = Sector.paginate(:page => params[:page], per_page: 30)
     @number = Sector.count
 
     respond_to do |format|

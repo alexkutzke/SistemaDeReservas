@@ -17,7 +17,7 @@ class Klass < ApplicationRecord
       Klass.transaction do
         CSV.foreach(file.path, headers: true) do |row|
           if row['Students Sets'].nil?
-            raise CustomError, "Incorrectly csv klass file. Check the columns names"
+            raise CustomError, "Incorrectly csv klass file"
           end
           @klass = Klass.new
           @klass.name = row['Students Sets']
