@@ -11,19 +11,33 @@
   <% if can :import, :schedule %>
     <div class="row">
         <div class="col-sm-2">
-            <%= link_to '<span><i class="fa fa-plus"></i></span><span> Importar</span>'.html_safe, new_management_schedule_path, :class => 'btn btn-green' %>
+            <%= link_to '<span><i class="fa fa-upload"></i></span><span> Importar ensalamento</span>'.html_safe, new_management_schedule_path, :class => 'btn btn-green' %>
         </div>
     </div>
   <% end %>
 
-  <div class="row box">
-      <form role="form" class="form">
-          <div class="form-group">
-              <label class="control-label" for="salas">Sala</label>
-              <%= select_tag('classroom', options_from_collection_for_select(@classrooms, :id, :room_capacity), class: 'form-control combo-classroom') %>
+  <div class="row" style="margin-top:15px;">
+    <div class="col-md-12">
+      <div class="panel panel-default panel-table">
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col-xs-6">
+              <h3 class="panel-title">Pesquisar</h3>
+            </div>
           </div>
-      </form>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="form-group">
+                <label class="control-label" for="salas">Sala</label>
+                <%= select_tag('classroom', options_from_collection_for_select(@classrooms, :id, :room_capacity), class: 'form-control combo-classroom') %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
   <div class="row" >
       <div class="col-md-12" >
           <div id="calendar-background">

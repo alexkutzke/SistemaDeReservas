@@ -35,7 +35,11 @@ function show_schedule(url) {
         $(".schedule_title").val(data["klass"]["name"] + " - " + data["discipline"]["discipline_code"] + data["discipline"]["name"]);
       else
         $(".schedule_title").val(data["title"]);
-      $(".schedule_user").val(data["user"]["name"]);
+
+      if(data.hasOwnProperty("user"))
+        $(".schedule_user").val(data["user"]["name"]);
+      else
+        $(".schedule_user").val("");
       $(".schedule_classroom").val(data["classroom"]["room"]);
       $(".schedule_frequency").val(data["frequency"]);
       $(".schedule_date_range").val(moment.utc(data["start"]).format("DD/MM/YYYY HH:mm") + ' - ' + moment.utc(data["end"]).format("DD/MM/YYYY HH:mm"));

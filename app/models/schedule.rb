@@ -62,22 +62,28 @@ class Schedule < ApplicationRecord
   end
 
   private
-  def self.import(file, period)
-    puts '********************'
+  def self.import(file, period_id)
+    days_of_week = [:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday]
+    @schedule = Schedule.new
+    size = CSV.read(file.path).length-1
+    puts "size #{size}"
+    first = false
+    pos = 0;
     begin
-      puts file.blank?
       if file.blank?
         raise CustomError, "Select a csv file"
       end
-      i = 1;
       Schedule.transaction do
-        CSV.foreach(file.path, headers: true) do |row|
-          if row['Day'].nil? || row['Hour'].nil? || row['Students Sets'].nil? || row['Subject'].nil? ||
+        CSV.foreach(file.path, headers: true).with_index(1) do |row, line|
+          puts "line #{line}"
+          if row['Activity Id'].nil? || row['Day'].nil? || row['Hour'].nil? || row['Students Sets'].nil? || row['Subject'].nil? ||
                             row['Teachers'].nil? || row['Room'].nil?
             raise CustomError, "Incorrectly csv timetable file"
           end
 
-          klass = Klass.find_by_name(row['Students Sets'], period)
+          id = (row['Activity Id'][/\d+/]).to_i
+
+          klass = Klass.find_by_name(row['Students Sets'], period_id)
           raise CustomError, "Klass name not found" if klass.nil?
 
           @array = row['Subject'].split(/-/)
@@ -87,38 +93,46 @@ class Schedule < ApplicationRecord
           classroom = Classroom.find_by_name(row['Room'])
           raise CustomError, "Classroom name not found" if classroom.nil?
 
-          day = row['Day']
-          if day != 'Sábado'  
-            day = row['Day'].scan( /\d+$/ ).first - 1
+          period = Period.find(period_id)
+          raise CustomError, "Period not found" if period.nil?
+
+          user = User.find_by_name(row['Teachers'])
+
+          if row['Day'] != 'Sábado'
+            day = (row['Day'][/\d+/]).to_i - 1
           else
             day = 6
           end
 
+          if period.start_date.wday != day
+            next_date = period.start_date.days_since(day-1)
+          else
+            next_date = period.start_date
+          end
+          next_date = "#{next_date} " + row['Hour']
+          next_date = next_date.to_datetime
 
-
-          user = User.find_by_name(row['Teachers'])
-
-          @schedule = Schedule.new
-          @schedule.klass_id = klass.id
-          @schedule.discipline_id = discipline.id
-          @schedule.user_id = user.nil? ? :null : user.id
-          @schedule.classroom_id = classroom.id
-          @schedule.skip_user_validation = true # skip user validation
-
-          period = Period.find(period)
-
-          puts period.start_date
-          puts period.end_date
-
-          puts Time.now
-          time = Time.now
-          puts time.wday
-          puts Time.now + 7.days
-
-          date_of_next(day)
-
-          if !@schedule.save! then
-            raise ActiveRecord::Rollback
+          if id == pos
+            @schedule.end = next_date + 1.hour
+            if !@schedule.save!
+              raise ActiveRecord::Rollback
+            end
+            if size == line
+              Schedule.replicate_schedule(@schedule, period, klass, discipline, user, classroom)
+            end
+          else
+            if first
+              Schedule.replicate_schedule(@schedule, period, klass, discipline, user, classroom)
+            end
+            @schedule = Schedule.set_schedule(klass, discipline, user, classroom, next_date, next_date + 1.hour)
+            pos = id
+            if !@schedule.save
+              raise ActiveRecord::Rollback
+            end
+            first = true
+            if size == line
+              Schedule.replicate_schedule(@schedule, period, klass, discipline, user, classroom)
+            end
           end
         end
       end
@@ -132,19 +146,32 @@ class Schedule < ApplicationRecord
     return @error, @message
   end
 
-  def replicate_schedule
-    s = IceCube::Schedule.new
+  def self.set_schedule(klass, discipline, user, classroom, start_date, end_date)
+    @schedule = Schedule.new
+    @schedule.klass_id = klass.id
+    @schedule.discipline_id = discipline.id
+    @schedule.user_id = user.nil? ? :null : user.id
+    @schedule.classroom_id = classroom.id
+    @schedule.skip_user_validation = true # skip user validation
+    @schedule.start = start_date
+    @schedule.end = end_date
+    @schedule.color = "#969898"
+    @schedule.reservation = false
+    @schedule.state = 2
+    return @schedule
   end
 
-  def date_of_next(day)
-    array = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday')
-    puts '****'
-    puts day
-    puts array[day]
-    date  = Date.parse(array[day])
-    puts date
-    delta = date > Date.today ? 0 : 7
-    puts delta
-    date + delta
+  def self.replicate_schedule(schedule, period, klass, discipline, user, classroom)
+    period.end_date = period.end_date + 1.day
+    schedule.start = schedule.start + 7.days
+    schedule.end = schedule.end + 7.days
+    while (schedule.start <= period.end_date) do # replica por semana
+      @replicate = Schedule.set_schedule(klass, discipline, user, classroom, schedule.start, schedule.end)
+      if !@replicate.save
+        raise ActiveRecord::Rollback
+      end
+      schedule.start = schedule.start + 7.days
+      schedule.end = schedule.end + 7.days
+    end
   end
 end

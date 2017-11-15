@@ -50,7 +50,8 @@ class Management::SchedulesController < ApplicationController
   end
 
   def destroy
-    if @schedule.user_id == @currentUser.id
+    if @schedule.user_id == @currentUser.id || @currentUser.id == 1 || @currentUser.id == 2
+      puts 'here'
       @schedule.destroy
     end
 
