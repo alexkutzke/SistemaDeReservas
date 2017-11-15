@@ -5,7 +5,7 @@ class Management::UsersController < ApplicationController
   # GET /usuarios
   # GET /usuarios.json
   def index
-    @users = User.paginate(:page => params[:page], per_page: 5)
+    @users = User.paginate(:page => params[:page], per_page: 30)
     @number = User.count
 
     respond_to do |format|

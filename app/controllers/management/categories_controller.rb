@@ -5,7 +5,7 @@ class Management::CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
-    @categories = Category.paginate(:page => params[:page], per_page:5)
+    @categories = Category.paginate(:page => params[:page], per_page:30)
     @number = Category.count
 
     respond_to do |format|

@@ -5,7 +5,7 @@ class Management::ClassroomsController < ApplicationController
   # GET /classrooms
   # GET /classrooms.json
   def index
-    @classrooms = Classroom.paginate(:page => params[:page], per_page: 5)
+    @classrooms = Classroom.paginate(:page => params[:page], per_page: 30)
     @number = Classroom.count
 
     respond_to do |format|
@@ -75,7 +75,6 @@ class Management::ClassroomsController < ApplicationController
 
   def import
     @array = Classroom.import(params[:file], params[:category_id])
-    puts @array
     if @array[0]
       redirect_to new_management_classroom_path, :flash => { :error => @array[1] }
     else

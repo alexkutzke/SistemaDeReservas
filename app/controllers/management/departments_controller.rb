@@ -5,7 +5,7 @@ class Management::DepartmentsController < ApplicationController
   # GET /departments
   # GET /departments.json
   def index
-    @departments = Department.paginate(:page => params[:page], per_page:5)
+    @departments = Department.paginate(:page => params[:page], per_page: 30)
     @number = Department.count
     respond_to do |format|
       format.html

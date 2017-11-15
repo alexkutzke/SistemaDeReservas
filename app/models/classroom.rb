@@ -17,22 +17,21 @@ class Classroom < ApplicationRecord
 
   def self.import(file, category)
     begin
-      puts file.blank?
       if file.blank?
         raise CustomError, "Select a csv file"
       end
       Discipline.transaction do
         CSV.foreach(file.path, headers: true) do |row|
-          if row['place'].nil? || row['building'].nil? || row['capacity'].nil?
-            raise CustomError, "Incorrectly csv room file. Check the columns names"
+          if row['Room'].nil? || row['Room Capacity'].nil? || row['Building'].nil?
+            raise CustomError, "Incorrectly csv room file."
           end
           @classroom = Classroom.new
-          @classroom.room = row['place']
-          @classroom.building = row['building']
-          if !(row['capacity'] !~ /\D/)
+          @classroom.room = row['Room']
+          @classroom.building = row['Building']
+          if !(row['Room Capacity'] !~ /\D/)
             raise CustomError, "Capacity column must have only numbers"
           end
-          @classroom.capacity = row['capacity']
+          @classroom.capacity = row['Room Capacity']
           @classroom.state = true
           if category.nil?
             raise CustomError, "Category is required"
@@ -58,5 +57,11 @@ class Classroom < ApplicationRecord
     end
 
     return @error, @message
+  end
+
+  private
+
+  def self.find_by_name(room)
+    Classroom.where(room: room).first
   end
 end

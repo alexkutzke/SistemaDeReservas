@@ -5,7 +5,7 @@ class Management::PeriodsController < ApplicationController
   # GET /periods
   # GET /periods.json
   def index
-    @periods = Period.paginate(:page => params[:page], per_page:5)
+    @periods = Period.paginate(:page => params[:page], per_page: 30)
     @number = Period.count
 
     respond_to do |format|

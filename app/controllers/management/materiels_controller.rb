@@ -5,7 +5,7 @@ class Management::MaterielsController < ApplicationController
   # GET /equipments
   # GET /equipments.json
   def index
-    @materiels = Materiel.paginate(:page => params[:page], per_page:5)
+    @materiels = Materiel.paginate(:page => params[:page], per_page: 30)
     @number = Materiel.count
 
     respond_to do |format|

@@ -6,7 +6,7 @@ class Management::RolesController < ApplicationController
   # GET /perfils
   # GET /perfils.json
   def index
-    @roles = Role.paginate(:page => params[:page], per_page:5)
+    @roles = Role.paginate(:page => params[:page], per_page: 30)
     @number = Role.count
 
     respond_to do |format|
