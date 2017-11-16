@@ -1,11 +1,11 @@
-<%= render :partial => 'layouts/sidenav', :locals => {:active => 2} %>
+<%= render :partial => 'layouts/sidenav', :locals => {:active => 0} %>
 <div class="main-content">
     <div class="row">
         <ol class="breadcrumb">
           <li>
             <%= link_to '<i class="fa fa-calendar"></i> Reservas'.html_safe, management_schedules_path %>
           </li>
-          <li><i class="fa fa-plus"></i> Importar dados do ensalamento</li>
+          <li><i class="fa fa-upload"></i> Importar dados do ensalamento</li>
         </ol>
     </div>
 
@@ -47,7 +47,7 @@
                             <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <h3 style="border-bottom: 2px solid #ddd; padding-bottom: 5px"><i class="fa fa-plus"></i> Importar dados ensalamento <i style="color: #adadad; font-size: 16px">Arquivo CSV</i></h3>
+                                    <h3 style="border-bottom: 2px solid #ddd; padding-bottom: 5px"><i class="fa fa-upload"></i> Importar dados ensalamento <i style="color: #adadad; font-size: 16px">Arquivo CSV</i></h3>
                                 </div>
                             </div>
                             <div class="form-group">

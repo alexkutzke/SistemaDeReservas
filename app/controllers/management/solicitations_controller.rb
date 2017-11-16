@@ -4,7 +4,7 @@ class Management::SolicitationsController < ApplicationController
 
   def index
     if @currentUser.id == 1 ||  @currentUser.id == 2
-      @solicitations = Schedule.order('start DESC').paginate(:page => params[:page], per_page: 30)
+      @solicitations = Schedule.order('updated_at DESC').paginate(:page => params[:page], per_page: 30)
     else
       @solicitations = Schedule.where(user_id: @currentUser.id).order('start DESC').paginate(:page => params[:page], per_page:5)
     end

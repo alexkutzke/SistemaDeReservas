@@ -84,14 +84,14 @@ class Schedule < ApplicationRecord
           id = (row['Activity Id'][/\d+/]).to_i
 
           klass = Klass.find_by_name(row['Students Sets'], period_id)
-          raise CustomError, "Klass name not found" if klass.nil?
+          raise CustomError, "Klass '#{row['Students Sets']}' not found" if klass.nil?
 
           @array = row['Subject'].split(/-/)
           discipline = Discipline.find_by_name(@array[1], @array[0])
-          raise CustomError, "Discipline name and discipline code not found" if discipline.nil?
+          raise CustomError, "Discipline '#{@array[1]}' and code, #{@array[0]} not found" if discipline.nil?
 
           classroom = Classroom.find_by_name(row['Room'])
-          raise CustomError, "Classroom name not found" if classroom.nil?
+          raise CustomError, "Classroom '#{row['Room']}' not found" if classroom.nil?
 
           period = Period.find(period_id)
           raise CustomError, "Period not found" if period.nil?

@@ -46,16 +46,16 @@
                                     <td><%= k.period.name %></td>
                                     <% if can(:edit, :klass) && can(:destroy, :klass) %>
                                       <td>
-                                        <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_management_klass_path(k),  :class => 'btn btn-info' %>
+                                        <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_management_klass_path(k),  :class => 'btn btn-info', title: 'Editar', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom' %>
                                         <%= link_to '<i class="fa fa-trash"></i>'.html_safe,
                                              management_klass_path(k),
                                                             method: :delete,
                                                             data: {confirm: 'Are you sure?'},
-                                            :class => 'btn btn-danger' %>
+                                            :class => 'btn btn-danger', title: 'Remover', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom' %>
                                       </td>
                                     <% elsif !(can :edit, :klass) && can(:destroy, :klass) %>
                                       <td>
-                                        <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_management_klass_path(k),  :class => 'btn btn-info' %>
+                                        <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_management_klass_path(k),  :class => 'btn btn-info', title: 'Editar', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom' %>
                                       </td>
                                     <% elsif !(can :edit, :klass) && can(:destroy, :klass) %>
                                       <td>
@@ -63,7 +63,7 @@
                                              management_klass_path(k),
                                                             method: :delete,
                                                             data: {confirm: 'Are you sure?'},
-                                            :class => 'btn btn-danger' %>
+                                            :class => 'btn btn-danger', title: 'Remover', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom' %>
                                       </td>
                                     <% end %>
                                 </tr>

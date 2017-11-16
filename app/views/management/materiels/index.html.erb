@@ -52,16 +52,16 @@
                                     </td>
                                     <% if can(:edit, :materiel) && can(:destroy, :materiel) %>
                                       <td>
-                                        <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_management_materiel_path(m),  :class => 'btn btn-info' %>
+                                        <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_management_materiel_path(m),  :class => 'btn btn-info', title: 'Editar', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom' %>
                                         <%= link_to '<i class="fa fa-trash"></i>'.html_safe,
                                             management_materiel_path(m),
                                                             method: :delete,
                                                             data: {confirm: 'Are you sure?'},
-                                            :class => 'btn btn-danger' %>
+                                            :class => 'btn btn-danger', title: 'Remover', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom' %>
                                       </td>
                                   <% elsif can(:edit, :materiel) && !can(:destroy, :materiel) %>
                                   <td>
-                                    <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_management_materiel_path(m),  :class => 'btn btn-info' %>
+                                    <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_management_materiel_path(m),  :class => 'btn btn-info', title: 'Editar', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom' %>
                                   </td>
                                   <% elsif !can(:edit, :materiel) && can(:destroy, :materiel) %>
                                       <td>
@@ -69,7 +69,7 @@
                                             management_materiel_path(m),
                                                             method: :delete,
                                                             data: {confirm: 'Are you sure?'},
-                                            :class => 'btn btn-danger' %>
+                                            :class => 'btn btn-danger', title: 'Remover', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom' %>
                                       </td>
                                   <% end %>
                                 </tr>

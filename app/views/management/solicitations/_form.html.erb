@@ -63,7 +63,22 @@
                 <div class="form-group pull">
                     <div class="col-sm-offset-3 col-sm-7">
                         <div class="pull-right">
-                            <%= link_to 'Voltar', management_solicitations_path, class: 'btn btn-danger' %>
+                          <% if can(:edit, :solicitation) && (@currentUser.id == 1 || @currentUser.id == 2)  %>
+                            <% case @solicitation.state %>
+                              <% when 1 %>
+                                <%= link_to '<i class=""></i> Aprovar'.html_safe, approve_management_solicitations_path(@solicitation), method: :put,
+                                data: {confirm: 'Are you sure?'},  :class => 'btn btn-success' %>
+                                <%= link_to '<i class=""></i> Recusar'.html_safe, refuse_management_solicitations_path(@solicitation), method: :put,
+                                data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger' %>
+                              <% when 2 %>
+                                <%= link_to '<i class=""></i> Cancelar'.html_safe, cancel_management_solicitations_path(@solicitation), method: :put,
+                                data: {confirm: 'Are you sure?'}, :class => 'btn btn-warning' %>
+                            <% end %>
+                          <% elsif @solicitation.state == 1 || @solicitation.state == 2 %>
+                            <%= link_to '<i class=""></i> Cancelar'.html_safe, cancel_management_solicitations_path(@solicitation), method: :put,
+                            data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger' %>
+                          <% end %>
+                          <%= link_to 'Voltar', management_solicitations_path, class: 'btn btn-dark-blue' %>
                         </div>
                     </div>
                 </div>
