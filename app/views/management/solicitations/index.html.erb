@@ -45,26 +45,30 @@
                 <% else %>
                   <tr>
                 <% end %>
-                  <td><%= s.user.name %></td>
+                  <% if s.user.nil? %>
+                    <td></td>
+                  <% else %>
+                    <td><%= s.user.name %></td>
+                  <% end %>
                   <td><%= s.start.strftime('%d/%m/%Y %H:%M') %></td>
                   <td><%= s.end.strftime('%d/%m/%Y %H:%M') %></td>
                   <td><%= states[s.state-1] %></td>
                   <td>
-                    <%= link_to '<i class="fa fa-eye"></i>'.html_safe, edit_management_solicitation_path(s),  :class => 'btn btn-info' %>
+                    <%= link_to '<i class="fa fa-eye"></i>'.html_safe, edit_management_solicitation_path(s),  :class => 'btn btn-info', title: 'Visualizar solicitação', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom' %>
                     <% if can(:edit, :solicitation) && (@currentUser.id == 1 || @currentUser.id == 2)  %>
                       <% case s.state %>
                         <% when 1 %>
                           <%= link_to '<i class="fa fa-play"></i>'.html_safe, approve_management_solicitations_path(s), method: :put,
-                          data: {confirm: 'Are you sure?'},  :class => 'btn btn-success' %>
+                          data: {confirm: 'Are you sure?'},  :class => 'btn btn-success', title: 'Aprovar', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom' %>
                           <%= link_to '<i class="fa fa-remove"></i>'.html_safe, refuse_management_solicitations_path(s), method: :put,
-                          data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger' %>
+                          data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger', title: 'Recusar', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom' %>
                         <% when 2 %>
                           <%= link_to '<i class="fa fa-trash"></i>'.html_safe, cancel_management_solicitations_path(s), method: :put,
-                          data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger' %>
+                          data: {confirm: 'Are you sure?'}, :class => 'btn btn-warning', title: 'Cancelar', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom' %>
                       <% end %>
                     <% elsif s.state == 1 || s.state == 2 %>
                       <%= link_to '<i class="fa fa-trash"></i>'.html_safe, cancel_management_solicitations_path(s), method: :put,
-                      data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger' %>
+                      data: {confirm: 'Are you sure?'}, :class => 'btn btn-warning', title: 'Cancelar', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom' %>
                     <% end %>
                   </td>
                 </tr>
