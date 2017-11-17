@@ -1,0 +1,23 @@
+FROM ruby:2.3
+
+RUN apt-get update -qq
+RUN apt-get install -qq -y --no-install-recommends \
+  build-essential nodejs libpq-dev git libfontconfig1-dev cron sqlite
+
+ENV APP /sisres
+
+RUN mkdir -p $APP
+
+WORKDIR $APP
+
+COPY Gemfile Gemfile.lock $APP/
+RUN gem install bundler && bundle install --jobs 20 --retry 5 --without development test
+
+# Set Rails to run in production
+ENV RAILS_ENV production
+ENV RACK_ENV production
+
+COPY . $APP
+
+# Precompile Rails assets. We set a dummy secret key
+RUN bundle exec rake SECRET_KEY_BASE=sisres_app  assets:precompile
