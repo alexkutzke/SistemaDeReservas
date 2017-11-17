@@ -49,4 +49,12 @@ class Policy
   def cancel?
     permission.edit
   end
+
+  def export?
+    permission.import
+  end
+
+  def remove?
+    permission.import
+  end
 end

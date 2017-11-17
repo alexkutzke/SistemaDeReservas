@@ -73,6 +73,30 @@ class Management::SchedulesController < ApplicationController
     end
   end
 
+  def export
+    @schedule = Schedule.new
+  end
+
+  # Remover um ensalamento dado um período
+  def remove
+    @period = Period.find(params[:period_id])
+    if !@period.nil?
+      @schedules = Schedule.joins(klass: :period).select('klasses.name, periods.id, schedules.start').where('periods.id = ?', @period.id)
+    end
+    if !@schedules.nil?
+      @schedules.destroy
+    end
+    respond_to do |format|
+      if @schedules.destroyed
+        format.html { redirect_to @schedule, notice: 'Schedules were successfully deleted.' }
+        format.json { render json: @schedule, status: :created }
+      else
+        format.html { render :new }
+        format.json { render :json => {:errors => @schedule.errors}, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
     def set_schedule
       @schedule = Schedule.find(params[:id])
