@@ -24,7 +24,7 @@ Rails.application.routes.draw do
       collection do
         post "importar", :as => "import", :action => "import"
         get "remover", :as => "export", :action => "export"
-        delete "remover", :as => "remove", :action => "remove"
+        delete "xxx", :as => "xxx", :action => "xxx"
       end
     end
 

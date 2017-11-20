@@ -51,7 +51,6 @@ class Management::SchedulesController < ApplicationController
 
   def destroy
     if @schedule.user_id == @currentUser.id || @currentUser.id == 1 || @currentUser.id == 2
-      puts 'here'
       @schedule.destroy
     end
 
@@ -78,21 +77,23 @@ class Management::SchedulesController < ApplicationController
   end
 
   # Remover um ensalamento dado um período
-  def remove
+  def xxx
     @period = Period.find(params[:period_id])
     if !@period.nil?
       @schedules = Schedule.joins(klass: :period).select('klasses.name, periods.id, schedules.start').where('periods.id = ?', @period.id)
     end
-    if !@schedules.nil?
-      @schedules.destroy
+    puts @schedules.nil?
+    @schedules.each do |s|
+      puts '*****************'
+      puts s.start
     end
     respond_to do |format|
-      if @schedules.destroyed
-        format.html { redirect_to @schedule, notice: 'Schedules were successfully deleted.' }
-        format.json { render json: @schedule, status: :created }
+      if !@schedules.nil? && @schedules.destroy_all
+        format.html { redirect_to management_schedules_path, notice: 'Schedules were successfully deleted.' }
+        format.json { render json: @schedules, status: :created }
       else
         format.html { render :new }
-        format.json { render :json => {:errors => @schedule.errors}, status: :unprocessable_entity }
+        format.json { render :json => {:errors => @schedules.errors}, status: :unprocessable_entity }
       end
     end
   end

@@ -54,7 +54,7 @@ class Policy
     permission.import
   end
 
-  def remove?
+  def xxx?
     permission.import
   end
 end
