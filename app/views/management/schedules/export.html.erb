@@ -1,0 +1,74 @@
+<%= render :partial => 'layouts/sidenav', :locals => {:active => 0} %>
+<div class="main-content">
+    <div class="row">
+        <ol class="breadcrumb">
+          <li>
+            <%= link_to '<i class="fa fa-calendar"></i> Reservas'.html_safe, management_schedules_path %>
+          </li>
+          <li><i class="fa fa-trash"></i> Removes dados do ensalamento</li>
+        </ol>
+    </div>
+
+    <p id="error">
+        <% flash.each do |name, msg| -%>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="alert alert-danger">
+                        <%= content_tag :div, msg, class: name %>
+                    </div>
+                </div>
+            </div>
+        <% end -%>
+    </p>
+    <% if @schedule.errors.any? %>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="alert alert-danger">
+                    <h2>
+                        Atenção:
+                    </h2>
+                    <ul>
+                        <% @schedule.errors.full_messages.each do | msg | %>
+                            <li><%= msg %></li>
+                        <% end %>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    <% end %>
+
+    <div class="form">
+      <% if can :import, :schedule %>
+        <div class="row">
+            <div class="col-md-10">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <%= form_tag 'xxx', method: 'delete',  multipart: true, class: 'form-horizontal', id: 'remove-schedule-csv' do %>
+                            <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <h3 style="border-bottom: 2px solid #ddd; padding-bottom: 5px"><i class="fa fa-trash"></i> Remover dados ensalamento <i style="color: #adadad; font-size: 16px">Selecione o período</i></h3>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <%= label_tag :period_id, '<span style="color:red">*</span> Período'.html_safe, class: 'control-label col-sm-3' %>
+                                <div class="col-sm-7">
+                                     <%= select_tag(:period_id, options_from_collection_for_select(Period.all, :id, :name) , {:class => "form-control"}) %>
+                                </div>
+                            </div>
+                            <div class="form-group pull">
+                                <div class="col-sm-offset-3 col-sm-7">
+                                    <div class="pull-right">
+                                        <%= link_to 'Voltar', management_schedules_path, class: 'btn btn-dark-blue' %>
+                                        <%= submit_tag('Remover', class: 'btn btn-danger') %>
+                                    </div>
+                                </div>
+                            </div>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        </div>
+      <% end %>
+    </div>
+</div>

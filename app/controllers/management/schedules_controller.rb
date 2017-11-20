@@ -36,7 +36,7 @@ class Management::SchedulesController < ApplicationController
     # case user not admin or academic coordenation, set current user id to schedule
     @schedule.user_id = @currentUser.id if @currentUser.role_id != 1 || @currentUser.role_id == 2
     respond_to do |format|
-      if @schedule.is_not_overlap( @schedule.start, @schedule.end) && @schedule.validates() &&  @schedule.save
+      if @schedule.is_not_overlap( @schedule.start, @schedule.end, @schedule.classroom_id) && @schedule.validates() &&  @schedule.save
         format.html { redirect_to @schedule, notice: 'Schedule was successfully created.' }
         format.json { render json: @schedule, status: :created }
       else
@@ -51,7 +51,6 @@ class Management::SchedulesController < ApplicationController
 
   def destroy
     if @schedule.user_id == @currentUser.id || @currentUser.id == 1 || @currentUser.id == 2
-      puts 'here'
       @schedule.destroy
     end
 
@@ -70,6 +69,32 @@ class Management::SchedulesController < ApplicationController
       redirect_to new_management_schedule_path, :flash => { :error => @array[1] }
     else
       redirect_to management_schedules_path
+    end
+  end
+
+  def export
+    @schedule = Schedule.new
+  end
+
+  # Remover um ensalamento dado um período
+  def xxx
+    @period = Period.find(params[:period_id])
+    if !@period.nil?
+      @schedules = Schedule.joins(klass: :period).select('klasses.name, periods.id, schedules.start').where('periods.id = ?', @period.id)
+    end
+    puts @schedules.nil?
+    @schedules.each do |s|
+      puts '*****************'
+      puts s.start
+    end
+    respond_to do |format|
+      if !@schedules.nil? && @schedules.destroy_all
+        format.html { redirect_to management_schedules_path, notice: 'Schedules were successfully deleted.' }
+        format.json { render json: @schedules, status: :created }
+      else
+        format.html { render :new }
+        format.json { render :json => {:errors => @schedules.errors}, status: :unprocessable_entity }
+      end
     end
   end
 

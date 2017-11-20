@@ -66,9 +66,9 @@ class Management::ClassroomsController < ApplicationController
   # DELETE /classrooms/1
   # DELETE /classrooms/1.json
   def destroy
-    @room.destroy
+    @classroom.destroy
     respond_to do |format|
-      format.html { redirect_to management_classroom_url, notice: 'Classroom was successfully removed.' }
+      format.html { redirect_to management_classrooms_path, notice: 'Classroom was successfully removed.' }
       format.json { head :no_content }
     end
   end

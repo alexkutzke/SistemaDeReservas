@@ -56,7 +56,6 @@ ActiveRecord::Schema.define(version: 20171113212210) do
     t.datetime "end",                          null: false
     t.boolean  "reservation",   default: true
     t.string   "title"
-    t.string   "255"
     t.integer  "frequency",     default: 1
     t.integer  "state",         default: 1
     t.integer  "klass_id"
