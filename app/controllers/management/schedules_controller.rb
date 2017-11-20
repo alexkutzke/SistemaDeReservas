@@ -36,7 +36,7 @@ class Management::SchedulesController < ApplicationController
     # case user not admin or academic coordenation, set current user id to schedule
     @schedule.user_id = @currentUser.id if @currentUser.role_id != 1 || @currentUser.role_id == 2
     respond_to do |format|
-      if @schedule.is_not_overlap( @schedule.start, @schedule.end) && @schedule.validates() &&  @schedule.save
+      if @schedule.is_not_overlap( @schedule.start, @schedule.end, @schedule.classroom_id) && @schedule.validates() &&  @schedule.save
         format.html { redirect_to @schedule, notice: 'Schedule was successfully created.' }
         format.json { render json: @schedule, status: :created }
       else
