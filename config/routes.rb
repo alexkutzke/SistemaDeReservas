@@ -7,7 +7,11 @@ Rails.application.routes.draw do
     end
 
     scope(:path_names => { :new => "cadastrar", :edit => "editar" }) do
-      resources :users, :path => "usuarios"
+      resources :users, :path => "usuarios" do
+        collection do
+          post "importar", :as => "import", :action => "import"
+        end
+      end
     end
 
     scope(:path_names => {:edit => "visualizar"}) do

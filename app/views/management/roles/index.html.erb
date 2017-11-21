@@ -52,7 +52,7 @@
                                             :class => 'btn btn-danger', title: 'Remover', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom' %>
                                       </td>
                                   <% elsif can(:edit, :role) && !can(:destroy, :role) %>
-                                    <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_management_role_path(role),  :class => 'btn btn-info'. title: 'Editar', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom' %>
+                                    <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_management_role_path(role),  :class => 'btn btn-info', title: 'Editar', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom' %>
                                   <% elsif !can(:edit, :role) && can(:destroy, :role) %>
                                       <td>
                                         <%= link_to '<i class="fa fa-trash"></i>'.html_safe,

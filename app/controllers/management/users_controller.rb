@@ -81,6 +81,15 @@ class Management::UsersController < ApplicationController
     end
   end
 
+  def import
+    @array = User.import(params[:file], params[:role_id])
+    if @array[0]
+      redirect_to new_management_user_path, :flash => { :error => @array[1] }
+    else
+      redirect_to management_users_path
+    end
+  end
+
   private
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :cpf, :phone_number, :role_id, :registration_number)

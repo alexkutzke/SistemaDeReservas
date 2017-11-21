@@ -38,16 +38,9 @@ class Schedule < ApplicationRecord
   end
 
   # pode deixar assim, mas se tiver muito dados na tabela, pode ficar lento
-  def is_not_overlap (from, to, classroom_id)
-    range = Range.new from + 1, to - 1
-    overlaps = Schedule.exclude_self(id).in_range(range)
-    if !overlaps.empty?
-      overlaps.each do |o|
-        if o.classroom_id == classroom_id
-          return false;
-        end
-      end
-    end
+  def is_not_overlap(from, to, classroom_id)
+    overlaps = Schedule.where('(start <= ? AND end >= ?) AND classroom_id = ? AND (state = ? OR state = ?)', to-1, from+1, classroom_id, 1, 2)
+    puts "is empty = #{overlaps.empty?}"
     overlaps.empty? ? true : false
   end
 
@@ -121,7 +114,7 @@ class Schedule < ApplicationRecord
 
           if id == pos
             @schedule.end = next_date + 1.hour
-            if !@schedule.save!
+            if !@schedule.is_not_overlap(@schedule.start, @schedule.end, @schedule.classroom_id) || !@schedule.save!
               raise ActiveRecord::Rollback
             end
             if size == line
@@ -133,7 +126,7 @@ class Schedule < ApplicationRecord
             end
             @schedule = Schedule.set_schedule(klass, discipline, user, classroom, next_date, next_date + 1.hour)
             pos = id
-            if !@schedule.save
+            if !@schedule.is_not_overlap(@schedule.start, @schedule.end, @schedule.classroom_id) || !@schedule.save
               raise ActiveRecord::Rollback
             end
             first = true
@@ -174,7 +167,7 @@ class Schedule < ApplicationRecord
     schedule.end = schedule.end + 7.days
     while (schedule.start <= period.end_date) do # replica por semana
       @replicate = Schedule.set_schedule(klass, discipline, user, classroom, schedule.start, schedule.end)
-      if !@replicate.save
+      if !@replicate.is_not_overlap(@replicate.start, @replicate.end, @replicate.classroom_id) || !@replicate.save
         raise ActiveRecord::Rollback
       end
       schedule.start = schedule.start + 7.days

@@ -18,6 +18,8 @@ Classroom.delete_all
 # # NO CASO DO SEPT
 p1 = Role.create(id: 1, name: "Admin")
 p2 = Role.create(id: 2, name: "Coordenação acadêmica")
+p4 = Role.create(id: 4, name: "Direção")
+p5 = Role.create(id: 5, name: "Servidor")
 p3 = Role.create(id: 3, name: "Professor")
 
 # Sessions
@@ -76,8 +78,24 @@ Permission.create(role_id: p3.id, session: 9, index: true, new: false, edit: fal
 Permission.create(role_id: p3.id, session: 10, index: false, new: false, edit: false, remove: false)
 Permission.create(role_id: p3.id, session: 11, index: false, new: false, edit: false, remove: false)
 
+# Permissions para Direção
+Permission.create(role_id: p4.id, session: 0, index: true, new: true, edit: true, remove: true)
+Permission.create(role_id: p4.id, session: 1, index: true, edit: true, remove: true)
+Permission.create(role_id: p4.id, session: 2, index: false, new: false, edit: false, remove: false)
+Permission.create(role_id: p4.id, session: 3, index: false, new: false, edit: false, remove: false, import: false)
+Permission.create(role_id: p4.id, session: 4, index: false, new: false, edit: false, remove: false)
+Permission.create(role_id: p4.id, session: 5, index: false, new: false, edit: false, remove: false)
+Permission.create(role_id: p4.id, session: 6, index: true)
+Permission.create(role_id: p4.id, session: 7, index: true)
+
+# Permissions para os Servidores
+Permission.create(role_id: p5.id, session: 0, index: true, new: true, remove: true)
+Permission.create(role_id: p5.id, session: 1, index: true, edit: true, remove: true)
+
 @c1 = Category.create(id: 1, name: 'Sala de aula')
 @c2 = Category.create(id: 2, name: 'Laboratório de Informática')
+@c3 = Category.create(id:3, name: "Auditório Grande")
+@c4 = Category.create(id:4, name: "Mini-Auditório")
 
 @cr1 = Classroom.create(id: 1, room: "A01", building: "A", state: true, capacity: 30, category_id: @c1.id);
 @cr2 = Classroom.create(id: 2, room: "A16", building: "A", state: true, capacity: 40, category_id: @c2.id);
