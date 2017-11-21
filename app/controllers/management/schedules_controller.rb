@@ -36,10 +36,16 @@ class Management::SchedulesController < ApplicationController
     # case user not admin or academic coordenation, set current user id to schedule
     @schedule.user_id = @currentUser.id if @currentUser.role_id != 1 || @currentUser.role_id == 2
     respond_to do |format|
-      if @schedule.is_not_overlap( @schedule.start, @schedule.end, @schedule.classroom_id) && @schedule.validates() &&  @schedule.save
-        format.html { redirect_to @schedule, notice: 'Schedule was successfully created.' }
-        format.json { render json: @schedule, status: :created }
+      if @schedule.is_not_overlap(@schedule.start, @schedule.end, @schedule.classroom_id)
+        if @schedule.validates() && @schedule.save
+          format.html { redirect_to @schedule, notice: 'Schedule was successfully created.' }
+          format.json { render json: @schedule, status: :created }
+        else
+          format.html { render :new }
+          format.json { render :json => {:errors => @schedule.errors}, status: :unprocessable_entity }
+        end
       else
+        @schedule.errors.add(:start, message: "Já existe uma reserva para este período")
         format.html { render :new }
         format.json { render :json => {:errors => @schedule.errors}, status: :unprocessable_entity }
       end
@@ -73,19 +79,14 @@ class Management::SchedulesController < ApplicationController
   end
 
   def export
-    @schedule = Schedule.new
+    @schedules = Schedule.new
   end
 
   # Remover um ensalamento dado um período
   def xxx
     @period = Period.find(params[:period_id])
     if !@period.nil?
-      @schedules = Schedule.joins(klass: :period).select('klasses.name, periods.id, schedules.start').where('periods.id = ?', @period.id)
-    end
-    puts @schedules.nil?
-    @schedules.each do |s|
-      puts '*****************'
-      puts s.start
+      @schedules = Schedule.joins("INNER JOIN klasses ON klasses.id = schedules.klass_id INNER JOIN periods ON klasses.period_id = periods.id").where("periods.id = ?", @period.id)
     end
     respond_to do |format|
       if !@schedules.nil? && @schedules.destroy_all

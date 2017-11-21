@@ -20,7 +20,7 @@
             </div>
         <% end -%>
     </p>
-    <% if @schedule.errors.any? %>
+    <% if @schedules.errors.any? %>
         <div class="row">
             <div class="col-sm-12">
                 <div class="alert alert-danger">
@@ -28,7 +28,7 @@
                         Atenção:
                     </h2>
                     <ul>
-                        <% @schedule.errors.full_messages.each do | msg | %>
+                        <% @schedules.errors.full_messages.each do | msg | %>
                             <li><%= msg %></li>
                         <% end %>
                     </ul>
