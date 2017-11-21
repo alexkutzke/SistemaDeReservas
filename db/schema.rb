@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20171113212210) do
     t.datetime "updated_at",      null: false
     t.index ["department_id"], name: "index_disciplines_on_department_id"
   end
-
+  
   create_table "klasses", force: :cascade do |t|
     t.string   "name"
     t.integer  "period_id",  null: false

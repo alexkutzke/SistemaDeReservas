@@ -15,7 +15,7 @@ function create_schedule(values) { // POST request to create a new schedule
     if (error.hasOwnProperty("title"))
       message = "Campo descrição é obrigatório.";
     else if (error.hasOwnProperty("start"))
-      message = "Já temos uma reserva neste período."
+      message = "Já existem uma reserva neste período e nesta sala."
     else
       message = "Ops, ocorreu um erro. Tente novamente mais tarde. Caso persista o erro, contate um dos administradores do sistema."
     $(".message-error").empty().append(message);

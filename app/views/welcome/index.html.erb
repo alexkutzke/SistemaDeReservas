@@ -1,4 +1,20 @@
 <div class="main-content">
+        <% if notice %>
+          <div class="row" style="margin-top:60px">
+            <div class="col-md-12">
+              <p class="alert alert-warning"><%= notice %></p>
+            </div>
+          </div>
+        <% end %>
+        <% if alert %>
+          <div class="row" style="margin-top:60px">
+            <div class="col-md-12">
+              <p class="alert alert-danger"><%= alert %></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
     <div class="col-md-3" >
       <div class="row box" >
         <div class="panel panel-default" style="margin-top:10px">

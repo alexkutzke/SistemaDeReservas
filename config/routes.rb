@@ -7,10 +7,14 @@ Rails.application.routes.draw do
     end
 
     scope(:path_names => { :new => "cadastrar", :edit => "editar" }) do
-      resources :users, :path => "usuarios"
+      resources :users, :path => "usuarios" do
+        collection do
+          post "importar", :as => "import", :action => "import"
+        end
+      end
     end
 
-    scope(:path_names => {:edit => "visualizar" }) do
+    scope(:path_names => {:edit => "visualizar"}) do
       resources :solicitations, :path => 'solicitacoes'  do
         collection do
           put "aprovar/:id", :as => "approve", :action => "approve"
@@ -23,6 +27,8 @@ Rails.application.routes.draw do
     resources :schedules, :path => 'reservas' do
       collection do
         post "importar", :as => "import", :action => "import"
+        get "remover", :as => "export", :action => "export"
+        delete "xxx", :as => "xxx", :action => "xxx"
       end
     end
 
